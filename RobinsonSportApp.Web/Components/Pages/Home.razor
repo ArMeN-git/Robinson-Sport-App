@@ -4,35 +4,54 @@
 
 <body class="body-home">
     <div class="main-home">
-        <div class="container-cust">
+        <div class="container">
             <div class="module-calendar">
                 <div class="row align-items-center">
-                    <div class="col-lg-4">
-                        <h5>Starting Date</h5>
-                        <h5>10.11.2024</h5>
-                    </div>
-                    <div class="col-lg-4">
-                        <br />
-                        <div class="row align-items-center">
-                            <div class="col">
+                    <p class="summary">Football Matches</p>
+                @foreach (var match in Matches.Take(3))
+                {
+                    <div class="row align-items-center">
+                        <div class="col-lg-4">
+                            <br />
+                            <div class="row align-items-center">
+                                <div class="col">
+                                        <p class="starting-date">
+                                        Starting Date
+                                        <br />
+                                        <i class="bi bi-calendar"></i>
+                                        10.11.2024
 
-                                <h5>Team 1</h5>
-                            </div>
-                            <div class="col">vs</div>
-                            <div class="col">
-                                <h5>Team 2</h5>
+                                    </p>
+                                </div>
+                               
+                                <div class="col">
+                                        <p class="starting-date">@match</p>
+                                </div>
+                                <div class="col">vs</div>
+                                <div class="col">
+                                    <p class="starting-date">Team 2</p>
+                                </div>
+                                <div class="col">
+                                    <p class="starting-date">Stadium of Paris
+                                        <br />
+                                        <i class="bi bi-geo-alt starting-date">Paris</i>
+                                    </p>
+                                </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4">
-                        <br />
-                        <h5>Stadium of Paris</h5>
-
-                        <i class="bi bi-geo-alt">Paris</i>
-                    </div>
-                </div>
+                }
+            </div>
+            </div>
             </div>
         </div>
-    </div>
 </body>
+
+@code {
+    private List<string> Matches = ["Team 1", "Team 2", "Team 3", "Team 4"];
+
+
+}
+

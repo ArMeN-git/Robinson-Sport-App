@@ -148,21 +148,29 @@ h1:focus {
     width: 100%; /* Adjust width as necessary */
     opacity: 0.8;
 }
-.module-calendar {
+/*.module-calendar {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2rem 0;
     color: White;
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: auto;
+    width: auto;
+  
+}*/
+.module-calendar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2rem 0;
+    color: white;
+    max-width: 100%;
 }
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    max-width: 100%;
+    margin-right: 0; 
+    margin-left: 0;
 }
 
 .align-items-center {
@@ -174,21 +182,105 @@ h1:focus {
     position: relative;
     width: 100%;
     min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
 
-.container-cust {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
 }
-
 
 .col {
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
+   padding-right: 10px;
+    padding-left: 10px;
+}
+
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+ 
+}
+
+/*.summary {
+    display: list-item;
+    cursor: pointer;
+}*/
+.summary {
+    color: white; /* Set text color to white */
+    text-align: center; /* Center the text horizontally */
+    margin-bottom: 0px; /* Add some bottom margin for spacing */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to the text for better visibility */
+    position: relative; /* Add position relative to create stacking context */
+    z-index: 1; /* Set a higher z-index to ensure it appears above the background */
+    font-size: 45px;
+}
+
+/*@media (min-width: 992px) .col-lg-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+}
+
+@media (min-width: 992px) .container {
+    max-width: 1400px;
+}*/
+
+container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+
+
+.starting-date {
+    white-space: nowrap; /* Prevent line break */
+}
+
+p {
+    font-size: 22px;
+}
+
+
+
+@media (max-width: 768px) {
+    .col-lg-4 {
+        max-width: 100%;
+    }
+
+    .module-calendar {
+        padding: 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .starting-date {
+        font-size: 14px; /* Decrease font size for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .summary {
+        font-size: 18px; /* Decrease font size for smaller screens */
+    }
+
+    .module-calendar {
+        padding: 0.5rem; /* Further adjust padding for smaller screens */
+    }
+
+    .starting-date {
+        font-size: 12px; /* Further decrease font size for smaller screens */
+    }
+}
+
+@media (max-width: 420px) {
+    .summary {
+        font-size: 16px; /* Decrease font size for even smaller screens */
+    }
+
+    .module-calendar {
+        padding: 0.3rem; /* Further adjust padding for even smaller screens */
+    }
+
+    .starting-date {
+        font-size: 10px; /* Further decrease font size for even smaller screens */
+    }
 }
