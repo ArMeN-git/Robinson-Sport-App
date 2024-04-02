@@ -1,0 +1,81 @@
+﻿@page "/contact"
+@using RobinsonSportApp.Core.Models
+
+<PageTitle>Contact Us</PageTitle>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="contact-title">Contact Us</h2>
+            <p class="contact-text">We're here to help and answer any question you might have 🙂</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bi bi-envelope-fill"></i>
+                    <span>contact@plessis-robinson.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bi bi-link-45deg"></i>
+                    <span><a target="_blank" href="https://www.plessis-robinson.com/">www.plessis-robinson.com</a></span>
+                </div>
+            </div>
+
+            <div class="map-container" style="margin-top: 20px; width: 100%;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2628.9787726817335!2d2.259589075956979!3d48.782295506059185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67a037d0ffcf9%3A0x34da16a053b3f830!2s3%20Rue%20de%20la%20Mairie%2C%2092350%20Le%20Plessis-Robinson!5e0!3m2!1sen!2sfr!4v1712066588871!5m2!1sen!2sfr"
+                    width="400"
+                    height="300"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Submit Your Question</h3>
+            <EditForm Model="@contactFormModel" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-input-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <InputText id="firstName" class="form-control" @bind-Value="contactFormModel.FirstName" />
+                        <ValidationMessage For="@(() => contactFormModel.FirstName)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <InputText id="lastName" class="form-control" @bind-Value="contactFormModel.LastName" />
+                        <ValidationMessage For="@(() => contactFormModel.LastName)" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <InputText id="email" class="form-control" @bind-Value="contactFormModel.Email" InputMode="email" />
+                    <ValidationMessage For="@(() => contactFormModel.Email)" />
+                </div>
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    <InputTextArea id="question" class="form-control" @bind-Value="contactFormModel.Question" />
+                    <ValidationMessage For="@(() => contactFormModel.Question)" />
+                </div>
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private ContactFormModel contactFormModel = new ContactFormModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("Form submitted");
+    }
+}
