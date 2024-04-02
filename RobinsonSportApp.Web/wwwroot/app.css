@@ -13,7 +13,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -48,4 +48,147 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+.homepage {
+    display: flex; /* This enables Flexbox for the container */
+    flex-direction: column; /* This arranges the children side by side */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+
+.navbar-toggler:checked ~ .nav-scrollable-custom {
+    display: block;
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+}
+
+/*.navbar-toggler:checked ~ .nav-item-container {
+    flex-direction: column !important;
+}*/
+
+.nav-scrollable-custom {
+    display: none;
+}
+
+@media (min-width: 641px) {
+    .nav-scrollable-custom {
+        display: flex;
+        justify-content: center;
+        flex-grow: 2;
+    }
+}
+
+.nav-scrollable-custom nav {
+    display: flex; /* Enables Flexbox for the nav element */
+    flex-direction: row; /* Arranges the nav items side by side */
+    justify-content: start; /* Aligns items to the start of the container; you can use center to center them */
+    flex-wrap: wrap; /* Allows items to wrap onto multiple lines if there's not enough space */
+}
+
+.nav-item-custom {
+    margin-right: 10px; /* Adds some space between the nav items, adjust as needed */
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+    display: inline-flex;
+}
+
+/* Ensure NavLink and other elements inside .nav-item take full height and align correctly */
+.nav-link-custom {
+    padding: .5rem 1rem;
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.sidebar-custom {
+    background-color: #d6d6d6;
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    box-sizing: border-box;
+}
+
+.nav-item-custom .nav-link-custom {
+    color: black;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+    width: 100%;
+}
+
+.nav-item-custom .nav-link-custom:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.navbar-brand img {
+    max-height: 64px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+.body-home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)), url('https://cdn.pixabay.com/photo/2018/06/12/20/17/soccer-3471402_1280.jpg');
+    background-size: cover; /* Ensures the background covers the entire div */
+    background-position: center; /* Centers the background image within the div */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    height: 100vh; /* Example height, adjust as needed */
+    width: 100%; /* Adjust width as necessary */
+    opacity: 0.8;
+}
+.module-calendar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2rem 0;
+    color: White;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.align-items-center {
+    align-items: center !important;
+    text-align: center;
+}
+
+.col-lg-4 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.container-cust {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
 }
