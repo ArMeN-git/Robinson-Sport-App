@@ -1,10 +1,15 @@
 using RobinsonSportApp.Web.Components;
+using RobinsonSportApp.Core.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+services.AddEmail(configuration);
 
 var app = builder.Build();
 
