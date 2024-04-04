@@ -153,6 +153,7 @@ h1:focus {
     padding: 2rem 0;
     color: white;
     max-width: 100%;
+    
 }
 
 .row {
@@ -176,11 +177,12 @@ h1:focus {
 }
 
 .col {
-    flex-basis: 0;
+    /*flex-basis: 0; */
     flex-grow: 1;
     max-width: 100%;
-   padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: auto;
 }
 
 
@@ -224,7 +226,9 @@ container {
 
 
 .starting-date {
-    white-space: nowrap; /* Prevent line break */
+    /*white-space: nowrap;*/ /* Prevent line break */
+    /*overflow: hidden;*/ /* Hide overflow text */
+    /*text-overflow: ellipsis;*/ /* Show ellipsis (...) for overflow text */
 }
 
 p {
@@ -305,30 +309,31 @@ p {
 
 
 @media (max-width: 768px) {
-    .col-lg-4 {
+   /* .col-lg-4 {
         max-width: 100%;
-    }
+    }*/
 
-    .module-calendar {
-        padding: 1rem; /* Adjust padding for smaller screens */
-    }
+    /*.module-calendar {
+        padding: 1rem;*/ /* Adjust padding for smaller screens */
+    /*}*/
 
-    .starting-date {
-        font-size: 14px; /* Decrease font size for smaller screens */
+    p {
+        font-size: 12px; /* Decrease font size for smaller screens */
     }
 }
 
+
 @media (max-width: 576px) {
     .summary {
-        font-size: 18px; /* Decrease font size for smaller screens */
+        font-size: 14px; /* Decrease font size for smaller screens */
     }
 
     .module-calendar {
         padding: 0.5rem; /* Further adjust padding for smaller screens */
     }
 
-    .starting-date {
-        font-size: 12px; /* Further decrease font size for smaller screens */
+    p {
+        font-size: 8px; /* Further decrease font size for smaller screens */
     }
 }
 
@@ -341,7 +346,7 @@ p {
         padding: 0.3rem; /* Further adjust padding for even smaller screens */
     }
 
-    .starting-date {
-        font-size: 10px; /* Further decrease font size for even smaller screens */
+    p {
+        font-size: 4px; /* Further decrease font size for even smaller screens */
     }
 }
