@@ -146,6 +146,7 @@ h1:focus {
     height: 100vh; /* Example height, adjust as needed */
     width: 100%; /* Adjust width as necessary */
     opacity: 0.8;
+    line-height: normal;
 }
 
 .module-calendar {
@@ -153,6 +154,7 @@ h1:focus {
     padding: 2rem 0;
     color: white;
     max-width: 100%;
+    
 }
 
 .row {
@@ -161,6 +163,7 @@ h1:focus {
     max-width: 100%;
     margin-right: 0; 
     margin-left: 0;
+
 }
 
 .align-items-center {
@@ -176,11 +179,12 @@ h1:focus {
 }
 
 .col {
-    flex-basis: 0;
+    /*flex-basis: 0; */
     flex-grow: 1;
     max-width: 100%;
-   padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 20px;
 }
 
 
@@ -201,6 +205,11 @@ h1:focus {
     position: relative; /* Add position relative to create stacking context */
     z-index: 1; /* Set a higher z-index to ensure it appears above the background */
     font-size: 45px;
+    border-bottom: 1px solid #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-style: bold;
 }
 
 /*@media (min-width: 992px) .col-lg-4 {
@@ -224,7 +233,9 @@ container {
 
 
 .starting-date {
-    white-space: nowrap; /* Prevent line break */
+    /*white-space: nowrap;*/ /* Prevent line break */
+    /*overflow: hidden;*/ /* Hide overflow text */
+    /*text-overflow: ellipsis;*/ /* Show ellipsis (...) for overflow text */
 }
 
 p {
@@ -235,6 +246,10 @@ p {
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
+}
+
+.display-mode-mobile{
+    display:none;
 }
 
 /* Adjusted Contact Page Styles for Spacing */
@@ -303,45 +318,88 @@ p {
     margin-right: 10px; /* Adds some space between the icon and the text */
 }
 
+.match-type{
+    font-size:25px;
+    padding-top: 10px;
+}
 
-@media (max-width: 768px) {
-    .col-lg-4 {
-        max-width: 100%;
-    }
+@media (max-width: 1222px) {
 
-    .module-calendar {
-        padding: 1rem; /* Adjust padding for smaller screens */
-    }
 
-    .starting-date {
-        font-size: 14px; /* Decrease font size for smaller screens */
+    .col {
+        width: 40px;
+        align-content: center;
+        padding-right: 5px;
+        padding-left: 5px;
     }
 }
 
-@media (max-width: 576px) {
-    .summary {
-        font-size: 18px; /* Decrease font size for smaller screens */
+@media (max-width: 1000px) {
+    .display-mode-desktop{
+        display: none;
+    }
+    .display-mode-mobile{
+        display: block;
+    }
+    p {
+        font-size: 18px;
+    }
+    .col {
+        width: auto;
+        align-content: center;
+        
+    }
+    .match-type {
+        font-size: 25px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-    .module-calendar {
-        padding: 0.5rem; /* Further adjust padding for smaller screens */
+    
+}
+
+@media (max-width: 600px) {
+    .display-mode-desktop {
+        display: none;
     }
 
-    .starting-date {
-        font-size: 12px; /* Further decrease font size for smaller screens */
+    .display-mode-mobile {
+        display: block;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .col {
+        width: auto;
+        align-content: center;
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 377px) {
+    .display-mode-desktop {
+        display: none;
+    }
+
+    .display-mode-mobile {
+        display: block;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .col {
+        width: auto;
+        align-content: center;
+        padding-right: 2px;
+        padding-left: 2px;
+    }
+    .match-type{
+        font-size: 14px;
+    }
     .summary {
-        font-size: 16px; /* Decrease font size for even smaller screens */
-    }
-
-    .module-calendar {
-        padding: 0.3rem; /* Further adjust padding for even smaller screens */
-    }
-
-    .starting-date {
-        font-size: 10px; /* Further decrease font size for even smaller screens */
+        font-size: 18px;
     }
 }
