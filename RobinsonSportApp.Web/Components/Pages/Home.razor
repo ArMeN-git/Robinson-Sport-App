@@ -6,18 +6,21 @@
 <body class="body-home">
     <div class="main-home">
         <div class="container">
-            <div class="module-calendar">
+            <div class="module-calendar display-mode-desktop">
                 <div class="row align-items-center">
                     <p class="summary">Upcoming Matches</p>
+
                     @foreach (var match in Matches.Where( m =>m.date >= DateTime.Today).OrderByDescending(m=>m.date).Take(3))
                     {
 
                         <div class="row align-items-center">
                             <div class="col-lg-4">
-                                <br />
+                                <div class="match-type" style="font-style: italic">@match.matchType</div>
+
                                 <div class="row align-items-center">
+                                    
                                     <div class="col">
-                                        <p class="starting-date" style="white-space: nowrap;">
+                                        <p class="starting-date " style="white-space: nowrap;">
                                             Starting Date
                                             <br />
                                             <i class="bi bi-calendar"></i>
@@ -29,10 +32,9 @@
                                     <div class="col">
                                         <p class="starting-date">@match.firstTeam</p>
                                     </div>
+
                                     <div class="col">
                                         <p class="starting-date">
-                                        @match.matchType
-                                        <br />
                                         vs
                                         </p>
                                     </div>
@@ -47,6 +49,54 @@
                                         </p>
                                     </div>
 
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="module-calendar display-mode-mobile">
+                <div class="row align-items-center">
+                    <p class="summary">Upcoming Matches</p>
+                    <br />
+
+                    @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderByDescending(m => m.date).Take(3))
+                    {
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-4">
+                                <div class="match-type" style="font-style: italic">@match.matchType</div>
+                                <p class="starting-date " style="white-space: nowrap;">
+                                    
+                                    Starting Date
+                                    <br />
+                                    <i class="bi bi-calendar"></i>
+                                    @match.date.ToString("dd.MM.yyyy")
+
+                                </p>
+                                <div class="row align-items-center">
+                                    
+
+                                    <div class="col">
+                                        <p class="starting-date">@match.firstTeam</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="starting-date">
+                                            
+                                           
+                                            vs
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="starting-date">@match.secondTeam</p>
+                                    </div>
+
+                                    <p class="starting-date" style="white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;">
+                                        @match.place
+                                        <br />
+                                        <i class="bi bi-geo-alt starting-date">@match.location</i>
+                                    </p>
 
                                 </div>
                             </div>
