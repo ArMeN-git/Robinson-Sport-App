@@ -10,7 +10,7 @@
                 <div class="row align-items-center">
                     <p class="summary">Upcoming Matches</p>
 
-                    @foreach (var match in Matches.Where( m =>m.date >= DateTime.Today).OrderBy(m=>m.date).Take(3))
+                    @foreach (var match in Matches.Where( m =>m.date >= DateTime.Today).OrderBy(m=>m.date).Take(4))
                     {
 
                         <div class="row align-items-center">
@@ -61,7 +61,7 @@
                     <p class="summary">Upcoming Matches</p>
                     <br />
 
-                    @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(3))
+                    @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(2))
                     {
 
                         <div class="row align-items-center">
@@ -123,7 +123,7 @@
     new Match
     {
         matchType = "Basketball",
-            date = new DateTime(2024, 2, 14, 20, 20, 0),
+            date = new DateTime(2024, 12, 14, 20, 20, 0),
             place = "Stadium of Barcelona",
             location = "Barcelona",
             firstTeam = "Lakers",
@@ -133,6 +133,15 @@
     {
         matchType = "Voleyball",
             date = new DateTime(2024, 11, 1, 4, 5, 0),
+            place = "Stadium of Madrid",
+            location = "Madrid",
+            firstTeam = "Goose",
+            secondTeam = "Verginia"
+    },
+    new Match
+    {
+        matchType = "Regby",
+            date = new DateTime(2024, 9, 1, 4, 5, 0),
             place = "Stadium of Madrid",
             location = "Madrid",
             firstTeam = "Goose",
