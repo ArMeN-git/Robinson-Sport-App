@@ -1,7 +1,121 @@
-﻿@page "/"
+﻿@page "/schedule"
+@using RobinsonSportApp.Core.Models
+@rendermode InteractiveServer
 
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
-@code {
 
+
+	@* <p style="font-size:24px; margin-left:40px">Filter by month</p> *@
+	<select id="rubrique-select" class="select-style" style="margin-left:40px" @onchange="OnSelectionChanged">
+		<option value="" selected disabled>Select a month</option>
+	
+		@foreach (var kvp in daysInMonth)
+		{
+			<option value="@kvp.Key">@kvp.Key</option>
+		}
+	</select>
+	<br />
+<p style="margin-left:40px">Schedule for @selectedMonth of 2024</p>
+	
+
+<ul>
+@for (int i = 1; i <= daysInMonth[selectedMonth]; i++) {
+		<li>
+			<time datetime="2022-02-01">@i</time>
+			@foreach (var match in Matches)
+			{
+				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth)
+				{
+					@match.place
+				}
+			}
+		</li>
+
+}
+</ul>
+
+
+
+@code {
+	private string selectedMonth = "April";
+	private bool showMonth = false;
+	Dictionary<string, int> daysInMonth = new Dictionary<string, int>
+		{
+			{ "January", 31 },
+			{ "February", 28 }, // Assuming non-leap year
+            { "March", 31 },
+			{ "April", 30 },
+			{ "May", 31 },
+			{ "June", 30 },
+			{ "July", 31 },
+			{ "August", 31 },
+			{ "September", 30 },
+			{ "October", 31 },
+			{ "November", 30 },
+			{ "December", 31 }
+		};
+	private void OnSelectionChanged(ChangeEventArgs e)
+	{
+		selectedMonth = e.Value.ToString();
+		showMonth = true;
+	}
+	private List<Match> Matches = [
+		new Match
+		{
+			matchType = "Football",
+			date = new DateTime(2024, 10, 10, 20, 20, 0),
+			place = "Stadium of Paris",
+			location = "Paris",
+			firstTeam = "Spartak",
+			secondTeam = "Hrazdan"
+		},
+	new Match
+	{
+		matchType = "Basketball",
+			date = new DateTime(2024, 12, 14, 20, 20, 0),
+			place = "Stadium of Barcelona",
+			location = "Barcelona",
+			firstTeam = "Lakers",
+			secondTeam = "Luiziana"
+	},
+	new Match
+	{
+		matchType = "Voleyball",
+			date = new DateTime(2024, 11, 1, 4, 5, 0),
+			place = "Stadium of Madrid",
+			location = "Madrid",
+			firstTeam = "Goose",
+			secondTeam = "Verginia"
+	},
+	new Match
+	{
+		matchType = "Regby",
+			date = new DateTime(2024, 9, 1, 4, 5, 0),
+			place = "Stadium of Madrid",
+			location = "Madrid",
+			firstTeam = "Goose",
+			secondTeam = "Verginia"
+	}
+		];
+
+	private string GetMonthName(int month)
+	{
+		switch (month)
+		{
+			case 1: return "January";
+			case 2: return "February";
+			case 3: return "March";
+			case 4: return "April";
+			case 5: return "May";
+			case 6: return "June";
+			case 7: return "July";
+			case 8: return "August";
+			case 9: return "September";
+			case 10: return "October";
+			case 11: return "November";
+			case 12: return "December";
+			default: return "";
+		}
+	}
 }
