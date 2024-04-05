@@ -2,6 +2,8 @@ using RobinsonSportApp.Web.Components;
 using RobinsonSportApp.Core.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseUrls("https://*:7193");
 var services = builder.Services;
 var configuration = builder.Configuration;
 
@@ -10,6 +12,16 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 services.AddEmail(configuration);
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policyBuilder =>
+    {
+        policyBuilder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+    });
+});
 
 var app = builder.Build();
 
@@ -22,7 +34,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors();
 app.UseStaticFiles();
 app.UseAntiforgery();
 

@@ -61,18 +61,24 @@ h1:focus {
     justify-content: space-between;
 }
 
-.navbar-toggler:checked ~ .nav-scrollable-custom {
-    display: block;
-    height: calc(100vh - 3.5rem);
-    overflow-y: auto;
+.nav-scrollable-custom-mobile nav {
+    display: flex;
+    flex-direction: column;
 }
 
-/*.navbar-toggler:checked ~ .nav-item-container {
-    flex-direction: column !important;
-}*/
+@media (max-width: 640px) {
+    .nav-scrollable-custom {
+        display: none;
+    }
 
-.nav-scrollable-custom {
-    display: none;
+    .nav-scrollable-custom-mobile {
+        position: fixed; /* Or absolute depending on your needs */
+        top: 90px;
+        left: 0;
+        width: 100%; /* Adjust based on your design */
+        z-index: 1000; /* Ensures it's above other content */
+        background-color: #d6d6d6;
+    }
 }
 
 @media (min-width: 641px) {
@@ -81,13 +87,17 @@ h1:focus {
         justify-content: center;
         flex-grow: 2;
     }
-}
 
-.nav-scrollable-custom nav {
-    display: flex; /* Enables Flexbox for the nav element */
-    flex-direction: row; /* Arranges the nav items side by side */
-    justify-content: start; /* Aligns items to the start of the container; you can use center to center them */
-    flex-wrap: wrap; /* Allows items to wrap onto multiple lines if there's not enough space */
+    .nav-scrollable-custom nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        flex-wrap: wrap;
+    }
+
+    .nav-scrollable-custom-mobile {
+        display: none;
+    }
 }
 
 .nav-item-custom {
