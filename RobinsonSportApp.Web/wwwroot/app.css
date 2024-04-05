@@ -413,3 +413,32 @@ p {
         font-size: 18px;
     }
 }
+
+@media (max-width: 235px) {
+    .display-mode-desktop {
+        display: none;
+    }
+
+    .display-mode-mobile {
+        display: block;
+    }
+
+    p {
+        font-size: 8px;
+    }
+
+    .col {
+        width: auto;
+        align-content: center;
+        padding-right: 1px;
+        padding-left: 1px;
+    }
+
+    .match-type {
+        font-size: 14px;
+    }
+
+    .summary {
+        font-size: 18px;
+    }
+}
