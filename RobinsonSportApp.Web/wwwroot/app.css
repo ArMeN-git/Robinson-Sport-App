@@ -465,57 +465,86 @@ h1 {
     margin: 1rem 0 0;
 }
 
-ul {
+.schedule-ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     flex-wrap: wrap;
     list-style: none;
-    li {
-            display: flex;
-            /*width: 10rem;*/
-            height: 10rem;
-            margin: 0.25rem;
-            flex-flow: column;
-            border-radius: 0.2rem;
-            padding: 1rem;
-            font-weight: 300;
-            font-size: 0.8rem;
-            box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(190, 190, 180, 0.37);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            time {
-            font-size: 2rem;
-            margin: 0 0 1rem 0;
-            font-weight: 500;
-          }
-
-        }
-
-        .today {
-            time {
-            font-weight: 800;
-        }
-        background: #ffffff70;
-        }
 }
+.schedule-li {
+    display: flex;
+    /*width: 10rem;*/
+    height: 10rem;
+    margin: 0.25rem;
+    flex-flow: column;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(190, 190, 180, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+time{
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+}
+.today {
+            
+        background: #ffffff70;
+ }
 
 
 .select-style {
-    width: 10%;
+    width: 130px;
     padding: 10px 15px;
     background-color: #fff;
-    border: 2px solid #007bff; /* Blue border */
+    border: 2px solid #007bff;
     border-radius: 5px;
     font-size: 14px;
     color: #505050;
-    appearance: none; /* Remove default style */
+    appearance: none; 
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="%23007bff"><polygon points="0,0 1024,0 512,1024"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
     cursor: pointer;
+}
+
+
+
+@media (max-width: 900px){
+    .schedule-ul {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 750px) {
+    .schedule-ul {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 550px) {
+    .schedule-ul {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 350px) {
+    .schedule-ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cells-matches {
+    font-size: 14px;
+
+
 }

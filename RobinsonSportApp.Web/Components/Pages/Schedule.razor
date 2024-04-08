@@ -6,8 +6,8 @@
 
 
 
-	@* <p style="font-size:24px; margin-left:40px">Filter by month</p> *@
-	<select id="rubrique-select" class="select-style" style="margin-left:40px" @onchange="OnSelectionChanged">
+ <p style="font-size:24px; margin-left:40px">Choose a month</p>
+	<select class="select-style" style="margin-left:40px" @onchange="OnSelectionChanged">
 		<option value="" selected disabled>Select a month</option>
 	
 		@foreach (var kvp in daysInMonth)
@@ -16,18 +16,23 @@
 		}
 	</select>
 	<br />
-<p style="margin-left:40px">Schedule for @selectedMonth of 2024</p>
+<p style="margin-left:40px; font-size:16px">Schedule of @selectedMonth, 2024</p>
 	
 
-<ul>
+<ul class="schedule-ul">
 @for (int i = 1; i <= daysInMonth[selectedMonth]; i++) {
-		<li>
-			<time datetime="2022-02-01">@i</time>
+		<li class="schedule-li">
+			<time class="schedule-time">@i</time>
 			@foreach (var match in Matches)
 			{
 				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth)
 				{
-					@match.place
+					
+					<div class="cells-matches" style="text-align: center;">
+					@match.firstTeam 
+					vs
+					@match.secondTeam
+					</div>
 				}
 			}
 		</li>
