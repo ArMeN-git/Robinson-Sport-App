@@ -56,9 +56,13 @@ h1:focus {
 }
 
 .header-container {
+    position: fixed;
+    background-color: #d6d6d6;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 30;
+    width: 100%;
 }
 
 .nav-scrollable-custom-mobile nav {
@@ -119,8 +123,6 @@ h1:focus {
 }
 
 .sidebar-custom {
-    background-color: #d6d6d6;
-    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
     box-sizing: border-box;
 }
 
@@ -153,6 +155,7 @@ h1:focus {
     background-size: cover; /* Ensures the background covers the entire div */
     background-position: center; /* Centers the background image within the div */
     background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-attachment: fixed;
     height: 100vh; /* Example height, adjust as needed */
     width: 100%; /* Adjust width as necessary */
     opacity: 0.8;
@@ -221,19 +224,13 @@ h1:focus {
     font-style: bold;
 }
 
-/*@media (min-width: 992px) .col-lg-4 {
-    flex: 0 0 33.33333%;
-    max-width: 33.33333%;
-}
-
-@media (min-width: 992px) .container {
-    max-width: 1400px;
-}*/
-
-.container {
-    padding: 0;
-    margin: 0 auto; /* Adjust or remove according to your layout needs */
-    width: 100%; /* Ensure it allows its children to expand fully */
+.container-calendar {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 80%;
 }
 
 
@@ -593,6 +590,117 @@ match-info:hover {
     margin-bottom: 2px;
 }
 
+}
+
+.results-home {
+    position: relative;
+    background-color: #333333;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 5rem;
+    z-index: 20;
+}
+
+.club-ranking, .recent-results, .top-player {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #fff;
+    padding: 20px;
+}
+
+.club-ranking ul, .top-player ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.club-ranking li, .top-player li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+    padding: 13px 0;
+    font-size: 16px;
+}
+
+.club-ranking ul li:last-child, .top-player ul li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.club-ranking a, .top-player a {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.club-ranking img, .top-player img {
+    max-width: 30px;
+    margin-right: 5px;
+}
+
+.recent-results .match {
+    margin-bottom: 10px;
+}
+
+.flag {
+    width: 20px;
+    height: 15px;
+    display: inline-block;
+    background-size: cover;
+}
+
+.score {
+    font-weight: bold;
+}
+
+.match .date {
+    font-size: 0.8em;
+}
+
+.match .teams {
+    display: flex;
+    justify-content: space-between;
+}
+
+.match .result {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Tablet devices */
+@media (max-width: 768px) {
+    .results-home {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .results-home > div {
+        padding: 15px;
+    }
+
+    .match .date, .match .teams, .match .result {
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+    .results-home {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .results-home > div {
+        padding: 10px;
+    }
+
+    .match .date, .match .teams, .match .result {
+        font-size: 0.8em;
+    }
+}
 .p-custom-content{
     font-size: 12px;
 }
