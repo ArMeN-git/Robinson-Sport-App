@@ -4,13 +4,13 @@
 <PageTitle>Plessis Sports</PageTitle>
 
 <div class="main-home">
-    <div class="container">
+    <div class="container-calendar">
         <div class="module-calendar display-mode-desktop">
             <div class="row align-items-center">
                 <p class="summary">Upcoming Matches</p>
 
-                    @foreach (var match in Matches.Where( m =>m.date >= DateTime.Today).OrderBy(m=>m.date).Take(4))
-                    {
+                @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(4))
+                {
 
                     <div class="row align-items-center">
                         <div class="custom-col-lg-4">
@@ -60,9 +60,14 @@
                 <p class="summary">Upcoming Matches</p>
                 <br />
 
-                    @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(2))
-                    {
+                @{
+                    var upcomingMatches = Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(2).ToList();
+                    var lastMatchIndex = upcomingMatches.Count - 1;
+                    int counter = 0;
+                }
 
+                @foreach (var match in Matches.Where(m => m.date >= DateTime.Today).OrderBy(m => m.date).Take(2))
+                {
                     <div class="row align-items-center">
                         <div class="custom-col-lg-4">
                             <div class="match-type" style="font-style: italic">@match.matchType</div>
@@ -77,19 +82,19 @@
                             <div class="row align-items-center">
 
 
-                                    <div class="col">
-                                        <p class="starting-date">@match.firstTeam</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="starting-date">
-                                            vs
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="starting-date">@match.secondTeam</p>
-                                    </div>
+                                <div class="col">
+                                    <p class="starting-date">@match.firstTeam</p>
+                                </div>
+                                <div class="col">
+                                    <p class="starting-date">
+                                        vs
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p class="starting-date">@match.secondTeam</p>
+                                </div>
 
-                                <p class="starting-date" style="white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;">
+                                <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
                                     @match.place
                                     <br />
                                     <i class="bi bi-geo-alt starting-date">@match.location</i>
@@ -98,9 +103,82 @@
                             </div>
                         </div>
                     </div>
+                    counter++;
                 }
             </div>
         </div>
+    </div>
+</div>
+<div class="results-home">
+    <div class="club-ranking">
+        <h2>Club Ranking</h2>
+        <ul>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/rusia.png" alt="">Russia</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/arabia.png" alt="">Saudi Arabia</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/egypt.png" alt="">Egypt</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Spain</a>
+                <span class="points">90</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="recent-results">
+        <h2>Recent Result</h2>
+        <div class="match">
+            <p class="date">27 Jun 2017</p>
+            <p class="teams"><span class="flag portugal"></span> Portugal vs Spain <span class="flag spain"></span></p>
+            <p class="result">2 - 3</p>
+        </div>
+    </div>
+
+    <div class="top-player">
+        <h2>Top player</h2>
+        <ul>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/rusia.png" alt="">Lionel Messi</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/arabia.png" alt="">Saudi Arabia</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/egypt.png" alt="">Egypt</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain</a>
+                <span class="points">90</span>
+            </li>
+            <li>
+                <span class="position">01</span>
+                <a href="#"><img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Spain</a>
+                <span class="points">90</span>
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -108,41 +186,41 @@
 
     private List<Match> Matches = [
         new Match
-        {
-            matchType = "Football",
-            date = new DateTime(2024, 10, 10, 20, 20, 0),
-            place = "Stadium of Paris",
-            location = "Paris",
-            firstTeam = "Spartak",
-            secondTeam = "Hrazdan"
-        },
-    new Match
-    {
-        matchType = "Basketball",
-            date = new DateTime(2024, 12, 14, 20, 20, 0),
-            place = "Stadium of Barcelona",
-            location = "Barcelona",
-            firstTeam = "Lakers",
-            secondTeam = "Luiziana"
-    },
-    new Match
-    {
-        matchType = "Voleyball",
-            date = new DateTime(2024, 11, 1, 4, 5, 0),
-            place = "Stadium of Madrid",
-            location = "Madrid",
-            firstTeam = "Goose",
-            secondTeam = "Verginia"
-    },
-    new Match
-    {
-        matchType = "Regby",
-            date = new DateTime(2024, 9, 1, 4, 5, 0),
-            place = "Stadium of Madrid",
-            location = "Madrid",
-            firstTeam = "Goose",
-            secondTeam = "Verginia"
-    }
+            {
+                matchType = "Football",
+                date = new DateTime(2024, 10, 10, 20, 20, 0),
+                place = "Stadium of Paris",
+                location = "Paris",
+                firstTeam = "Spartak",
+                secondTeam = "Hrazdan"
+            },
+        new Match
+            {
+                matchType = "Basketball",
+                date = new DateTime(2024, 12, 14, 20, 20, 0),
+                place = "Stadium of Barcelona",
+                location = "Barcelona",
+                firstTeam = "Lakers",
+                secondTeam = "Luiziana"
+            },
+        new Match
+            {
+                matchType = "Voleyball",
+                date = new DateTime(2024, 11, 1, 4, 5, 0),
+                place = "Stadium of Madrid",
+                location = "Madrid",
+                firstTeam = "Goose",
+                secondTeam = "Verginia"
+            },
+        new Match
+            {
+                matchType = "Regby",
+                date = new DateTime(2024, 9, 1, 4, 5, 0),
+                place = "Stadium of Madrid",
+                location = "Madrid",
+                firstTeam = "Goose",
+                secondTeam = "Verginia"
+            }
         ];
 
 }
