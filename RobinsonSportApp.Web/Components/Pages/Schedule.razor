@@ -5,42 +5,86 @@
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
 
+<div style="text-align: center">
+<p style="font-size:24px; margin-left:40px; margin-top:20px;">Select a month</p>
 
- <p style="font-size:24px; margin-left:40px">Choose a month</p>
-	<select class="select-style" style="margin-left:40px" @onchange="OnSelectionChanged">
+<select class="select-style" style="margin-left:40px;" @onchange="OnSelectionChanged">
 		<option value="" selected disabled>Select a month</option>
 	
 		@foreach (var kvp in daysInMonth)
 		{
 			<option value="@kvp.Key">@kvp.Key</option>
 		}
-	</select>
+
+</select>
+</div>
 	<br />
-<p style="margin-left:40px; font-size:16px">Schedule of @selectedMonth, 2024</p>
+<p style="margin-left:40px; font-size:24px; margin-top:10px; text-align:right; font-weight:bold; margin-right: 2rem;">@selectedMonth, 2024</p>
+<ul class="pagination" style="display: flex; justify-content: flex-end; margin-right: 2rem">
+<button class="page-item page-link" style="margin-left:40px;" @onclick="PreviousMonth">Previous</button>
+<button class="page-item page-link" @onclick="NextMonth">Next</button>
+</ul>
+
 	
 
 <ul class="schedule-ul">
+
 @for (int i = 1; i <= daysInMonth[selectedMonth]; i++) {
-		<li class="schedule-li">
+		bool isPastDate = DateTime.Now.Date > new DateTime(2024, GetMonthNumber(selectedMonth), i);
+		<li class="@(i%2 == 0 ? "schedule-li" : "schedule-li-2") @(isPastDate ? "schedule-li-past" : "")">
 			<time class="schedule-time">@i</time>
-			@foreach (var match in Matches)
+			@foreach (var match in sortedMatches)
 			{
 				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth)
 				{
 					
-					<div class="cells-matches" style="text-align: center;">
+					<a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="" onmouseover="showMatchInfo(this, '@match.matchType <br> @match.firstTeam vs @match.secondTeam', '@match.date <br> @match.place ')" onmouseout="hideMatchInfo()">
+						@match.date.ToString("HH:mm")
 					@match.firstTeam 
 					vs
 					@match.secondTeam
-					</div>
+					
+					
+					</a>
 				}
 			}
+
 		</li>
 
 }
 </ul>
 
 
+<div class="match-info" id="matchInfo">
+	<div id="matchInfoContent" style="text-align:center;"></div>
+</div>
+
+<script>
+	function showMatchInfo(element, title, content) {
+		var matchInfo = document.getElementById("matchInfo");
+		var matchInfoContent = document.getElementById("matchInfoContent");
+
+		// Set the content of the match info div
+		matchInfoContent.innerHTML = "<p class='p-custom-title'>" + title + "</p><p class='p-custom-content'>" + content + "</p>";
+
+		// Show the match info div
+		matchInfo.style.display = "block";
+
+		// Set the position of the match info div
+		var rect = element.getBoundingClientRect();
+		var top = rect.top + window.pageYOffset + element.offsetHeight;
+		var left = rect.left + window.pageXOffset;
+		matchInfo.style.top = top + "px";
+		matchInfo.style.left = left + "px";
+		matchInfo.style.width = element.offsetWidth + "px";
+	}
+
+	function hideMatchInfo() {
+		var matchInfo = document.getElementById("matchInfo");
+		// Hide the match info div
+		matchInfo.style.display = "none";
+	}
+</script>
 
 @code {
 	private string selectedMonth = "April";
@@ -65,7 +109,7 @@
 		selectedMonth = e.Value.ToString();
 		showMonth = true;
 	}
-	private List<Match> Matches = [
+	static private List<Match> Matches = [
 		new Match
 		{
 			matchType = "Football",
@@ -87,7 +131,7 @@
 	new Match
 	{
 		matchType = "Voleyball",
-			date = new DateTime(2024, 11, 1, 4, 5, 0),
+			date = new DateTime(2024, 11, 1, 16, 5, 0),
 			place = "Stadium of Madrid",
 			location = "Madrid",
 			firstTeam = "Goose",
@@ -95,8 +139,17 @@
 	},
 	new Match
 	{
-		matchType = "Regby",
+			matchType = "Regby",
 			date = new DateTime(2024, 9, 1, 4, 5, 0),
+			place = "Stadium of Madrid",
+			location = "Madrid",
+			firstTeam = "Goose",
+			secondTeam = "Verginia"
+	},
+	new Match
+	{
+			matchType = "Regby",
+			date = new DateTime(2024, 9, 1, 3, 5, 0),
 			place = "Stadium of Madrid",
 			location = "Madrid",
 			firstTeam = "Goose",
@@ -121,6 +174,50 @@
 			case 11: return "November";
 			case 12: return "December";
 			default: return "";
+		}
+	}
+
+	private int GetMonthNumber(string monthName)
+	{
+		switch (monthName.ToLower())
+		{
+			case "january": return 1;
+			case "february": return 2;
+			case "march": return 3;
+			case "april": return 4;
+			case "may": return 5;
+			case "june": return 6;
+			case "july": return 7;
+			case "august": return 8;
+			case "september": return 9;
+			case "october": return 10;
+			case "november": return 11;
+			case "december": return 12;
+			default: return -1;
+		}
+	}
+	private List<Match> sortedMatches = Matches.OrderBy(match => match.date).ToList();
+
+
+
+	private void PreviousMonth()
+	{
+		var months = daysInMonth.Keys.ToList();
+		int currentIndex = months.IndexOf(selectedMonth);
+		if (currentIndex > 0)
+		{
+			selectedMonth = months[currentIndex - 1];
+		}
+	}
+
+	// Function to handle clicking on the "Next Month" button
+	private void NextMonth()
+	{
+		var months = daysInMonth.Keys.ToList();
+		int currentIndex = months.IndexOf(selectedMonth);
+		if (currentIndex < months.Count - 1)
+		{
+			selectedMonth = months[currentIndex + 1];
 		}
 	}
 }

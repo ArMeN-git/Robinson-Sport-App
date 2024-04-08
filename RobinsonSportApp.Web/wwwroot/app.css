@@ -471,11 +471,12 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     flex-wrap: wrap;
     list-style: none;
+    margin-right: 2rem;
 }
-.schedule-li {
+.schedule-li, .schedule-li-2 {
     display: flex;
     /*width: 10rem;*/
-    height: 10rem;
+    height: 15rem;
     margin: 0.25rem;
     flex-flow: column;
     border-radius: 0.2rem;
@@ -483,16 +484,24 @@ h1 {
     font-weight: 300;
     font-size: 0.8rem;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba( 114,238,144, 0.25);
     box-shadow: 0 8px 32px 0 rgba(190, 190, 180, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+    
 }
-time{
-    font-size: 2rem;
-    margin: 0 0 1rem 0;
+.schedule-li-2 {
+    background-color: rgb(188,184,138, 0.25);
+}
+
+.schedule-li-past {
+    background-color: #f2f3f4;
+}
+time {
+    font-size: 1.4rem;
+    /*margin: 0 0 1rem 0;*/
     font-weight: 500;
 }
 .today {
@@ -519,33 +528,71 @@ time{
 
 
 
-@media (max-width: 900px){
+@media (max-width: 1350px){
     .schedule-ul {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }
 
+@media (max-width: 1000px) {
+    .schedule-ul {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
 
-@media (max-width: 750px) {
+@media (max-width: 790px) {
     .schedule-ul {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media (max-width: 550px) {
+@media (max-width: 640px) {
     .schedule-ul {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 
-@media (max-width: 350px) {
+@media (max-width: 400px) {
     .schedule-ul {
         grid-template-columns: 1fr;
     }
 }
 
 .cells-matches {
-    font-size: 14px;
+    /*background-color: #f0f0f0;*/
+    padding: 5px;
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
 
+}
+.cells-matches:hover {
+    background-color: #ccc !important;
 
+}
+
+.match-info {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    z-index: 1;
+    border-radius: 5px; 
+    transition: border-radius 0.3s; 
+}
+match-info:hover {
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    background-color: #ccc !important;
+}
+
+.p-custom-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.p-custom-content{
+    font-size: 12px;
 }
