@@ -606,13 +606,13 @@ match-info:hover {
     padding: 20px;
 }
 
-.club-ranking ul, .top-player ul {
+.club-ranking ul, .recent-results ul, .top-player ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.club-ranking li, .top-player li {
+.club-ranking li, .recent-results li, .top-player li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -622,24 +622,45 @@ match-info:hover {
     font-size: 16px;
 }
 
-.club-ranking ul li:last-child, .top-player ul li:last-child {
+.club-ranking ul li:last-child, .recent-results ul li:last-child, .top-player ul li:last-child {
     padding-bottom: 0;
     border-bottom: none;
 }
 
-.club-ranking a, .top-player a {
+.club-ranking a, .recent-results a, .top-player a {
     color: #ffffff;
     text-decoration: none;
     background-color: transparent;
 }
 
-.club-ranking img, .top-player img {
+.club-ranking img, .recent-results img, .top-player img {
     max-width: 30px;
     margin-right: 5px;
 }
 
+.goals-result {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.head {
+    background-color: rgba(255, 180, 63, 0.8);
+    display: block;
+    padding: 10px 20px;
+    font-size: 15px;
+    margin-bottom: 9px;
+}
+
 .recent-results .match {
     margin-bottom: 10px;
+}
+
+.goals-result span:last-child {
+    white-space: nowrap;
 }
 
 .flag {
