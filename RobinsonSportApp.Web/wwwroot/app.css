@@ -511,7 +511,7 @@ time {
     width: 130px;
     padding: 10px 15px;
     background-color: #fff;
-    border: 2px solid #007bff;
+    border: 1px solid #007bff;
     border-radius: 5px;
     font-size: 14px;
     color: #505050;
@@ -708,7 +708,7 @@ match-info:hover {
     display:none;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 530px) {
     .select-button-desktop {
         display: none;
     }
@@ -717,3 +717,5 @@ match-info:hover {
     }
    
 }
+
+
