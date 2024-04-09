@@ -570,7 +570,7 @@ time {
 
 .match-info {
     position: absolute;
-    background-color: #fff;
+    background-color: floralwhite;
     border: 1px solid #ccc;
     padding: 10px;
     display: none;
@@ -703,4 +703,19 @@ match-info:hover {
 }
 .p-custom-content{
     font-size: 12px;
+}
+
+
+.select-button-mobile{
+    display:none;
+}
+
+@media (max-width: 350px) {
+    .select-button-desktop {
+        display: none;
+    }
+    .select-button-mobile {
+        display: block;
+    }
+   
 }
