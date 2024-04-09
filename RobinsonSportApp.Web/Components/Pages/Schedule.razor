@@ -5,34 +5,58 @@
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
 
-<div style="text-align: center">
-<p style="font-size:24px; margin-left:40px; margin-top:20px;">Select a month</p>
-
-<select class="select-style" style="margin-left:40px;" @onchange="OnSelectionChanged">
-		<option value="" selected disabled>Select a month</option>
+<div class="select-button-desktop" style="text-align: center; margin-bottom:10px; margin-top: 100px;">
+	<p style="margin-left:40px; font-size:24px; margin-top:10px; text-align:right; font-weight:bold; margin-right: 2rem;">@selectedMonth, 2024</p>
+	<div style="display: flex; justify-content: space-between;">
+		<select class="select-style" style="margin-left: 40px;" @bind="selectedMonth">
+			<option selected disabled>Select a month</option>
+			@foreach (var kvp in daysInMonth)
+			{
+				<option value="@kvp.Key">@kvp.Key</option>
+			}
+		</select>
+		<div class="pagination" style="margin-right: 2rem;">
+			<button class="page-item page-link" @onclick="PreviousMonth">Previous</button>
+			<button class="page-item page-link" @onclick="NextMonth">Next</button>
+		</div>
+	</div>
 	
-		@foreach (var kvp in daysInMonth)
-		{
-			<option value="@kvp.Key">@kvp.Key</option>
-		}
-
-</select>
 </div>
-	<br />
-<p style="margin-left:40px; font-size:24px; margin-top:10px; text-align:right; font-weight:bold; margin-right: 2rem;">@selectedMonth, 2024</p>
-<ul class="pagination" style="display: flex; justify-content: flex-end; margin-right: 2rem">
-<button class="page-item page-link" style="margin-left:40px;" @onclick="PreviousMonth">Previous</button>
-<button class="page-item page-link" @onclick="NextMonth">Next</button>
-</ul>
 
-	
+<div class="select-button-mobile" style="text-align: center; margin-bottom:10px; margin-top: 100px;">
+	<p style="margin-left:40px; font-size:24px; margin-top:10px; font-weight:bold; margin-right: 2rem;">@selectedMonth, 2024</p>
+	<div>
+		<select class="select-style" style="margin-left: 40px; margin-right: 2rem;" @bind="selectedMonth">
+			<option value="" selected disabled>Select a month</option>
+			@foreach (var kvp in daysInMonth)
+			{
+				<option value="@kvp.Key">@kvp.Key</option>
+			}
+		</select>
+		
+	</div>
+	<div style="display: flex; justify-content: center; margin-right: 2rem; margin-left: 40px;">
+		<div class="pagination" style="margin-top: 10px;">
+			<button class="page-item page-link" style="border-radius: 5px; border: 2px solid #007bff;" @onclick="PreviousMonth">Previous</button>
+			<button class="page-item page-link" style="border-radius: 5px; border: 2px solid #007bff;" @onclick="NextMonth">Next</button>
+		</div>
+	</div>
+</div>
+
 
 <ul class="schedule-ul">
 
 @for (int i = 1; i <= daysInMonth[selectedMonth]; i++) {
 		bool isPastDate = DateTime.Now.Date > new DateTime(2024, GetMonthNumber(selectedMonth), i);
+		bool isTheExactDay = DateTime.Now.Date == new DateTime(2024, GetMonthNumber(selectedMonth), i);
 		<li class="@(i%2 == 0 ? "schedule-li" : "schedule-li-2") @(isPastDate ? "schedule-li-past" : "")">
-			<time class="schedule-time">@i</time>
+			@if (isTheExactDay){
+				<time class="schedule-time" style="font-weight:bold; font-size:30px; font-family:'Times New Roman'">@i</time>
+			}
+			else
+			{
+			<time class="schedule-time" style="font-family: 'Times New Roman'">@i</time>
+			}
 			@foreach (var match in sortedMatches)
 			{
 				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth)
