@@ -1,0 +1,92 @@
+﻿@page "/result"
+@using RobinsonSportApp.Core.Enums
+@using RobinsonSportApp.Core.Models
+@rendermode InteractiveServer
+
+<PageTitle>Plessis Sports Results</PageTitle>
+
+<div class="game-results-container">
+
+    @foreach (var category in Enum.GetValues(typeof(SportCategory)))
+    {
+        <h2>@category</h2>
+        @foreach (var game in Games.Where(g => g.SportCategory == (SportCategory)category))
+        {
+            <div class="game-result-item">
+                <div class="game-info">
+                    <span class="game-date">@DateTime.UtcNow.ToString("dd MMM yyyy")</span>
+                    <span class="game-type">Football</span>
+                </div>
+                <div class="team team-home">
+                    <img src="@game.HomeTeamLogo" alt="Home Team Logo">
+                    <span class="team-name">@game.HomeTeamName</span>
+                </div>
+                <div class="game-score">
+                    <span>@game.HomeTeamScore - @game.AwayTeamScore</span>
+                </div>
+                <div class="team team-away">
+                    <img src="@game.AwayTeamLogo" alt="Away Team Logo">
+                    <span class="team-name">@game.AwayTeamName</span>
+                </div>
+                <div class="game-details-link">
+                    <a href="/game/@game.GameId">Details</a>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<MatchResult> Games = [
+        new MatchResult
+            {
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Portugal",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Spain",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Football
+            },
+        new MatchResult
+            {
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Portugal",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Spain",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Basketball
+            },
+        new MatchResult
+            {
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Portugal",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Spain",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Rugby
+            },
+        new MatchResult
+            {
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Portugal",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Spain",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Tennis
+            },
+        new MatchResult
+            {
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Portugal",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Spain",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Cricket
+            }
+    ];
+}

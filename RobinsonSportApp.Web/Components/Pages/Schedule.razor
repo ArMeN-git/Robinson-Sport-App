@@ -1,5 +1,6 @@
 ﻿@page "/schedule"
 @using RobinsonSportApp.Core.Models
+@using System.Globalization
 @rendermode InteractiveServer
 
 <PageTitle>Plessis Sports Schedule</PageTitle>
@@ -132,9 +133,9 @@
 </script>
 
 @code {
-	private string selectedMonth = "April";
+	private string selectedMonth = DateTime.UtcNow.ToString("MMMM");
 	private bool showMonth = false;
-	private static int selectedYear = 2024;
+	private static int selectedYear = DateTime.UtcNow.Year;
 	List<int> years = new List<int> { 2024, 2025, 2026, 2027 };
 	private static bool leap;
 	private void UpdateDaysInMonth()
@@ -174,7 +175,7 @@
 			firstTeam = "Spartak",
 			secondTeam = "Hrazdan"
 		},
-	new Match
+		new Match
 	{
 		matchType = "Basketball",
 			date = new DateTime(2024, 12, 14, 20, 20, 0),
@@ -183,7 +184,7 @@
 			firstTeam = "Lakers",
 			secondTeam = "Luiziana"
 	},
-	new Match
+		new Match
 	{
 		matchType = "Voleyball",
 			date = new DateTime(2024, 11, 1, 16, 5, 0),
@@ -192,7 +193,7 @@
 			firstTeam = "Goose",
 			secondTeam = "Verginia"
 	},
-	new Match
+		new Match
 	{
 			matchType = "Regby",
 			date = new DateTime(2024, 9, 1, 4, 5, 0),
@@ -201,7 +202,7 @@
 			firstTeam = "Goose",
 			secondTeam = "Verginia"
 	},
-	new Match
+		new Match
 	{
 			matchType = "Regby",
 			date = new DateTime(2024, 9, 1, 3, 5, 0),
@@ -212,48 +213,11 @@
 	}
 		];
 
-	private string GetMonthName(int month)
-	{
-		switch (month)
-		{
-			case 1: return "January";
-			case 2: return "February";
-			case 3: return "March";
-			case 4: return "April";
-			case 5: return "May";
-			case 6: return "June";
-			case 7: return "July";
-			case 8: return "August";
-			case 9: return "September";
-			case 10: return "October";
-			case 11: return "November";
-			case 12: return "December";
-			default: return "";
-		}
-	}
+	private string GetMonthName(int month) => new DateTime(2024, month, 1).ToString("MMMM");
 
-	private int GetMonthNumber(string monthName)
-	{
-		switch (monthName.ToLower())
-		{
-			case "january": return 1;
-			case "february": return 2;
-			case "march": return 3;
-			case "april": return 4;
-			case "may": return 5;
-			case "june": return 6;
-			case "july": return 7;
-			case "august": return 8;
-			case "september": return 9;
-			case "october": return 10;
-			case "november": return 11;
-			case "december": return 12;
-			default: return -1;
-		}
-	}
+	private int GetMonthNumber(string monthName) => DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
+
 	private List<Match> sortedMatches = Matches.OrderBy(match => match.date).ToList();
-
-
 
 	private void PreviousMonth()
 	{

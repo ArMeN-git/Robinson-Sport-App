@@ -261,6 +261,11 @@ p {
 }
 
 /* Adjusted Contact Page Styles for Spacing */
+.mt-5-custom {
+    margin-top: 7rem !important;
+    margin-bottom: 2rem !important;
+}
+
 .contact-title {
     font-weight: bold;
 }
