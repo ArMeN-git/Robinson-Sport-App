@@ -263,6 +263,12 @@
 		{
 			selectedMonth = months[currentIndex - 1];
 		}
+		else if (currentIndex == 0 && selectedYear > 2024)
+		{
+			selectedMonth = months[11];
+			selectedYear -= 1;
+			UpdateDaysInMonth();
+		}
 	}
 
 	// Function to handle clicking on the "Next Month" button
