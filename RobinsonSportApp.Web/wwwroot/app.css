@@ -57,7 +57,7 @@ h1:focus {
 
 .header-container {
     position: fixed;
-    background-color: #d6d6d6;
+    background-color: #4CBB17;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -164,7 +164,7 @@ h1:focus {
 
 .module-calendar {
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 2rem 0;
+    padding: 1rem 0;
     color: white;
     max-width: 100%;
     
@@ -233,7 +233,12 @@ h1:focus {
     width: 80%;
 }
 
+@media (max-width: 1600px) {
+    .container-calendar {
+        margin-top: 40px;
+    }
 
+}
 
 .starting-date {
     /*white-space: nowrap;*/ /* Prevent line break */
