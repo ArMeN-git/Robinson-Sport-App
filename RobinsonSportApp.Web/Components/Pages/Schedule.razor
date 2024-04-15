@@ -106,13 +106,10 @@
 		var matchInfo = document.getElementById("matchInfo");
 		var matchInfoContent = document.getElementById("matchInfoContent");
 
-		// Set the content of the match info div
 		matchInfoContent.innerHTML = "<p class='p-custom-title'>" + title + "</p><p class='p-custom-content'>" + content + "</p>";
 
-		// Show the match info div
 		matchInfo.style.display = "block";
 
-		// Set the position of the match info div
 		var rect = element.getBoundingClientRect();
 		var top = rect.top + window.pageYOffset + element.offsetHeight;
 		var left = rect.left + window.pageXOffset;
@@ -123,7 +120,6 @@
 
 	function hideMatchInfo() {
 		var matchInfo = document.getElementById("matchInfo");
-		// Hide the match info div
 		matchInfo.style.display = "none";
 	}
 
@@ -271,7 +267,6 @@
 		}
 	}
 
-	// Function to handle clicking on the "Next Month" button
 	private void NextMonth()
 	{
 		var months = daysInMonth.Keys.ToList();
