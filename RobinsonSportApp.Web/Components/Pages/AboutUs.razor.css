@@ -1,34 +1,28 @@
 ﻿.about-us-first-part {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)), url('https://www.departement13.fr/uploads/tx_cg13profils/sport.jpg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 100vh; 
-    width: 100%; 
+    height: 100vh;
+    width: 100%;
     opacity: 0.8;
     line-height: normal;
     font-size: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     color: white;
 }
 
 
 .about-us-first-part-description {
     margin-top: 20px;
-    font-size: 24px;
     font-style: italic;
-    font-family: Arial, sans-serif; 
-    font-size: 16px; 
-    line-height: 1.5; 
-    padding: 20px; 
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 20px;
     text-align: center;
 }
-
-
-
-
-
