@@ -76,11 +76,11 @@ h1:focus {
     }
 
     .nav-scrollable-custom-mobile {
-        position: fixed; /* Or absolute depending on your needs */
+        position: fixed; 
         top: 90px;
         left: 0;
-        width: 100%; /* Adjust based on your design */
-        z-index: 1000; /* Ensures it's above other content */
+        width: 100%; 
+        z-index: 1000;
         background-color: #d6d6d6;
     }
 }
@@ -283,43 +283,43 @@ p {
 
 .form-group label {
     display: block;
-    margin-bottom: 5px; /* Space between label and input */
+    margin-bottom: 5px; 
 }
 
 .form-group .form-control {
-    background-color: #f0f0f0; /* Light gray background */
-    border: 1px solid #ccc; /* Slightly darker border */
-    color: #333; /* Text color */
-    padding: 6px 12px; /* Adjust padding inside inputs for better spacing */
+    background-color: #f0f0f0; 
+    border: 1px solid #ccc; 
+    color: #333; 
+    padding: 6px 12px; 
 }
 
 .btn-submit {
-    background-color: #6a5acd; /* SlateBlue */
-    border-color: #5d3fbf; /* A darker shade for border */
-    color: white; /* White text */
-    padding: 10px 20px; /* Adjust button padding for better feel */
-    margin-top: 10px; /* Space above the button */
+    background-color: #6a5acd; 
+    border-color: #5d3fbf; 
+    color: white; 
+    padding: 10px 20px;
+    margin-top: 10px; 
 }
 
 .btn-submit:hover {
-     background-color: #5d3fbf; /* A slightly darker shade on hover */
-     border-color: #502f9f; /* Even darker border on hover */
+     background-color: #5d3fbf; 
+     border-color: #502f9f;
 }
 
 .contact-info p {
-    margin-bottom: 10px; /* Adjust as needed */
+    margin-bottom: 10px; 
 }
 
 .map-container {
-    margin-top: 20px; /* Adds space above the map */
-    border-radius: 8px; /* Optional: Rounds the corners of the map */
-    overflow: hidden; /* Ensures the border-radius applies to the map iframe */
+    margin-top: 20px; 
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
 .contact-item {
-    display: flex; /* Aligns the icon and text horizontally */
-    align-items: center; /* Centers the items vertically */
-    margin-bottom: 10px; /* Adds some space below each contact item */
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 10px; 
 }
 
 .contact-item i {

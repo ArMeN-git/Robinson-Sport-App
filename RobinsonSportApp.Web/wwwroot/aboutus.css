@@ -1,18 +1,18 @@
 ﻿.about-us-first-part {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)), url('https://www.departement13.fr/uploads/tx_cg13profils/sport.jpg');
-    background-size: cover; /* Ensures the background covers the entire div */
-    background-position: center; /* Centers the background image within the div */
-    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     background-attachment: fixed;
-    height: 100vh; /* Example height, adjust as needed */
-    width: 100%; /* Adjust width as necessary */
+    height: 100vh; 
+    width: 100%; 
     opacity: 0.8;
     line-height: normal;
     font-size: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    justify-content: center; 
+    align-items: center; 
     color: white;
 }
 
@@ -21,9 +21,14 @@
     margin-top: 20px;
     font-size: 24px;
     font-style: italic;
-    font-family: Arial, sans-serif; /* Specify the desired font family */
-    font-size: 16px; /* Adjust the font size as needed */
-    line-height: 1.5; /* Adjust the line height for readability */
-    padding: 20px; /* Add padding to create space around the text */
+    font-family: Arial, sans-serif; 
+    font-size: 16px; 
+    line-height: 1.5; 
+    padding: 20px; 
     text-align: center;
 }
+
+
+
+
+
