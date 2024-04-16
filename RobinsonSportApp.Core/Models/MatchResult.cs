@@ -12,4 +12,6 @@ public class MatchResult
     public int HomeTeamScore { get; set; }
     public int AwayTeamScore { get; set; }
     public SportCategory SportCategory { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
 }

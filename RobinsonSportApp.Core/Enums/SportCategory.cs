@@ -6,5 +6,5 @@ public enum SportCategory
     Basketball,
     Tennis,
     Rugby,
-    Cricket
+    Handball
 }
