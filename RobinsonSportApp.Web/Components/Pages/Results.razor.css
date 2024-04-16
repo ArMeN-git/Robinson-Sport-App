@@ -37,14 +37,13 @@ h2.sport-category {
     flex: 1;
     display: flex;
     align-items: center;
-    /*justify-content: flex-start;*/
     gap: 10px;
 }
 
-    .team img {
-        width: 50px;
-        height: auto;
-    }
+.team img {
+    width: 50px;
+    height: auto;
+}
 
 .game-score {
     flex: 0 1 auto;
@@ -67,66 +66,66 @@ h2.sport-category {
 }
 
 .game-details-link {
-    flex: 0 1 150px; /* Flex-grow 0, flex-shrink 1, and flex-basis 150px */
+    flex: 0 1 150px;
     text-align: center;
 }
 
-    .game-details-link a {
-        display: inline-block;
-        background-color: #007bff; /* Theme primary color */
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        text-decoration: none;
-    }
+.game-details-link a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
 
 .filter-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Increase gap for better spacing */
+    gap: 20px;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #f8f9fa; /* Soft background color */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    border-radius: 8px; /* Rounded corners */
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
 }
 
 .filter-bar select,
 .filter-bar input {
     padding: 10px 15px;
-    border: 2px solid #ccc; /* Solid, subtle border */
+    border: 2px solid #ccc;
     border-radius: 4px;
-    font-size: 16px; /* Larger font size for better readability */
-    color: #333; /* Darker font color for contrast */
-    background-color: #fff; /* White background for inputs */
-    outline: none; /* Removes the outline to clean up focus */
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    outline: none;
 }
 
 .filter-bar select:hover,
 .filter-bar input:hover {
-    border-color: #007bff; /* Hover effect to indicate interactivity */
+    border-color: #007bff;
 }
 
 .filter-bar select:focus,
 .filter-bar input:focus {
-    border-color: #0056b3; /* Deeper color on focus for better visibility */
-    box-shadow: 0 0 0 3px rgba(0,123,255,0.25); /* Glow effect for focus */
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
 }
 
 .filter-bar input[type="date"]::-webkit-calendar-picker-indicator {
-    cursor: pointer; /* Indicates that the element is clickable */
-    opacity: 0.6; /* Slightly transparent by default */
-    transition: opacity 0.25s ease; /* Smooth transition for the indicator */
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
 }
 
-    .filter-bar input[type="date"]::-webkit-calendar-picker-indicator:hover {
-        opacity: 1; /* Fully opaque on hover */
-    }
+.filter-bar input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1
+}
 
 .filter-bar input[type="text"]::placeholder {
-    color: #999; /* Light color for placeholder text */
+    color: #999;
 }
 
 /* Responsive Adjustments */
@@ -152,7 +151,7 @@ h2.sport-category {
 
 @media (max-width: 480px) {
     .team img {
-        width: 40px; /* Slightly smaller logos for very small screens */
+        width: 40px;
     }
 
     .game-info, .game-details-link, .game-score {
