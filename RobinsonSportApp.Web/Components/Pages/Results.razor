@@ -54,7 +54,9 @@
                     <img src="@game.AwayTeamLogo" alt="Away Team Logo">
                 </div>
                 <div class="game-details-link">
-                    <a href="/game/@game.GameId">Details</a>
+                    <a href="match/@(game.Id)">
+                        Details
+                    </a>
                 </div>
             </div>
         }
@@ -72,6 +74,7 @@
     private List<MatchResult> Games = [
         new MatchResult
             {
+                Id = 1,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "Paris-saint-Germain",
                 HomeTeamScore = 2,
@@ -83,6 +86,7 @@
             },
         new MatchResult
             {
+                Id = 2,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "Real Madrid",
                 HomeTeamScore = 2,
@@ -94,6 +98,7 @@
             },
         new MatchResult
             {
+                Id = 3,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "Boston Celtics",
                 HomeTeamScore = 2,
@@ -105,6 +110,7 @@
             },
         new MatchResult
             {
+                Id = 4,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "British and Irish Lions",
                 HomeTeamScore = 4,
@@ -116,6 +122,7 @@
             },
         new MatchResult
             {
+                Id = 5,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "Novak Djokovic",
                 HomeTeamScore = 2,
@@ -127,6 +134,7 @@
             },
         new MatchResult
             {
+                Id = 6,
                 HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
                 HomeTeamName = "Zamalek SC",
                 HomeTeamScore = 2,

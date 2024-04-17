@@ -1,0 +1,128 @@
+﻿@page "/match/{MatchId:int}"
+@using RobinsonSportApp.Core.Enums
+@using RobinsonSportApp.Core.Models
+
+@if (MatchDetails != null)
+{
+    <div class="match-card">
+        <div class="teams">
+            <div class="team team-home">
+                @if (MatchDetails.HomeTeamScore > MatchDetails.AwayTeamScore)
+                {
+                    <span class="team-name"><b>@MatchDetails.HomeTeamName</b></span>
+                }
+                else
+                {
+                    <span class="team-name">@MatchDetails.HomeTeamName</span>
+                }
+                <img src="@MatchDetails.HomeTeamLogo" alt="Home Team Logo" class="team-logo">
+            </div>
+            <div class="score">
+                @if (MatchDetails.IsPastMatch)
+                {
+                    <span>@MatchDetails.HomeTeamScore - @MatchDetails.AwayTeamScore</span>
+                }
+                else
+                {
+                    <span>VS</span>
+                }
+            </div>
+            <div class="team team-away">
+                <img src="@MatchDetails.AwayTeamLogo" alt="Away Team Logo" class="team-logo">
+                @if (MatchDetails.AwayTeamScore > MatchDetails.HomeTeamScore)
+                {
+                    <span class="team-name"><b>@MatchDetails.AwayTeamName</b></span>
+                }
+                else
+                {
+                    <span class="team-name">@MatchDetails.AwayTeamName</span>
+                }
+            </div>
+        </div>
+        <div class="match-details">
+            <span class="match-time">@MatchDetails.StartTime.ToString("dddd, MMMM dd, yyyy HH:mm")</span>
+            <span class="match-location">@MatchDetails.Location</span>
+        </div>
+        @if (MatchDetails.IsLiveMatch)
+        {
+            <div class="live-indicator">Match is Live Now!</div>
+        }
+    </div>
+    <div class="additional-info">
+        @if (MatchDetails.AdditionalInfo != null)
+        {
+            <h2>Additional Information</h2>
+            <p>@MatchDetails.AdditionalInfo</p>
+        }
+    </div>
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <div class="comment-form">
+            <textarea placeholder="Add a comment..." rows="3"></textarea>
+            <button type="submit">Post Comment</button>
+        </div>
+        <div class="comments-list">
+            @foreach (var comment in MatchDetails.Comments.OrderByDescending(c => c.CreatedDate))
+            {
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <p class="comment-author">@comment.AuthorName</p>
+                        <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy HH:mm")</p>
+                    </div>
+                    <p class="comment-content">@comment.Content</p>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading match details...</p>
+}
+
+@code {
+    [Parameter]
+    public int MatchId { get; set; }
+
+    private MatchResult MatchDetails { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000);
+        MatchDetails = new MatchResult
+            {
+                Id = 18,
+                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
+                HomeTeamName = "Paris-saint-Germain",
+                HomeTeamScore = 2,
+                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
+                AwayTeamName = "Barcelona",
+                AwayTeamScore = 3,
+                SportCategory = SportCategory.Football,
+                StartTime = new DateTime(2024, 4, 16, 21, 0, 0),
+                EndTime = new DateTime(2024, 4, 17, 23, 0, 0),
+                Location = "Parc des Princes, Paris",
+                AdditionalInfo = $"Here is some additional info added by event managers. {Environment.NewLine}Some more text here for demonstration.",
+                Comments = [
+                    new MatchComment
+                    {
+                        AuthorName = "Jack",
+                        Content = "Great Win!!!",
+                        CreatedDate = new DateTime(2024, 4, 16, 22, 0, 0)
+                    },
+                    new MatchComment
+                    {
+                        AuthorName = "Marie",
+                        Content = "Superrrr",
+                        CreatedDate = new DateTime(2024, 4, 16, 23, 0, 0)
+                    },
+                    new MatchComment
+                    {
+                        AuthorName = "John",
+                        Content = "One of the best match I have ever watched",
+                        CreatedDate = new DateTime(2024, 4, 17, 22, 0, 0)
+                    }
+                ]
+            };
+    }
+}
