@@ -1,0 +1,256 @@
+﻿.match-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 1fr; /* Maintain single column grid */
+    grid-template-rows: auto auto auto; /* Separate rows for teams, match info, and potentially live indicator */
+    grid-template-areas:
+        "teams"
+        "match_info"
+        "live_indicator"; /* Defining the areas */
+    gap: 15px;
+    margin-top: 7rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+}
+
+.teams {
+    grid-area: teams;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-home {
+    justify-content: flex-end;
+}
+
+.team-away {
+    justify-content: flex-start;
+}
+
+.team-logo {
+    width: 50px;
+    height: auto;
+}
+
+.score {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333;
+}
+
+.match-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Continue with two column setup */
+    align-items: center; /* Center align the spans */
+    grid-area: match_info; /* Assigning match-info to its area */
+    gap: 50px;
+}
+
+.match-time {
+    justify-self: flex-end;
+}
+
+.match-location {
+    justify-self: flex-start;
+}
+
+.live-indicator {
+    grid-area: live_indicator;
+    text-align: center;
+    color: #dc3545;
+    font-weight: bold;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .match-card {
+        margin: 7rem 5rem 1rem 5rem;
+    }
+
+    .teams, .match-info {
+        grid-template-columns: 1fr;
+    }
+
+    .team {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .match-card {
+        padding: 15px;
+        margin: 7rem 1rem 0 1rem;
+    }
+
+    .teams, .match-info {
+        grid-template-columns: 1fr; /* Ensures that each section stacks vertically */
+    }
+
+    .team {
+        flex-direction: column; /* Stack team name and logo vertically */
+        gap: 5px;
+    }
+
+    .team-logo {
+        width: 36px; /* Slightly smaller logos for very small screens */
+        height: auto;
+    }
+
+    .score {
+        font-size: 1.2em; /* Slightly smaller font size for scores */
+        margin-top: 10px; /* Additional margin for clarity */
+    }
+
+    .match-info {
+        font-size: 0.85em; /* Slightly smaller font size for match info */
+    }
+}
+
+.additional-info {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: auto 5rem;
+}
+
+.additional-info h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.comments-section {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 1rem 5rem;
+}
+
+.comments-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-form textarea {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Prevent resizing */
+}
+
+.comment-form button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-date {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.comment-content {
+    margin-top: 5px;
+}
+
+/* Adjustments for medium screens (tablets) */
+@media (max-width: 768px) {
+    .additional-info, .comments-section {
+        padding: 15px; /* Slightly reduce padding for smaller screens */
+    }
+
+    .comment-form {
+        flex-direction: column;
+    }
+
+    .comment-form button {
+        align-self: center; /* Center align the button */
+    }
+}
+
+/* Adjustments for small screens (mobile devices) */
+@media (max-width: 480px) {
+    .additional-info {
+        margin: auto 1rem;
+    }
+
+    .comments-section {
+        margin: 1rem 1rem;
+    }
+
+    .additional-info, .comments-section {
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .comment-form textarea {
+        width: 100%; /* Ensure textarea spans the full width */
+    }
+
+    .comment-form button {
+        width: 100%; /* Full-width button for easier mobile interaction */
+    }
+
+    .comments-list .comment-item {
+        padding: 8px; /* Reduce padding to save space */
+    }
+
+    .comment-item {
+        border-bottom: none; /* Remove border for a cleaner look */
+        margin-bottom: 10px; /* Add bottom margin instead of border */
+    }
+}
