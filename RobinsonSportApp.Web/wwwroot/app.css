@@ -152,12 +152,12 @@ h1:focus {
 
 .main-home {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)), url('https://cdn.pixabay.com/photo/2018/06/12/20/17/soccer-3471402_1280.jpg');
-    background-size: cover; /* Ensures the background covers the entire div */
-    background-position: center; /* Centers the background image within the div */
-    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     background-attachment: fixed;
-    height: 100vh; /* Example height, adjust as needed */
-    width: 100%; /* Adjust width as necessary */
+    height: 100vh; 
+    width: 100%; 
     opacity: 0.8;
     line-height: normal;
 }
@@ -521,11 +521,11 @@ time {
     width: 130px;
     padding: 10px 15px;
     background-color: #fff;
-    border: 1px solid #007bff;
+    border: 1px solid #dee2e6;
     border-radius: 5px;
     font-size: 14px;
     color: #505050;
-    appearance: none; 
+    appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="%23007bff"><polygon points="0,0 1024,0 512,1024"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
