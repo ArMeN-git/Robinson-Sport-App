@@ -152,12 +152,12 @@ h1:focus {
 
 .main-home {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)), url('https://cdn.pixabay.com/photo/2018/06/12/20/17/soccer-3471402_1280.jpg');
-    background-size: cover; /* Ensures the background covers the entire div */
-    background-position: center; /* Centers the background image within the div */
-    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     background-attachment: fixed;
-    height: 100vh; /* Example height, adjust as needed */
-    width: 100%; /* Adjust width as necessary */
+    height: 100vh; 
+    width: 100%; 
     opacity: 0.8;
     line-height: normal;
 }

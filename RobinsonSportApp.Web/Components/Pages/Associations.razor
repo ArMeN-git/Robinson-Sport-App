@@ -1,0 +1,94 @@
+﻿@page "/associations"
+@rendermode InteractiveServer
+@using RobinsonSportApp.Core.Models
+
+
+<br />
+<br />
+<br />
+<br />
+<ul class="association-ul">
+
+
+	@foreach (var association in associations)
+	{
+		<li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
+		<h1>@association.name </h1>
+		<br />
+			<p>
+				<b>Contact Person: </b>
+				@association.firstName
+				@association.lastName
+			</p>
+		<p>
+				<b>President's Name:</b>
+				@association.presidentsName
+		</p>
+		<p>
+				<b> Phone Number:</b>
+		+33 @association.phoneNumber
+		</p>
+		<p>
+				<b>Email:</b>
+		@association.email
+		</p>
+		<p>
+				<b>Url:</b>
+		@association.website_url
+		</p>
+		</li>
+	}
+	
+	
+
+</ul>
+
+@code {
+	public List<Association> associations = new List<Association>
+	{
+		new Association
+		{
+			name = "Football champions",
+			firstName = "Patrick",
+			lastName = "Goudzi",
+			presidentsName = "Sebastien",
+			phoneNumber = 744987856,
+			email = "something@gmail.com",
+			website_url = "https://someurlispresenthere.com"
+
+		},
+		new Association
+		{
+			name = "Football champions",
+			firstName = "Patrick",
+			lastName = "Goudzi",
+			presidentsName = "Sebastien",
+			phoneNumber = 744987856,
+			email = "something@gmail.com",
+			website_url = "https://someurlispresenthere.com"
+
+		},
+		new Association
+		{
+			name = "Football champions",
+			firstName = "Patrick",
+			lastName = "Goudzi",
+			presidentsName = "Sebastien",
+			phoneNumber = 744987856,
+			email = "something@gmail.com",
+			website_url = "https://someurlispresenthere.com"
+
+		},
+		new Association
+		{
+			name = "Football champions",
+			firstName = "Patrick",
+			lastName = "Goudzi",
+			presidentsName = "Sebastien",
+			phoneNumber = 744987856,
+			email = "something@gmail.com",
+			website_url = "https://someurlispresenthere.com"
+
+		}
+	};
+}
