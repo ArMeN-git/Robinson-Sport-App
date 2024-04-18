@@ -3,40 +3,50 @@
 @using RobinsonSportApp.Core.Models
 
 
-<br />
-<br />
-<br />
-<br />
+
+<div class="association-container">
+<div class="filter-bar">
+		<input type="text" placeholder="Any keyword" @bind="EnteredKeyWord" @oninput="HandleInput" />
+
+</div>
+</div>
+
+
 <ul class="association-ul">
 
-
-	@foreach (var association in associations)
+	@if (!search)
 	{
-		<li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
-		<h1>@association.name </h1>
-		<br />
-			<p>
-				<b>Contact Person: </b>
-				@association.firstName
-				@association.lastName
-			</p>
-		<p>
-				<b>President's Name:</b>
-				@association.presidentsName
-		</p>
-		<p>
-				<b> Phone Number:</b>
-		+33 @association.phoneNumber
-		</p>
-		<p>
-				<b>Email:</b>
-		@association.email
-		</p>
-		<p>
-				<b>Url:</b>
-		@association.website_url
-		</p>
-		</li>
+		@foreach (var association in associations)
+		{
+			<li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
+				<h1>@association.name</h1>
+				<br />
+				<p><b>Contact Person:</b> @association.firstName @association.lastName</p>
+				<p><b>President's Name:</b> @association.presidentsName</p>
+				<p><b>Phone Number:</b>  @association.phoneNumber</p>
+				<p><b>Email:</b> @association.email</p>
+				<p><b>Url:</b> @association.website_url</p>
+			</li>
+		}
+	}
+	else
+	{
+		@foreach (var association in associations)
+		{
+			name = association.firstName + " " + association.lastName;
+			@if (association.name.ToLower().Contains(EnteredKeyWord) || association.firstName.ToLower().Contains(EnteredKeyWord) || association.lastName.ToLower().Contains(EnteredKeyWord) || association.phoneNumber.ToLower().Contains(EnteredKeyWord) || name.ToLower().Contains(EnteredKeyWord) || association.email.Contains(EnteredKeyWord) || association.website_url.Contains(EnteredKeyWord)|| association.presidentsName.ToLower().Contains(EnteredKeyWord))
+			{
+				<li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
+					<h1>@association.name</h1>
+					<br />
+					<p><b>Contact Person:</b> @association.firstName @association.lastName</p>
+					<p><b>President's Name:</b> @association.presidentsName</p>
+					<p><b>Phone Number:</b> @association.phoneNumber</p>
+					<p><b>Email:</b> @association.email</p>
+					<p><b>Url:</b> @association.website_url</p>
+				</li>
+			}
+		}
 	}
 	
 	
@@ -44,15 +54,18 @@
 </ul>
 
 @code {
+	private string EnteredKeyWord { get; set; } = "";
+	private bool search = false;
+	private string name { get; set; } = "";
 	public List<Association> associations = new List<Association>
 	{
 		new Association
 		{
 			name = "Football champions",
 			firstName = "Patrick",
-			lastName = "Goudzi",
+			lastName = "Valence",
 			presidentsName = "Sebastien",
-			phoneNumber = 744987856,
+			phoneNumber = "744987856",
 			email = "something@gmail.com",
 			website_url = "https://someurlispresenthere.com"
 
@@ -63,7 +76,18 @@
 			firstName = "Patrick",
 			lastName = "Goudzi",
 			presidentsName = "Sebastien",
-			phoneNumber = 744987856,
+			phoneNumber = "744987856",
+			email = "something@gmail.com",
+			website_url = "https://someurlispresenthere.com"
+
+		},
+		new Association
+		{
+			name = "Basketball champions",
+			firstName = "Patrick",
+			lastName = "Goudzi",
+			presidentsName = "Sebastien",
+			phoneNumber = "744987856",
 			email = "something@gmail.com",
 			website_url = "https://someurlispresenthere.com"
 
@@ -74,21 +98,19 @@
 			firstName = "Patrick",
 			lastName = "Goudzi",
 			presidentsName = "Sebastien",
-			phoneNumber = 744987856,
-			email = "something@gmail.com",
-			website_url = "https://someurlispresenthere.com"
-
-		},
-		new Association
-		{
-			name = "Football champions",
-			firstName = "Patrick",
-			lastName = "Goudzi",
-			presidentsName = "Sebastien",
-			phoneNumber = 744987856,
+			phoneNumber = "744987856",
 			email = "something@gmail.com",
 			website_url = "https://someurlispresenthere.com"
 
 		}
 	};
+	
+	private void HandleInput(ChangeEventArgs e)
+	{
+		search = true;
+		EnteredKeyWord = e.Value.ToString().ToLower();
+			
+		 
+	}
+	
 }

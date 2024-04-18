@@ -521,11 +521,11 @@ time {
     width: 130px;
     padding: 10px 15px;
     background-color: #fff;
-    border: 1px solid #007bff;
+    border: 1px solid #dee2e6;
     border-radius: 5px;
     font-size: 14px;
     color: #505050;
-    appearance: none; 
+    appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="%23007bff"><polygon points="0,0 1024,0 512,1024"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;

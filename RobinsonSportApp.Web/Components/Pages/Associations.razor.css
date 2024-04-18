@@ -28,11 +28,10 @@
 }
 
 .association-li-2 {
-   
     background: rgb(188,184,138, 0.25);
 }
 
-b{
+b {
     font-weight: bold;
 }
 
@@ -49,4 +48,28 @@ b{
         white-space: nowrap;
     }
 }
+
+
+.association-container {
+    margin-top: 7rem !important;
+    margin-bottom: 2rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
 
