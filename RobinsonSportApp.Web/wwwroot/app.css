@@ -120,6 +120,7 @@ h1:focus {
     display: flex;
     align-items: center;
     height: 100%;
+    text-align: center;
 }
 
 .sidebar-custom {
@@ -136,6 +137,7 @@ h1:focus {
     align-items: center;
     line-height: 3rem;
     width: 100%;
+    text-align: center;
 }
 
 .nav-item-custom .nav-link-custom:hover {
