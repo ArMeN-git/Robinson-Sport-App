@@ -107,10 +107,8 @@
     }
 
     .nav-scrollable {
-        /* Never collapse the sidebar for wide screens */
         display: block;
 
-        /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
@@ -148,4 +146,14 @@
 
 .about-us-dropdown .dropdown-content a:hover {
     background-color: yellow !important;
+}
+
+
+
+
+
+
+.bi-buildings {
+    align-content: center;
+    color: white;
 }
