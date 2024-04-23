@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobinsonSportApp.Web", "Rob
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobinsonSportApp.Core", "RobinsonSportApp.Core\RobinsonSportApp.Core.csproj", "{D42FE479-23D6-4422-B0BE-C75634C84B7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobinsonSportApp.Data", "RobinsonSportApp.Data\RobinsonSportApp.Data.csproj", "{34DCED4F-28BF-419B-9C13-BA193CF33FF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D42FE479-23D6-4422-B0BE-C75634C84B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D42FE479-23D6-4422-B0BE-C75634C84B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D42FE479-23D6-4422-B0BE-C75634C84B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34DCED4F-28BF-419B-9C13-BA193CF33FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34DCED4F-28BF-419B-9C13-BA193CF33FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34DCED4F-28BF-419B-9C13-BA193CF33FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34DCED4F-28BF-419B-9C13-BA193CF33FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

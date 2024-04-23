@@ -1,5 +1,8 @@
 using RobinsonSportApp.Web.Components;
 using RobinsonSportApp.Core.ServiceExtensions;
+using Microsoft.EntityFrameworkCore;
+using RobinsonSportApp.Data.Configurations;
+using RobinsonSportApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,9 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 // Add services to the container.
+var connectionStrings = configuration.GetSection(ConnectionStringsConfig.ConnectionStrings).Get<ConnectionStringsConfig>();
+services.AddDbContextPool<RobinsonSportAppDbContext>(o => o.UseSqlServer(connectionStrings.RobinsonSportAppDatabase));
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
