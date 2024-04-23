@@ -1,0 +1,11 @@
+﻿.page-item.page-link {
+    transition: transform 0.3s ease;
+   
+}
+
+.page-item.page-link.clicked {
+    transform: scale(0.9);
+
+}
+
+
