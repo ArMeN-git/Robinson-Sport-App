@@ -38,7 +38,7 @@
             </div>
             <div class="nav-item-custom px-3 header-text">
                 <div class="about-us-dropdown">
-                    <NavLink class="nav-link-custom">
+                    <NavLink class="nav-link-custom" style="cursor: pointer;">
                         Information
                     </NavLink>
                     <div class="dropdown-content">
@@ -63,43 +63,42 @@
     <div class="nav-scrollable-custom-mobile">
         <nav>
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="" Match="NavLinkMatch.All">
+                <NavLink class="nav-link-custom" href="" Match="NavLinkMatch.All" @onclick="ToggleMobileNav">
                     <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
                 </NavLink>
             </div>
 
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="schedule">
+                <NavLink class="nav-link-custom" href="schedule" @onclick="ToggleMobileNav">
                     <span class="bi bi-calendar-week-fill-nav-menu" aria-hidden="true"></span> Schedule
                 </NavLink>
             </div>
 
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="results">
+                <NavLink class="nav-link-custom" href="results" @onclick="ToggleMobileNav">
                     <span class="bi bi-award-nav-menu" aria-hidden="true"></span> Results
                 </NavLink>
             </div>
 
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="contact">
+                <NavLink class="nav-link-custom" href="contact" @onclick="ToggleMobileNav">
                     <span class="bi bi-telephone-nav-menu" aria-hidden="true"></span> Contact
                 </NavLink>
             </div>
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="aboutus">
+                <NavLink class="nav-link-custom" href="aboutus" @onclick="ToggleMobileNav">
                     <span class="bi bi-info-square-nav-menu" aria-hidden="true"></span> About Us
                 </NavLink>
             </div>
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="gallery">
+                <NavLink class="nav-link-custom" href="gallery" @onclick="ToggleMobileNav">
                     <span class="bi bi-images-nav-menu" aria-hidden="true"></span> Gallery
                 </NavLink>
             </div>
              
             <div class="nav-item-custom px-3 header-text">
-                <NavLink class="nav-link-custom" href="associations">
+                <NavLink class="nav-link-custom" href="associations" @onclick="ToggleMobileNav">
                     <span class="bi bi-buildings" aria-hidden="true"></span> Associations
-
                 </NavLink>
             </div>
         </nav>
