@@ -82,8 +82,8 @@
 			{
 				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth && match.date.Year == selectedYear)
 				{
-					
-					<a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="" onmouseover="showMatchInfo(this, '@match.matchType <br> @match.firstTeam vs @match.secondTeam', '@match.date <br> @match.place ')" onmouseout="hideMatchInfo()">
+
+					<a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="" onmouseover="showMatchInfo(this, '@match.matchType <br> @match.firstTeam vs @match.secondTeam', '@match.date <br> @match.place ')">
 					@match.date.ToString("HH:mm")
 					@match.firstTeam 
 					vs
@@ -105,6 +105,7 @@
 </div>
 
 <script>
+	var hovered = false;
 	function showMatchInfo(element, title, content) {
 		var matchInfo = document.getElementById("matchInfo");
 		var matchInfoContent = document.getElementById("matchInfoContent");
@@ -122,9 +123,21 @@
 	}
 
 	function hideMatchInfo() {
-		var matchInfo = document.getElementById("matchInfo");
-		matchInfo.style.display = "none";
+		if (!hovered) { 
+			var matchInfo = document.getElementById("matchInfo");
+			matchInfo.style.display = "none";
+		}
 	}
+
+	var matchInfo = document.getElementById("matchInfo");
+	matchInfo.addEventListener('mouseenter', function () {
+		hovered = true;
+	});
+
+	matchInfo.addEventListener('mouseleave', function () {
+		hovered = false;
+		hideMatchInfo();
+	});
 
 	document.getElementById('previousBtn').addEventListener('click', function () {
 		this.classList.add('clicked');
