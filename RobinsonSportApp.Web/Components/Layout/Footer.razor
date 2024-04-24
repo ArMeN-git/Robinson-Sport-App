@@ -1,0 +1,146 @@
+﻿@rendermode InteractiveServer
+@using RobinsonSportApp.Core.Managers.Subscription;
+@using RobinsonSportApp.Core.Models
+@inject ISubscriptionManager subscriptionManager
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <div class="cta-text">
+                            <h4>Find us</h4>
+                            <span>48 Rue Fernand Fourcade</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="bi bi-telephone-fill"></i>
+                        <div class="cta-text">
+                            <h4>Call us</h4>
+                            <span>9876543210 0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <i class="bi bi-envelope-open"></i>
+                        <div class="cta-text">
+                            <h4>Mail us</h4>
+                            <span>mail@info.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/50/Logo_Le_Plessis-Robinson.svg/1200px-Logo_Le_Plessis-Robinson.svg.png" class="img-fluid" alt="logo"></a>
+                        </div>
+                        <div class="footer-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
+                                elit,Lorem ipsum dolor sit amet.
+                            </p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <a class="fb-icon" href="#"><i class="bi bi-facebook"></i></a>
+                            <a class="google-icon" href="#"><i class="bi bi-google"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Useful Links</h3>
+                        </div>
+                        <ul class="footer-ul">
+                            <li><a href="">Home</a></li>
+                            <li><a href="schedule">Schedule</a></li>
+                            <li><a href="aboutus">About us</a></li>
+                            <li><a href="results">Latest Results</a></li>
+                            <li><a href="contact">Contact us</a></li>
+                            <li><a href="gallery">Gallery</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>Don’t miss to subscribe to our newsletter, kindly leave your email below.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <EditForm FormName="Subscribe" Model="@subscriptionModel" OnValidSubmit="@HandleSubscription">
+                                <DataAnnotationsValidator />
+
+                                <InputText @bind-Value="subscriptionModel.Email" type="email" placeholder="Email Address" />
+                                <ValidationMessage For="@(() => subscriptionModel.Email)" />
+                                <button type="submit"><i class="bi bi-telegram"></i></button>
+
+                                @if (successMessage != null)
+                                {
+                                    <div class="alert @successClass mt-2">
+                                        @successMessage
+                                    </div>
+                                }
+                            </EditForm>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="copyright-text">
+                        <p>Copyright &copy; 2024, All Right Reserved <a href="https://www.plessis-robinson.com/index.php">Plessis-Robinson</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private SubscriptionModel subscriptionModel = new();
+    private string successMessage;
+    private string successClass;
+    private Timer timer;
+
+    private async Task HandleSubscription()
+    {
+        var result = await subscriptionManager.AddSubscription(subscriptionModel.Email);
+        successClass = result ? "alert-success" : "alert-danger";
+        successMessage = result ? "Your email has been registered successfully!" : "Email is already registered.";
+        SetTimer();
+    }
+
+    private void SetTimer()
+    {
+        timer?.Dispose();
+        timer = new Timer(ClearMessage, null, 3000, Timeout.Infinite);
+    }
+
+    private void ClearMessage(object state)
+    {
+        successMessage = null;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}

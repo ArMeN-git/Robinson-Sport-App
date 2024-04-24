@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RobinsonSportApp.Core.Managers.Subscription;
 using RobinsonSportApp.Core.Services.Email;
 using RobinsonSportApp.Core.Services.Email.Settings;
 using SendGrid.Extensions.DependencyInjection;
+using System.Net.NetworkInformation;
 
 namespace RobinsonSportApp.Core.ServiceExtensions;
 
@@ -16,5 +18,10 @@ public static class ServiceExtensions
 
         services.Configure<EmailSettings>(configuration.GetSection(nameof(EmailSettings)));
         services.AddScoped<IEmailService, EmailService>();
+    }
+
+    public static void AddManagers(this IServiceCollection services)
+    {
+        services.AddScoped<ISubscriptionManager, SubscriptionManager>();
     }
 }
