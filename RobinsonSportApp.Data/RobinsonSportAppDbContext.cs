@@ -1,17 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RobinsonSportApp.Data.Entities;
-
+using RobinsonSportApp.Data.Entities.Identity;
 namespace RobinsonSportApp.Data;
 
-public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContext> options) : DbContext(options)
+public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContext> options) : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>(options)
 {
     public DbSet<Association> Associations => Set<Association>();
     public DbSet<ContactPerson> Contacts => Set<ContactPerson>();
     public DbSet<AssociationContact> AssociationContacts => Set<AssociationContact>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        modelBuilder.Entity<Association>(entity =>
+        base.OnModelCreating(builder);
+        builder.Entity<User>().ToTable("Users");
+        builder.Entity<Role>().ToTable("Roles");
+
+        builder.Entity<Association>(entity =>
         {
             entity.Property(e => e.Name)
                   .HasMaxLength(64);
@@ -33,11 +38,9 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
 
             entity.Property(e => e.WebsiteUrl)
                   .HasMaxLength(128);
-
-
         });
 
-        modelBuilder.Entity<ContactPerson>(entity =>
+        builder.Entity<ContactPerson>(entity =>
         {
             entity.Property(e => e.FirstName)
                   .HasMaxLength(32);
@@ -52,7 +55,7 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
                   .HasMaxLength(32);
         });
 
-        modelBuilder.Entity<AssociationContact>(entity =>
+        builder.Entity<AssociationContact>(entity =>
         {
             entity.HasKey(ac => new { ac.AssociationId, ac.ContactPersonId });
 
@@ -65,6 +68,57 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
                   .HasForeignKey(ac => ac.ContactPersonId);
         });
 
-        base.OnModelCreating(modelBuilder);
+        builder.Entity<User>(entity =>
+        {
+            entity.HasMany(u => u.Roles)
+                  .WithMany(r => r.Users)
+                  .UsingEntity<UserRole>(
+                    ur => ur.HasOne(ur => ur.Role).WithMany().HasForeignKey(ur => ur.RoleId),
+                    ur => ur.HasOne(ur => ur.User).WithMany().HasForeignKey(ur => ur.UserId));
+
+            entity.HasMany<UserClaim>()
+                  .WithOne()
+                  .HasForeignKey(uc => uc.UserId).IsRequired();
+
+            entity.HasMany(u => u.UserLogins)
+                  .WithOne(c => c.User)
+                  .HasForeignKey(u => u.UserId)
+                  .IsRequired();
+
+            entity.HasMany<UserToken>()
+                  .WithOne()
+                  .HasForeignKey(ut => ut.UserId);
+        });
+
+        builder.Entity<UserRole>(entity =>
+        {
+            entity.ToTable("UserRoles");
+
+            entity.HasKey(e => new { e.RoleId, e.UserId });
+        });
+
+        builder.Entity<UserToken>(entity =>
+        {
+            entity.ToTable("UserTokens");
+
+            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+        });
+
+        builder.Entity<RoleClaim>(entity =>
+        {
+            entity.ToTable("RoleClaims");
+        });
+
+        builder.Entity<UserClaim>(entity =>
+        {
+            entity.ToTable("UserClaims");
+        });
+
+        builder.Entity<UserLogin>(entity =>
+        {
+            entity.ToTable("UserLogins");
+
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+        });
     }
 }

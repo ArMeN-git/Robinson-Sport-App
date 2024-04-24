@@ -1,8 +1,8 @@
-using RobinsonSportApp.Web.Components;
-using RobinsonSportApp.Core.ServiceExtensions;
 using Microsoft.EntityFrameworkCore;
-using RobinsonSportApp.Data.Configurations;
+using RobinsonSportApp.Core.ServiceExtensions;
 using RobinsonSportApp.Data;
+using RobinsonSportApp.Data.Configurations;
+using RobinsonSportApp.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
