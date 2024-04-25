@@ -11,7 +11,7 @@ namespace RobinsonSportApp.Web.Extensions;
 
 public static class IdentityExtensions
 {
-    public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<UserManager<User>>();
         services.AddTransient<SignInManager<User>>();

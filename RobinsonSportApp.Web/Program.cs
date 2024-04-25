@@ -3,6 +3,7 @@ using RobinsonSportApp.Core.ServiceExtensions;
 using RobinsonSportApp.Data;
 using RobinsonSportApp.Data.Configurations;
 using RobinsonSportApp.Web.Components;
+using RobinsonSportApp.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ services.AddCors(options =>
             .AllowAnyOrigin();
     });
 });
+services.AddHttpContextAccessor();
+services.ConfigureIdentity(configuration);
 
 var app = builder.Build();
 
