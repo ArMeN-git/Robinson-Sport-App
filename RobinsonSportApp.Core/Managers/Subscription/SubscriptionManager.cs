@@ -5,7 +5,7 @@ namespace RobinsonSportApp.Core.Managers.Subscription;
 
 internal class SubscriptionManager(RobinsonSportAppDbContext _dbContext) : ISubscriptionManager
 {
-    public async Task<bool> AddSubscription(string email, CancellationToken cancellationToken = default)
+    public async Task<bool> AddSubscriptionAsync(string email, CancellationToken cancellationToken = default)
     {
         if (await _dbContext.Subscriptions.AnyAsync(s => s.Email == email, cancellationToken))
         {

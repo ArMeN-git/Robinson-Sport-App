@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RobinsonSportApp.Core.Managers.Events;
 using RobinsonSportApp.Core.Managers.Subscription;
 using RobinsonSportApp.Core.Services.Email;
 using RobinsonSportApp.Core.Services.Email.Settings;
@@ -23,5 +24,6 @@ public static class ServiceExtensions
     public static void AddManagers(this IServiceCollection services)
     {
         services.AddScoped<ISubscriptionManager, SubscriptionManager>();
+        services.AddScoped<IEventManager, EventManager>();
     }
 }

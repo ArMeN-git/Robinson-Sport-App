@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RobinsonSportApp.Core.Mappings;
 using RobinsonSportApp.Core.ServiceExtensions;
 using RobinsonSportApp.Data;
 using RobinsonSportApp.Data.Configurations;
@@ -18,6 +19,7 @@ services.AddDbContextPool<RobinsonSportAppDbContext>(o => o.UseSqlServer(connect
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+services.AddAutoMapper(typeof(AutoMapperProfileConfiguration));
 services.AddManagers();
 services.AddEmail(configuration);
 

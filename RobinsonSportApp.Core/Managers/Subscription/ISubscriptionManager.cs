@@ -2,5 +2,5 @@
 
 public interface ISubscriptionManager
 {
-    Task<bool> AddSubscription(string email, CancellationToken cancellationToken = default);
+    Task<bool> AddSubscriptionAsync(string email, CancellationToken cancellationToken = default);
 }
