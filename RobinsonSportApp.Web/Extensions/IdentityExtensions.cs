@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using RobinsonSportApp.Core.Constants;
 using RobinsonSportApp.Core.Services.Identity.Settings;
 using RobinsonSportApp.Data;
 using RobinsonSportApp.Data.Entities.Identity;
@@ -11,7 +12,7 @@ namespace RobinsonSportApp.Web.Extensions;
 
 public static class IdentityExtensions
 {
-    public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<UserManager<User>>();
         services.AddTransient<SignInManager<User>>();
@@ -59,6 +60,7 @@ public static class IdentityExtensions
         services.AddAuthorizationBuilder()
                 .SetDefaultPolicy(new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
+                .RequireRole(Roles.Guest, Roles.Manager)
                 .Build());
 
         services.AddIdentityCore<User>(options =>

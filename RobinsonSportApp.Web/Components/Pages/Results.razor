@@ -16,49 +16,57 @@
         </select>
         <input type="date" id="start-date" @bind="StartDate" />
         <input type="date" id="end-date" @bind="EndDate" />
-        <input type="text" placeholder="Team name" @bind="TeamName" @oninput="HandleInput"/>
+        <input type="text" placeholder="Team name" @bind="TeamName" @oninput="HandleInput" />
     </div>
 
-    @foreach (var gameGroup in FilteredGames.OrderByDescending(g => g.EndTime).GroupBy(g => g.SportCategory).ToList())
+    @if (FilteredGames is null)
     {
-        <h2 class="sport-category">@gameGroup.Key</h2>
-        @foreach (var game in gameGroup)
+        <div class="spinner"></div>
+    }
+    else
+    {
+
+        @foreach (var gameGroup in FilteredGames.OrderByDescending(g => g.EndTime).GroupBy(g => g.SportCategory).ToList())
         {
-            <div class="game-result-item">
-                <div class="game-info">
-                    <span class="game-date">@game.EndTime.ToString("dd MMM yyyy")</span>
+            <h2 class="sport-category">@gameGroup.Key</h2>
+            @foreach (var game in gameGroup)
+            {
+                <div class="game-result-item">
+                    <div class="game-info">
+                        <span class="game-date">@game.EndTime.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <div class="team team-home">
+                        <img src="@game.HomeTeamLogo" alt="Home Team Logo">
+                        @if (game.HomeTeamScore > game.AwayTeamScore)
+                        {
+                            <span class="team-name"><b>@game.HomeTeamName</b></span>
+                        }
+                        else
+                        {
+                            <span class="team-name">@game.HomeTeamName</span>
+                        }
+                    </div>
+                    <div class="game-score">
+                        <span>@game.HomeTeamScore - @game.AwayTeamScore</span>
+                    </div>
+                    <div class="team team-away">
+                        @if (game.AwayTeamScore > game.HomeTeamScore)
+                        {
+                            <span class="team-name"><b>@game.AwayTeamName</b></span>
+                        }
+                        else
+                        {
+                            <span class="team-name">@game.AwayTeamName</span>
+                        }
+                        <img src="@game.AwayTeamLogo" alt="Away Team Logo">
+                    </div>
+                    <div class="game-details-link">
+                        <a href="match/@(game.Id)">
+                            Details
+                        </a>
+                    </div>
                 </div>
-                <div class="team team-home">
-                    <img src="@game.HomeTeamLogo" alt="Home Team Logo">
-                    @if (game.HomeTeamScore > game.AwayTeamScore)
-                    {
-                        <span class="team-name"><b>@game.HomeTeamName</b></span>
-                    }
-                    else
-                    {
-                        <span class="team-name">@game.HomeTeamName</span>
-                    }
-                </div>
-                <div class="game-score">
-                    <span>@game.HomeTeamScore - @game.AwayTeamScore</span>
-                </div>
-                <div class="team team-away">
-                    @if (game.AwayTeamScore > game.HomeTeamScore)
-                    {
-                        <span class="team-name"><b>@game.AwayTeamName</b></span>
-                    }
-                    else
-                    {
-                        <span class="team-name">@game.AwayTeamName</span>
-                    }
-                    <img src="@game.AwayTeamLogo" alt="Away Team Logo">
-                </div>
-                <div class="game-details-link">
-                    <a href="match/@(game.Id)">
-                        Details
-                    </a>
-                </div>
-            </div>
+            }
         }
     }
 </div>
@@ -70,7 +78,7 @@
     private string TeamName { get; set; } = "";
     private Timer _debounceTimer;
 
-    private IEnumerable<MatchResult> FilteredGames { get; set; } = [];
+    private IEnumerable<MatchResult> FilteredGames { get; set; }
     private List<MatchResult> Games = [
         new MatchResult
             {
@@ -148,7 +156,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(500); // simulate data fetching
+        await Task.Delay(1000); // simulate data fetching
         FilteredGames = Games;
         _debounceTimer = new Timer(DebounceIntervalElapsed, null, Timeout.Infinite, Timeout.Infinite);
     }
