@@ -2,19 +2,19 @@
 {
     public class Association
     {
-        public string name { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        public string presidentsName { get; set; }
+        public string PresidentsName { get; set; }
 
-        public string address { get; set; }
+        public string Address { get; set; }
 
-        public string phoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public string email { get; set; }
+        public string Email { get; set; }
 
-        public string website_url { get; set; }
+        public string WebsiteUrl { get; set; }
 
     }
 }

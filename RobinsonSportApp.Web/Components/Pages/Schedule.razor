@@ -6,59 +6,59 @@
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
 <div class="select-button-desktop" style="text-align: center; margin-bottom:10px; margin-top: 100px;">
-	<p style="margin-left:40px; font-size:24px; margin-top:10px; text-align:right; font-weight:bold; margin-right: 2.4rem;">@selectedMonth, @selectedYear</p>
-	<div style="display: flex; justify-content: space-between;">
-		<div style="display: flex;">
-			<select class="select-style" style="margin-left: 40px;" @bind="selectedMonth">
-				<option selected disabled>Select a month</option>
-				@foreach (var kvp in daysInMonth)
-				{
-					<option value="@kvp.Key">@kvp.Key</option>
-				}
-			</select>
-			<select class="select-style" style="margin-left: 5px;" @bind="selectedYear">
-				<option selected disabled>Select a year</option>
-				@foreach (var year in years)
-				{
-					<option value="@year">@year</option>
-				}
-			</select>
-		</div>
-		<div class="pagination" style="margin-right: 2.4rem;">
-			<button class="page-item page-link" id="previousBtn" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>
-			<button class="page-item page-link" id="nextBtn" style="border-radius: 5px;" @onclick="NextMonth">Next</button>
-		</div>
-	</div>
+    <p style="margin-left:40px; font-size:24px; margin-top:10px; text-align:right; font-weight:bold; margin-right: 2.4rem;">@selectedMonth, @selectedYear</p>
+    <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex;">
+            <select class="select-style" style="margin-left: 40px;" @bind="selectedMonth">
+                <option selected disabled>Select a month</option>
+                @foreach (var kvp in daysInMonth)
+                {
+                    <option value="@kvp.Key">@kvp.Key</option>
+                }
+            </select>
+            <select class="select-style" style="margin-left: 5px;" @bind="selectedYear">
+                <option selected disabled>Select a year</option>
+                @foreach (var year in years)
+                {
+                    <option value="@year">@year</option>
+                }
+            </select>
+        </div>
+        <div class="pagination" style="margin-right: 2.4rem;">
+            <button class="page-item page-link" id="previousBtn" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>
+            <button class="page-item page-link" id="nextBtn" style="border-radius: 5px;" @onclick="NextMonth">Next</button>
+        </div>
+    </div>
 </div>
 
 <div class="select-button-mobile" style="text-align: center; margin-bottom:10px; margin-top: 100px;">
-	<p style="margin-left:40px; font-size:24px; margin-top:10px; font-weight:bold; margin-right: 2rem;">@selectedMonth, @selectedYear</p>
-	<div>
-		<select class="select-style" style="margin-left: 40px; margin-right: 2rem;" @bind="selectedMonth">
-			<option value="" selected disabled>Select a month</option>
-			@foreach (var kvp in daysInMonth)
-			{
-				<option value="@kvp.Key">@kvp.Key</option>
-			}
-		</select>
-		
-	</div>
+    <p style="margin-left:40px; font-size:24px; margin-top:10px; font-weight:bold; margin-right: 2rem;">@selectedMonth, @selectedYear</p>
+    <div>
+        <select class="select-style" style="margin-left: 40px; margin-right: 2rem;" @bind="selectedMonth">
+            <option value="" selected disabled>Select a month</option>
+            @foreach (var kvp in daysInMonth)
+            {
+                <option value="@kvp.Key">@kvp.Key</option>
+            }
+        </select>
 
-	<div>
-		<select class="select-style" style="margin-left: 40px; margin-right: 2rem; margin-top:10px" @bind="selectedYear">
-		<option selected disabled>Select a year</option>
-		@foreach (var year in years)
-		{
-			<option value="@year">@year</option>
-		}
-	</select>
-	</div>
-	<div style="display: flex; justify-content: center; margin-right: 2rem; margin-left: 40px;">
-		<div class="pagination" style="margin-top: 10px;">
-			<button class="page-item page-link" id="previousBtn2" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>
-			<button class="page-item page-link" id="nextBtn2" style="border-radius: 5px;" @onclick="NextMonth">Next</button>
-		</div>
-	</div>
+    </div>
+
+    <div>
+        <select class="select-style" style="margin-left: 40px; margin-right: 2rem; margin-top:10px" @bind="selectedYear">
+            <option selected disabled>Select a year</option>
+            @foreach (var year in years)
+            {
+                <option value="@year">@year</option>
+            }
+        </select>
+    </div>
+    <div style="display: flex; justify-content: center; margin-right: 2rem; margin-left: 40px;">
+        <div class="pagination" style="margin-top: 10px;">
+            <button class="page-item page-link" id="previousBtn2" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>
+            <button class="page-item page-link" id="nextBtn2" style="border-radius: 5px;" @onclick="NextMonth">Next</button>
+        </div>
+    </div>
 </div>
 
 
@@ -67,225 +67,236 @@
 
 
 
-@for (int i = 1; i <= daysInMonth[selectedMonth]; i++) {
-		bool isPastDate = DateTime.Now.Date > new DateTime(selectedYear, GetMonthNumber(selectedMonth), i);
-		bool isTheExactDay = DateTime.Now.Date == new DateTime(selectedYear, GetMonthNumber(selectedMonth), i);
-		<li class="@(i%2 == 0 ? "schedule-li" : "schedule-li-2") @(isPastDate ? "schedule-li-past" : "")">
-			@if (isTheExactDay){
-				<time class="schedule-time" style="font-weight:bold; font-size:30px; font-family:'Times New Roman'">@i</time>
-			}
-			else
-			{
-			<time class="schedule-time" style="font-family: 'Times New Roman'">@i</time>
-			}
-			@foreach (var match in sortedMatches)
-			{
-				if (i == match.date.Day && GetMonthName(match.date.Month) == selectedMonth && match.date.Year == selectedYear)
-				{
+    @for (int i = 1; i <= daysInMonth[selectedMonth]; i++)
+    {
+        bool isPastDate = DateTime.Now.Date > new DateTime(selectedYear, GetMonthNumber(selectedMonth), i);
+        bool isTheExactDay = DateTime.Now.Date == new DateTime(selectedYear, GetMonthNumber(selectedMonth), i);
+        <li class="@(i%2 == 0 ? "schedule-li" : "schedule-li-2") @(isPastDate ? "schedule-li-past" : "")">
+            @if (isTheExactDay)
+            {
+                <time class="schedule-time" style="font-weight:bold; font-size:30px; font-family:'Times New Roman'">@i</time>
+            }
+            else
+            {
+                <time class="schedule-time" style="font-family: 'Times New Roman'">@i</time>
+            }
+            @foreach (var match in sortedMatches)
+            {
+                if (i == match.Date.Day && GetMonthName(match.Date.Month) == selectedMonth && match.Date.Year == selectedYear)
+                {
 
-					<a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="" onmouseover="showMatchInfo(this, '@match.matchType <br> @match.firstTeam vs @match.secondTeam', '@match.date <br> @match.place ')">
-					@match.date.ToString("HH:mm")
-					@match.firstTeam 
-					vs
-					@match.secondTeam
-					
-					
-					</a>
-				}
-			}
+                    <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onmouseover="showMatchInfo(this, '@match.MatchType <br> @match.FirstTeam vs @match.SecondTeam', '@match.Date <br> @match.Place ')">
+                        @match.Date.ToString("HH:mm")
+                        @match.FirstTeam
+                        vs
+                        @match.SecondTeam
 
-		</li>
 
-}
+                    </a>
+                }
+            }
+
+        </li>
+
+    }
 </ul>
 
 
 <div class="match-info" id="matchInfo">
-	<div id="matchInfoContent" style="text-align:center;"></div>
+    <div id="matchInfoContent" style="text-align:center;"></div>
 </div>
 
 <script>
-	var hovered = false;
-	function showMatchInfo(element, title, content) {
-		var matchInfo = document.getElementById("matchInfo");
-		var matchInfoContent = document.getElementById("matchInfoContent");
+    var hovered = false;
+    function showMatchInfo(element, title, content) {
+        var matchInfo = document.getElementById("matchInfo");
+        var matchInfoContent = document.getElementById("matchInfoContent");
 
-		matchInfoContent.innerHTML = "<p class='p-custom-title'>" + title + "</p><p class='p-custom-content'>" + content + "</p>";
+        matchInfoContent.innerHTML = "<p class='p-custom-title'>" + title + "</p><p class='p-custom-content'>" + content + "</p>";
 
-		matchInfo.style.display = "block";
+        matchInfo.style.display = "block";
 
-		var rect = element.getBoundingClientRect();
-		var top = rect.top + window.pageYOffset + element.offsetHeight;
-		var left = rect.left + window.pageXOffset;
-		matchInfo.style.top = top + "px";
-		matchInfo.style.left = left + "px";
-		matchInfo.style.width = element.offsetWidth + "px";
-	}
+        var rect = element.getBoundingClientRect();
+        var top = rect.top + window.pageYOffset + element.offsetHeight;
+        var left = rect.left + window.pageXOffset;
+        matchInfo.style.top = top + "px";
+        matchInfo.style.left = left + "px";
+        matchInfo.style.width = element.offsetWidth + "px";
+    }
 
-	function hideMatchInfo() {
-		if (!hovered) { 
-			var matchInfo = document.getElementById("matchInfo");
-			matchInfo.style.display = "none";
-		}
-	}
+    function hideMatchInfo() {
+        if (!hovered) {
+            var matchInfo = document.getElementById("matchInfo");
+            matchInfo.style.display = "none";
+        }
+    }
 
-	var matchInfo = document.getElementById("matchInfo");
-	matchInfo.addEventListener('mouseenter', function () {
-		hovered = true;
-	});
+    var matchInfo = document.getElementById("matchInfo");
+    matchInfo.addEventListener('mouseenter', function () {
+        hovered = true;
+    });
 
-	matchInfo.addEventListener('mouseleave', function () {
-		hovered = false;
-		hideMatchInfo();
-	});
+    matchInfo.addEventListener('mouseleave', function () {
+        hovered = false;
+        hideMatchInfo();
+    });
 
-	document.getElementById('previousBtn').addEventListener('click', function () {
-		this.classList.add('clicked');
-		setTimeout(() => {
-			this.classList.remove('clicked');
-		}, 500);
-	});
+    document.getElementById('previousBtn').addEventListener('click', function () {
+        this.classList.add('clicked');
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 500);
+    });
 
-	document.getElementById('nextBtn').addEventListener('click', function () {
-		this.classList.add('clicked');
-		setTimeout(() => {
-			this.classList.remove('clicked');
-		}, 500);
-	});
-	document.getElementById('previousBtn2').addEventListener('click', function () {
-		this.classList.add('clicked');
-		setTimeout(() => {
-			this.classList.remove('clicked');
-		}, 500);
-	});
+    document.getElementById('nextBtn').addEventListener('click', function () {
+        this.classList.add('clicked');
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 500);
+    });
+    document.getElementById('previousBtn2').addEventListener('click', function () {
+        this.classList.add('clicked');
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 500);
+    });
 
-	document.getElementById('nextBtn2').addEventListener('click', function () {
-		this.classList.add('clicked');
-		setTimeout(() => {
-			this.classList.remove('clicked');
-		}, 500);
-	});
+    document.getElementById('nextBtn2').addEventListener('click', function () {
+        this.classList.add('clicked');
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 500);
+    });
 
-	
+
 
 </script>
 
 @code {
-	private string selectedMonth = DateTime.UtcNow.ToString("MMMM");
-	private bool showMonth = false;
-	private static int selectedYear = DateTime.UtcNow.Year;
-	List<int> years = new List<int> { 2024, 2025, 2026, 2027 };
-	private static bool leap;
-	private void UpdateDaysInMonth()
-	{
-		leap = ((selectedYear % 4 == 0) && (selectedYear % 100 != 0)) || (selectedYear % 400 == 0);
-		daysInMonth["February"] = leap ? 29 : 28;
-	}
+    [Parameter]
+    public int MatchId { get; set; }
 
-	Dictionary<string, int> daysInMonth = new Dictionary<string, int>
-		{
-			{ "January", 31 },
-			{ "February", leap ? 29 : 28 },
+
+    private string selectedMonth = DateTime.UtcNow.ToString("MMMM");
+    private bool showMonth = false;
+    private static int selectedYear = DateTime.UtcNow.Year;
+    List<int> years = new List<int> { 2024, 2025, 2026, 2027 };
+    private static bool leap;
+    private void UpdateDaysInMonth()
+    {
+        leap = ((selectedYear % 4 == 0) && (selectedYear % 100 != 0)) || (selectedYear % 400 == 0);
+        daysInMonth["February"] = leap ? 29 : 28;
+    }
+
+    Dictionary<string, int> daysInMonth = new Dictionary<string, int>
+        {
+            { "January", 31 },
+            { "February", leap ? 29 : 28 },
             { "March", 31 },
-			{ "April", 30 },
-			{ "May", 31 },
-			{ "June", 30 },
-			{ "July", 31 },
-			{ "August", 31 },
-			{ "September", 30 },
-			{ "October", 31 },
-			{ "November", 30 },
-			{ "December", 31 }
-		};
+            { "April", 30 },
+            { "May", 31 },
+            { "June", 30 },
+            { "July", 31 },
+            { "August", 31 },
+            { "September", 30 },
+            { "October", 31 },
+            { "November", 30 },
+            { "December", 31 }
+        };
 
-	private void OnSelectionChanged(ChangeEventArgs e)
-	{
-		selectedMonth = e.Value.ToString();
-		showMonth = true;
-	}
-	static private List<Match> Matches = [
-		new Match
-		{
-			matchType = "Football",
-			date = new DateTime(2024, 10, 10, 20, 20, 0),
-			place = "Stadium of Paris",
-			location = "Paris",
-			firstTeam = "Spartak",
-			secondTeam = "Hrazdan"
-		},
-		new Match
-	{
-		matchType = "Basketball",
-			date = new DateTime(2024, 12, 14, 20, 20, 0),
-			place = "Stadium of Barcelona",
-			location = "Barcelona",
-			firstTeam = "Lakers",
-			secondTeam = "Luiziana"
-	},
-		new Match
-	{
-		matchType = "Voleyball",
-			date = new DateTime(2024, 11, 1, 16, 5, 0),
-			place = "Stadium of Madrid",
-			location = "Madrid",
-			firstTeam = "Goose",
-			secondTeam = "Verginia"
-	},
-		new Match
-	{
-			matchType = "Regby",
-			date = new DateTime(2024, 9, 1, 4, 5, 0),
-			place = "Stadium of Madrid",
-			location = "Madrid",
-			firstTeam = "Goose",
-			secondTeam = "Verginia"
-	},
-		new Match
-	{
-			matchType = "Regby",
-			date = new DateTime(2024, 9, 1, 3, 5, 0),
-			place = "Stadium of Madrid",
-			location = "Madrid",
-			firstTeam = "Goose",
-			secondTeam = "Verginia"
-	}
-		];
+    private void OnSelectionChanged(ChangeEventArgs e)
+    {
+        selectedMonth = e.Value.ToString();
+        showMonth = true;
+    }
+    static private List<Match> Matches = [
+        new Match
+        {
+            Id = 1,
+            MatchType = "Football",
+            Date = new DateTime(2024, 10, 10, 20, 20, 0),
+            Place = "Stadium of Paris",
+            Location = "Paris",
+            FirstTeam = "Spartak",
+            SecondTeam = "Hrazdan"
+        },
+    new Match
+    {
+            Id = 2,
+            MatchType = "Basketball",
+            Date = new DateTime(2024, 12, 14, 20, 20, 0),
+            Place = "Stadium of Barcelona",
+            Location = "Barcelona",
+            FirstTeam = "Lakers",
+            SecondTeam = "Luiziana"
+    },
+    new Match
+    {
+            Id = 3,
+            MatchType = "Voleyball",
+            Date = new DateTime(2024, 11, 1, 16, 5, 0),
+            Place = "Stadium of Madrid",
+            Location = "Madrid",
+            FirstTeam = "Goose",
+            SecondTeam = "Verginia"
+    },
+    new Match
+    {
+            Id = 4,
+            MatchType = "Regby",
+            Date = new DateTime(2024, 9, 1, 4, 5, 0),
+            Place = "Stadium of Madrid",
+            Location = "Madrid",
+            FirstTeam = "Goose",
+            SecondTeam = "Verginia"
+    },
+    new Match
+    {
+            Id = 5,
+            MatchType = "Regby",
+            Date = new DateTime(2024, 9, 1, 3, 5, 0),
+            Place = "Stadium of Madrid",
+            Location = "Madrid",
+            FirstTeam = "Goose",
+            SecondTeam = "Verginia"
+    }
+        ];
 
-	private string GetMonthName(int month) => new DateTime(2024, month, 1).ToString("MMMM");
+    private string GetMonthName(int month) => new DateTime(2024, month, 1).ToString("MMMM");
 
-	private int GetMonthNumber(string monthName) => DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
+    private int GetMonthNumber(string monthName) => DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
 
-	private List<Match> sortedMatches = Matches.OrderBy(match => match.date).ToList();
+    private List<Match> sortedMatches = Matches.OrderBy(match => match.Date).ToList();
 
-	private void PreviousMonth()
-	{
-		var months = daysInMonth.Keys.ToList();
-		int currentIndex = months.IndexOf(selectedMonth);
-		if (currentIndex > 0)
-		{
-			selectedMonth = months[currentIndex - 1];
-		}
-		else if (currentIndex == 0 && selectedYear > 2024)
-		{
-			selectedMonth = months[11];
-			selectedYear -= 1;
-			UpdateDaysInMonth();
-		}
-	}
+    private void PreviousMonth()
+    {
+        var months = daysInMonth.Keys.ToList();
+        int currentIndex = months.IndexOf(selectedMonth);
+        if (currentIndex > 0)
+        {
+            selectedMonth = months[currentIndex - 1];
+        }
+        else if (currentIndex == 0 && selectedYear > 2024)
+        {
+            selectedMonth = months[11];
+            selectedYear -= 1;
+            UpdateDaysInMonth();
+        }
+    }
 
-	private void NextMonth()
-	{
-		var months = daysInMonth.Keys.ToList();
-		int currentIndex = months.IndexOf(selectedMonth);
-		if (currentIndex < months.Count - 1)
-		{
-			selectedMonth = months[currentIndex + 1];
-		}
-		else if (currentIndex == months.Count - 1 && selectedYear <= 2027)
-		{
-			selectedYear += 1;
-			selectedMonth = months[0];
-			UpdateDaysInMonth();
-		}
-	}
+    private void NextMonth()
+    {
+        var months = daysInMonth.Keys.ToList();
+        int currentIndex = months.IndexOf(selectedMonth);
+        if (currentIndex < months.Count - 1)
+        {
+            selectedMonth = months[currentIndex + 1];
+        }
+        else if (currentIndex == months.Count - 1 && selectedYear <= 2027)
+        {
+            selectedYear += 1;
+            selectedMonth = months[0];
+            UpdateDaysInMonth();
+        }
+    }
 }
