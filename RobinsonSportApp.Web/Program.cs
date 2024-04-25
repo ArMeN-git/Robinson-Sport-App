@@ -17,7 +17,9 @@ services.AddDbContextPool<RobinsonSportAppDbContext>(o => o.UseSqlServer(connect
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+services.AddManagers();
 services.AddEmail(configuration);
+
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(policyBuilder =>

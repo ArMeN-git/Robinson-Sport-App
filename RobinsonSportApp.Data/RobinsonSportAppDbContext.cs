@@ -9,6 +9,7 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
     public DbSet<Association> Associations => Set<Association>();
     public DbSet<ContactPerson> Contacts => Set<ContactPerson>();
     public DbSet<AssociationContact> AssociationContacts => Set<AssociationContact>();
+    public DbSet<Subscription> Subscriptions => Set<Subscription>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -66,6 +67,15 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
             entity.HasOne(ac => ac.ContactPerson)
                   .WithMany(c => c.AssociationContacts)
                   .HasForeignKey(ac => ac.ContactPersonId);
+        });
+
+        builder.Entity<Subscription>(entity =>
+        {
+            entity.Property(e => e.Email)
+                  .HasMaxLength(32);
+
+            entity.Property(p => p.CreatedDate)
+                  .HasDefaultValueSql("getUtcDate()");
         });
 
         builder.Entity<User>(entity =>
