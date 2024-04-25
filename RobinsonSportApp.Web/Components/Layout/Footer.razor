@@ -1,6 +1,6 @@
-﻿@rendermode InteractiveServer
-@using RobinsonSportApp.Core.Managers.Subscription;
-@using RobinsonSportApp.Core.Models
+﻿@using RobinsonSportApp.Core.Managers.Subscription
+@using RobinsonSportApp.Core.Managers.Subscription.Models
+@rendermode InteractiveServer
 @inject ISubscriptionManager subscriptionManager
 
 <footer class="footer-section">
@@ -121,7 +121,7 @@
 
     private async Task HandleSubscription()
     {
-        var result = await subscriptionManager.AddSubscription(subscriptionModel.Email);
+        var result = await subscriptionManager.AddSubscriptionAsync(subscriptionModel.Email);
         successClass = result ? "alert-success" : "alert-danger";
         successMessage = result ? "Your email has been registered successfully!" : "Email is already registered.";
         SetTimer();

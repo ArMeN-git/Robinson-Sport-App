@@ -1,7 +1,7 @@
 ﻿using RobinsonSportApp.Core.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace RobinsonSportApp.Core.Models;
+namespace RobinsonSportApp.Core.Managers.Subscription.Models;
 
 public class SubscriptionModel
 {

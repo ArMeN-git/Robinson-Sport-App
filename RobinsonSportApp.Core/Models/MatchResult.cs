@@ -1,4 +1,4 @@
-﻿using RobinsonSportApp.Core.Enums;
+﻿using RobinsonSportApp.Data.Entities;
 
 namespace RobinsonSportApp.Core.Models;
 

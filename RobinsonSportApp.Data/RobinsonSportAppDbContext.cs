@@ -10,6 +10,7 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
     public DbSet<ContactPerson> Contacts => Set<ContactPerson>();
     public DbSet<AssociationContact> AssociationContacts => Set<AssociationContact>();
     public DbSet<Subscription> Subscriptions => Set<Subscription>();
+    public DbSet<Event> Events => Set<Event>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -76,6 +77,21 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
 
             entity.Property(p => p.CreatedDate)
                   .HasDefaultValueSql("getUtcDate()");
+        });
+
+        builder.Entity<Event>(entity =>
+        {
+            entity.Property(p => p.CreatedDate)
+                  .HasDefaultValueSql("getUtcDate()");
+
+            entity.Property(p => p.Opponent1)
+                  .HasMaxLength(64);
+
+            entity.Property(p => p.Opponent2)
+                  .HasMaxLength(64);
+
+            entity.Property(p => p.Place)
+                  .HasMaxLength(128);
         });
 
         builder.Entity<User>(entity =>
