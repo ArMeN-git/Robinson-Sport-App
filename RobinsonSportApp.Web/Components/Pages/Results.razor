@@ -1,7 +1,10 @@
 ﻿@page "/results"
+@rendermode InteractiveServer
+@using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
 @using RobinsonSportApp.Data.Entities
-@rendermode InteractiveServer
+@inject IEventManager eventManager
 
 <PageTitle>Plessis Sports Results</PageTitle>
 
@@ -36,29 +39,29 @@
                         <span class="game-date">@game.EndTime.ToString("dd MMM yyyy")</span>
                     </div>
                     <div class="team team-home">
-                        <img src="@game.HomeTeamLogo" alt="Home Team Logo">
-                        @if (game.HomeTeamScore > game.AwayTeamScore)
+                        <img src="@game.Opponent1Logo" alt="Home Team Logo">
+                        @if (game.Score1 > game.Score2)
                         {
-                            <span class="team-name"><b>@game.HomeTeamName</b></span>
+                            <span class="team-name"><b>@game.Opponent1</b></span>
                         }
                         else
                         {
-                            <span class="team-name">@game.HomeTeamName</span>
+                            <span class="team-name">@game.Opponent1</span>
                         }
                     </div>
                     <div class="game-score">
-                        <span>@game.HomeTeamScore - @game.AwayTeamScore</span>
+                        <span>@game.Score1 - @game.Score2</span>
                     </div>
                     <div class="team team-away">
-                        @if (game.AwayTeamScore > game.HomeTeamScore)
+                        @if (game.Score2 > game.Score1)
                         {
-                            <span class="team-name"><b>@game.AwayTeamName</b></span>
+                            <span class="team-name"><b>@game.Opponent2</b></span>
                         }
                         else
                         {
-                            <span class="team-name">@game.AwayTeamName</span>
+                            <span class="team-name">@game.Opponent2</span>
                         }
-                        <img src="@game.AwayTeamLogo" alt="Away Team Logo">
+                        <img src="@game.Opponent2Logo" alt="Away Team Logo">
                     </div>
                     <div class="game-details-link">
                         <a href="match/@(game.Id)">
@@ -78,85 +81,12 @@
     private string TeamName { get; set; } = "";
     private Timer _debounceTimer;
 
-    private IEnumerable<MatchResult> FilteredGames { get; set; }
-    private List<MatchResult> Games = [
-        new MatchResult
-            {
-                Id = 1,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "Paris-saint-Germain",
-                HomeTeamScore = 2,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "Barcelona",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Football,
-                EndTime = new DateTime(2024, 4, 10)
-            },
-        new MatchResult
-            {
-                Id = 2,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "Real Madrid",
-                HomeTeamScore = 2,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "Manchester City",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Football,
-                EndTime = new DateTime(2024, 4, 14)
-            },
-        new MatchResult
-            {
-                Id = 3,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "Boston Celtics",
-                HomeTeamScore = 2,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "Los Angeles Lakers",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Basketball,
-                EndTime = new DateTime(2024, 4, 13)
-            },
-        new MatchResult
-            {
-                Id = 4,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "British and Irish Lions",
-                HomeTeamScore = 4,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "New Zealand",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Rugby,
-                EndTime = new DateTime(2024, 4, 12)
-            },
-        new MatchResult
-            {
-                Id = 5,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "Novak Djokovic",
-                HomeTeamScore = 2,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "Carlos Alcaraz",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Tennis,
-                EndTime = new DateTime(2024, 4, 15)
-            },
-        new MatchResult
-            {
-                Id = 6,
-                HomeTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png",
-                HomeTeamName = "Zamalek SC",
-                HomeTeamScore = 2,
-                AwayTeamLogo = "https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png",
-                AwayTeamName = "SC Magdeburg",
-                AwayTeamScore = 3,
-                SportCategory = SportCategory.Handball,
-                EndTime = new DateTime(2024, 4, 14)
-            }
-    ];
+    private IEnumerable<EventModel> FilteredGames { get; set; }
+    private List<EventModel> Games { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(1000); // simulate data fetching
+        Games = await eventManager.GetEventsAsync();
         FilteredGames = Games;
         _debounceTimer = new Timer(DebounceIntervalElapsed, null, Timeout.Infinite, Timeout.Infinite);
     }
@@ -191,7 +121,7 @@
             .Where(game => (string.IsNullOrEmpty(SelectedSport) || SelectedSport == "All Sports" || game.SportCategory.ToString() == SelectedSport))
             .Where(game => !StartDate.HasValue || game.StartTime >= StartDate)
             .Where(game => !EndDate.HasValue || game.EndTime <= EndDate)
-            .Where(game => string.IsNullOrEmpty(TeamName) || game.HomeTeamName.Contains(TeamName, StringComparison.OrdinalIgnoreCase) || game.AwayTeamName.Contains(TeamName, StringComparison.OrdinalIgnoreCase));
+            .Where(game => string.IsNullOrEmpty(TeamName) || game.Opponent1.Contains(TeamName, StringComparison.OrdinalIgnoreCase) || game.Opponent2.Contains(TeamName, StringComparison.OrdinalIgnoreCase));
 
         StateHasChanged();
     }
