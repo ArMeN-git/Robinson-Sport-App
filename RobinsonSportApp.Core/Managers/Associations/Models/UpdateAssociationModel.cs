@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RobinsonSportApp.Core.Managers.Associations.Models
 {
-    internal class UpdateAssociationModel
+    public class UpdateAssociationModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
