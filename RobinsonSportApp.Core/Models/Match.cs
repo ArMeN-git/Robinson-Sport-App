@@ -2,12 +2,13 @@
 {
     public class Match
     {
-        public string matchType { get; set; }
-        public DateTime date { get; set; }
-        public string place { get; set; }
-        public string location { get; set; }
-        public string firstTeam { get; set; }
-        public string secondTeam { get; set; }
+        public int Id { get; set; }
+        public string MatchType { get; set; }
+        public DateTime Date { get; set; }
+        public string Place { get; set; }
+        public string Location { get; set; }
+        public string FirstTeam { get; set; }
+        public string SecondTeam { get; set; }
 
     }
 }
