@@ -19,6 +19,8 @@ namespace RobinsonSportApp.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Opponent1 = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     Opponent2 = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Opponent1Logo = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Opponent2Logo = table.Column<string>(type: "nvarchar(265)", maxLength: 265, nullable: true),
                     Score1 = table.Column<float>(type: "real", nullable: false),
                     Score2 = table.Column<float>(type: "real", nullable: false),
                     Place = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),

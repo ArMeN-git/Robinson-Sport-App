@@ -12,7 +12,7 @@ using RobinsonSportApp.Data;
 namespace RobinsonSportApp.Data.Migrations
 {
     [DbContext(typeof(RobinsonSportAppDbContext))]
-    [Migration("20240425150128_EventsTable")]
+    [Migration("20240426085708_EventsTable")]
     partial class EventsTable
     {
         /// <inheritdoc />
@@ -130,9 +130,17 @@ namespace RobinsonSportApp.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<string>("Opponent1Logo")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("Opponent2")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Opponent2Logo")
+                        .HasMaxLength(265)
+                        .HasColumnType("nvarchar(265)");
 
                     b.Property<string>("Place")
                         .HasMaxLength(128)
