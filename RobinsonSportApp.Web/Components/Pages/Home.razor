@@ -1,116 +1,126 @@
 ﻿@page "/"
+@using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
+@inject IEventManager eventManager
 
 <PageTitle>Plessis Sports</PageTitle>
 
 <div class="main-home">
-    <div class="container-calendar">
-        <div class="module-calendar display-mode-desktop">
-            <div class="row align-items-center">
-                <p class="summary">Upcoming Matches</p>
+    @if (Events is null)
+    {
+        <div class="spinner"></div>
+    }
+    else
+    {
+        <div class="container-calendar">
+            <div class="module-calendar display-mode-desktop">
+                <div class="row align-items-center">
+                    <p class="summary">Upcoming Matches</p>
 
-                @foreach (var match in Matches.Where(m => m.Date >= DateTime.Today).OrderBy(m => m.Date).Take(4))
-                {
+                    @foreach (var match in Events)
+                    {
 
-                    <div class="row align-items-center">
-                        <div class="custom-col-lg-4">
+                        <div class="row align-items-center">
+                            <div class="custom-col-lg-4">
 
-                            <div class="match-type" style="font-style: italic">@match.MatchType</div>
-                            <a href="match/@(match.Id)" style="color: white; text-decoration: none;">
+                                <div class="match-type" style="font-style: italic">@match.SportCategory</div>
+                                <a href="match/@(match.Id)" style="color: white; text-decoration: none;">
+                                    <div class="row align-items-center">
+
+                                        <div class="col">
+                                            <p class="starting-date " style="white-space: nowrap;">
+                                                Starting Date
+                                                <br />
+                                                <i class="bi bi-calendar"></i>
+                                                @match.StartTime.ToString("dd.MM.yyyy HH:mm")
+
+                                            </p>
+                                        </div>
+
+                                        <div class="col">
+                                            <p class="starting-date">@match.Opponent1</p>
+                                        </div>
+
+                                        <div class="col">
+                                            <p class="starting-date">
+                                                vs
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="starting-date">@match.Opponent2</p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="starting-date" style="white-space: nowrap;">
+                                                @match.Place
+                                                <br />
+                                                <i class="bi bi-geo-alt starting-date">@match.Place</i>
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="module-calendar display-mode-mobile">
+                <div class="row align-items-center">
+                    <p class="summary">Upcoming Matches</p>
+                    <br />
+
+                    @{
+                        var upcomingMatches = Events.Take(2).ToList();
+                        var lastMatchIndex = upcomingMatches.Count - 1;
+                        int counter = 0;
+                    }
+
+                    @foreach (var match in Events.Take(2))
+                    {
+                        <div class="row align-items-center">
+                            <div class="custom-col-lg-4">
+                                <div class="match-type" style="font-style: italic">@match.SportCategory</div>
+                                <p class="starting-date " style="white-space: nowrap;">
+
+                                    Starting Date
+                                    <br />
+                                    <i class="bi bi-calendar"></i>
+                                    @match.StartTime.ToString("dd.MM.yyyy HH:mm")
+
+                                </p>
                                 <div class="row align-items-center">
 
-                                    <div class="col">
-                                        <p class="starting-date " style="white-space: nowrap;">
-                                            Starting Date
-                                            <br />
-                                            <i class="bi bi-calendar"></i>
-                                            @match.Date.ToString("dd.MM.yyyy HH:mm")
-
-                                        </p>
-                                    </div>
 
                                     <div class="col">
-                                        <p class="starting-date">@match.FirstTeam</p>
+                                        <p class="starting-date">@match.Opponent1</p>
                                     </div>
-
                                     <div class="col">
                                         <p class="starting-date">
                                             vs
                                         </p>
                                     </div>
                                     <div class="col">
-                                        <p class="starting-date">@match.SecondTeam</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="starting-date" style="white-space: nowrap;">
-                                            @match.Place
-                                            <br />
-                                            <i class="bi bi-geo-alt starting-date">@match.Location</i>
-                                        </p>
+                                        <p class="starting-date">@match.Opponent2</p>
                                     </div>
 
-
-                                </div>
-                            </a>
-
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="module-calendar display-mode-mobile">
-            <div class="row align-items-center">
-                <p class="summary">Upcoming Matches</p>
-                <br />
-
-                @{
-                    var upcomingMatches = Matches.Where(m => m.Date >= DateTime.Today).OrderBy(m => m.Date).Take(2).ToList();
-                    var lastMatchIndex = upcomingMatches.Count - 1;
-                    int counter = 0;
-                }
-
-                @foreach (var match in Matches.Where(m => m.Date >= DateTime.Today).OrderBy(m => m.Date).Take(2))
-                {
-                    <div class="row align-items-center">
-                        <div class="custom-col-lg-4">
-                            <div class="match-type" style="font-style: italic">@match.MatchType</div>
-                            <p class="starting-date " style="white-space: nowrap;">
-
-                                Starting Date
-                                <br />
-                                <i class="bi bi-calendar"></i>
-                                @match.Date.ToString("dd.MM.yyyy HH:mm")
-
-                            </p>
-                            <div class="row align-items-center">
-
-
-                                <div class="col">
-                                    <p class="starting-date">@match.FirstTeam</p>
-                                </div>
-                                <div class="col">
-                                    <p class="starting-date">
-                                        vs
+                                    <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
+                                        @match.Place
+                                        <br />
+                                        <i class="bi bi-geo-alt starting-date">@match.Place</i>
                                     </p>
-                                </div>
-                                <div class="col">
-                                    <p class="starting-date">@match.SecondTeam</p>
-                                </div>
 
-                                <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
-                                    @match.Place
-                                    <br />
-                                    <i class="bi bi-geo-alt starting-date">@match.Location</i>
-                                </p>
-
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    counter++;
-                }
+                        counter++;
+                    }
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 <div class="results-home">
     <div class="club-ranking">
@@ -154,81 +164,35 @@
         </ul>
     </div>
 
-    <div class="recent-results">
-        <h2>Recent Results</h2>
-        <ul>
-            <li>
-                <div class="goals-result">
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Portugal
-                    </a>
-                    <span class="goals">
-                        <b>2</b> - <b>3</b>
-                    </span>
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain
-                    </a>
-                    <span>27 April 2024</span>
-                </div>
-            </li>
-            <li>
-                <div class="goals-result">
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Portugal
-                    </a>
-                    <span class="goals">
-                        <b>2</b> - <b>3</b>
-                    </span>
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain
-                    </a>
-                    <span>27 April 2024</span>
-                </div>
-            </li>
-            <li>
-                <div class="goals-result">
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Portugal
-                    </a>
-                    <span class="goals">
-                        <b>2</b> - <b>3</b>
-                    </span>
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain
-                    </a>
-                    <span>27 April 2024</span>
-                </div>
-            </li>
-            <li>
-                <div class="goals-result">
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Portugal
-                    </a>
-                    <span class="goals">
-                        <b>2</b> - <b>3</b>
-                    </span>
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain
-                    </a>
-                    <span>27 April 2024</span>
-                </div>
-            </li>
-            <li>
-                <div class="goals-result">
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/portugal.png" alt="">Portugal
-                    </a>
-                    <span class="goals">
-                        <b>2</b> - <b>3</b>
-                    </span>
-                    <a href="single-team.html">
-                        <img src="https://html.iwthemes.com/allEvents/Sport/img/clubs-logos/spain.png" alt="">Spain
-                    </a>
-                    <span>27 April 2024</span>
-                </div>
-            </li>
-        </ul>
-    </div>
+    @if (RecentResults is null)
+    {
+        <div class="spinner"></div>
+    }
+    else
+    {
+        <div class="recent-results">
+            <h2>Recent Results</h2>
+            <ul>
+                @foreach (var match in RecentResults)
+                {
+                    <li>
+                        <div class="goals-result">
+                            <a href="match/@match.Id">
+                                <img src="@match.Opponent1Logo" alt="">@match.Opponent1
+                            </a>
+                            <span class="goals">
+                                <b>@match.Score1</b> - <b>@match.Score2</b>
+                            </span>
+                            <a href="match/@match.Id">
+                                <img src="@match.Opponent2Logo" alt="">@match.Opponent2
+                            </a>
+                            <span>@match.EndTime.ToString("dd.MM.yyyy HH:mm")</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
 
     <div class="top-player">
         <h2>Top players</h2>
@@ -273,48 +237,13 @@
 </div>
 
 @code {
-    private List<Match> Matches = [
-            new Match
-            {
-                Id=1,
-                MatchType = "Football",
-                Date = new DateTime(2024, 10, 10, 20, 20, 0),
-                Place = "Stadium of Paris",
-                Location = "Paris",
-                FirstTeam = "Spartak",
-                SecondTeam = "Hrazdan"
-            },
-    new Match
-            {
-                Id=2,
-                MatchType = "Basketball",
-                Date = new DateTime(2024, 12, 14, 20, 20, 0),
-                Place = "Stadium of Barcelona",
-                Location = "Barcelona",
-                FirstTeam = "Lakers",
-                SecondTeam = "Luiziana"
-            },
-    new Match
-            {
-                Id=3,
-                MatchType = "Voleyball",
-                Date = new DateTime(2024, 11, 1, 4, 5, 0),
-                Place = "Stadium of Madrid",
-                Location = "Madrid",
-                FirstTeam = "Goose",
-                SecondTeam = "Verginia"
-            },
-    new Match
-            {
-                Id=4,
-                MatchType = "Regby",
-                Date = new DateTime(2024, 9, 1, 4, 5, 0),
-                Place = "Stadium of Madrid",
-                Location = "Madrid",
-                FirstTeam = "Goose",
-                SecondTeam = "Verginia"
-            }
-        ];
+    private List<EventModel> Events { get; set; }
+    private List<EventModel> RecentResults { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        Events = await eventManager.GetUpcomingEventsAsync(4);
+        RecentResults = await eventManager.GetRecentEventsAsync(10);
+    }
 }
 

@@ -33,9 +33,29 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
         return _mapper.Map<EventDetailedModel>(matchEvent);
     }
 
-    public async Task<List<EventModel>> GetEventsAsync(CancellationToken cancellationToken = default)
+    public async Task<List<EventModel>> GetLiveAndPastEventsAsync(CancellationToken cancellationToken = default)
     {
-        var events = await _dbContext.Events.OrderByDescending(e => e.Id).ToListAsync(cancellationToken);
+        var events = await _dbContext.Events.Where(e => DateTime.UtcNow > e.StartTime)
+                                            .OrderByDescending(e => e.EndTime)
+                                            .ToListAsync(cancellationToken);
+        return _mapper.Map<List<EventModel>>(events);
+    }
+
+    public async Task<List<EventModel>> GetRecentEventsAsync(int takeCount, CancellationToken cancellation = default)
+    {
+        var events =  await _dbContext.Events.Where(e => DateTime.UtcNow > e.EndTime)
+                                             .OrderByDescending(e => e.EndTime)
+                                             .Take(takeCount)
+                                             .ToListAsync(cancellation);
+        return _mapper.Map<List<EventModel>>(events);
+    }
+
+    public async Task<List<EventModel>> GetUpcomingEventsAsync(int takeCount, CancellationToken cancellationToken = default)
+    {
+        var events = await _dbContext.Events.Where(e => e.StartTime > DateTime.UtcNow)
+                                            .OrderBy(e => e.StartTime)
+                                            .Take(takeCount)
+                                            .ToListAsync(cancellationToken);
         return _mapper.Map<List<EventModel>>(events);
     }
 

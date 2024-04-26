@@ -86,7 +86,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Games = await eventManager.GetEventsAsync();
+        Games = await eventManager.GetLiveAndPastEventsAsync();
         FilteredGames = Games;
         _debounceTimer = new Timer(DebounceIntervalElapsed, null, Timeout.Infinite, Timeout.Infinite);
     }
