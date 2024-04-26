@@ -127,9 +127,17 @@ namespace RobinsonSportApp.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<string>("Opponent1Logo")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("Opponent2")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Opponent2Logo")
+                        .HasMaxLength(265)
+                        .HasColumnType("nvarchar(265)");
 
                     b.Property<string>("Place")
                         .HasMaxLength(128)

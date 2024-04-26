@@ -90,6 +90,12 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
             entity.Property(p => p.Opponent2)
                   .HasMaxLength(64);
 
+            entity.Property(p => p.Opponent1Logo)
+                  .HasMaxLength(256);
+
+            entity.Property(p => p.Opponent2Logo)
+                  .HasMaxLength(265);
+
             entity.Property(p => p.Place)
                   .HasMaxLength(128);
         });
