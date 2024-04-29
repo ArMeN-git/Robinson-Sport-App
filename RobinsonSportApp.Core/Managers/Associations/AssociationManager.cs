@@ -16,7 +16,7 @@ namespace RobinsonSportApp.Core.Managers.Associations
 {
     internal class AssociationManager(RobinsonSportAppDbContext _dbContext, IMapper _mapper) : IAssociationManager
     {
-        public async Task DeleteAssociationAsync(long id, CancellationToken cancellationToken = default)
+        public async Task DeleteAssociationAsync(int id, CancellationToken cancellationToken = default)
         {
             var association = await _dbContext.Associations.FirstOrDefaultAsync(e => e.Id == id, cancellationToken)
                                    ?? throw new RBException(ErrorMessages.AssociationNotFound, HttpStatusCode.NotFound);

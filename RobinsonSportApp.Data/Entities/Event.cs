@@ -14,6 +14,7 @@ public class Event
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public DateTime CreatedDate { get; set; }
+    public ICollection<EventComment> Comments { get; set; }
 }
 
 public enum SportCategory

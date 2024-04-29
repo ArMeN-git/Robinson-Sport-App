@@ -1,9 +1,11 @@
 ﻿@page "/match/{EventDbId:int}"
+@using RobinsonSportApp.Core.Managers.EventComments
 @using RobinsonSportApp.Core.Managers.Events
 @using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
 @using RobinsonSportApp.Data.Entities
 @inject IEventManager eventManager
+@inject IEventCommentManager eventCommentManager
 
 @if (EventDetails != null)
 {
@@ -65,7 +67,7 @@
         <h2>Comments</h2>
         <div class="comment-form">
             <textarea placeholder="Add a comment..." rows="3"></textarea>
-            <button type="submit">Post Comment</button>
+            <button type="button" @onclick="AddEventComment">Post Comment</button>
         </div>
         @* TODO: uncomment when event comments functionality is ready *@
 
@@ -97,5 +99,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         EventDetails = await eventManager.GetEventAsync(EventDbId);
+    }
+
+    private async Task AddEventComment()
+    {
+        
     }
 }

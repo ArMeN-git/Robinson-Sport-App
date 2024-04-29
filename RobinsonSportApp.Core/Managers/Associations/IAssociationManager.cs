@@ -12,7 +12,6 @@ namespace RobinsonSportApp.Core.Managers.Associations
     {
         Task<List<AssociationModel>> GetAssociationsAsync(CancellationToken cancellationToken = default);
         Task UpdateAssociationAsync(UpdateAssociationModel model, CancellationToken cancellationToken = default);
-
-        Task DeleteAssociationAsync(long id, CancellationToken cancellationToken = default);
+        Task DeleteAssociationAsync(int id, CancellationToken cancellationToken = default);
     }
 }

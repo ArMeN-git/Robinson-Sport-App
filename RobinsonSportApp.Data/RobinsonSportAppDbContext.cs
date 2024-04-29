@@ -11,6 +11,7 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
     public DbSet<AssociationContact> AssociationContacts => Set<AssociationContact>();
     public DbSet<Subscription> Subscriptions => Set<Subscription>();
     public DbSet<Event> Events => Set<Event>();
+    public DbSet<EventComment> EventComments => Set<EventComment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -98,6 +99,23 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
 
             entity.Property(p => p.Place)
                   .HasMaxLength(128);
+        });
+
+        builder.Entity<EventComment>(entity =>
+        {
+            entity.HasOne(ec => ec.Event)
+                  .WithMany(e => e.Comments)
+                  .HasForeignKey(ec => ec.EventId);
+
+            entity.HasOne(ec => ec.User)
+                  .WithMany()
+                  .HasForeignKey(ec => ec.UserId);
+
+            entity.Property(p => p.Comment)
+                  .HasMaxLength(512);
+
+            entity.Property(p => p.CreatedDate)
+                  .HasDefaultValueSql("getUtcDate()");
         });
 
         builder.Entity<User>(entity =>
