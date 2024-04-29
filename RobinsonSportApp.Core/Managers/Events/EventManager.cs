@@ -43,7 +43,7 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
 
     public async Task<List<EventModel>> GetRecentEventsAsync(int takeCount, CancellationToken cancellation = default)
     {
-        var events =  await _dbContext.Events.Where(e => DateTime.UtcNow > e.EndTime)
+        var events = await _dbContext.Events.Where(e => DateTime.UtcNow > e.EndTime)
                                              .OrderByDescending(e => e.EndTime)
                                              .Take(takeCount)
                                              .ToListAsync(cancellation);

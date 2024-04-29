@@ -3,14 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using RobinsonSportApp.Core.Constants;
 using RobinsonSportApp.Core.CustomExceptions;
 using RobinsonSportApp.Core.Managers.Associations.Models;
-using RobinsonSportApp.Core.Managers.Events.Models;
 using RobinsonSportApp.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RobinsonSportApp.Core.Managers.Associations
 {

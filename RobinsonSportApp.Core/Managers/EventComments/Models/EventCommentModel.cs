@@ -1,10 +1,5 @@
-﻿using RobinsonSportApp.Data.Entities.Identity;
-using RobinsonSportApp.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RobinsonSportApp.Data.Entities;
+using RobinsonSportApp.Data.Entities.Identity;
 
 namespace RobinsonSportApp.Core.Managers.EventComments.NewFolder;
 
