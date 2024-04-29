@@ -1,31 +1,36 @@
 ﻿@page "/match/{EventDbId:int}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Authorization
+@using RobinsonSportApp.Core.Managers.Claims
 @using RobinsonSportApp.Core.Managers.EventComments
+@using RobinsonSportApp.Core.Managers.EventComments.NewFolder
 @using RobinsonSportApp.Core.Managers.Events
 @using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
 @using RobinsonSportApp.Data.Entities
 @inject IEventManager eventManager
 @inject IEventCommentManager eventCommentManager
+@inject IClaimsAccessor claimsAccessor
 
-@if (EventDetails != null)
+@if (eventDetails != null)
 {
     <div class="match-card">
         <div class="teams">
             <div class="team team-home">
-                @if (EventDetails.Score1 > EventDetails.Score2)
+                @if (eventDetails.Score1 > eventDetails.Score2)
                 {
-                    <span class="team-name"><b>@EventDetails.Opponent1</b></span>
+                    <span class="team-name"><b>@eventDetails.Opponent1</b></span>
                 }
                 else
                 {
-                    <span class="team-name">@EventDetails.Opponent1</span>
+                    <span class="team-name">@eventDetails.Opponent1</span>
                 }
-                <img src="@EventDetails.Opponent1Logo" alt="Home Team Logo" class="team-logo">
+                <img src="@eventDetails.Opponent1Logo" alt="Home Team Logo" class="team-logo">
             </div>
             <div class="score">
-                @if (EventDetails.IsPastMatch)
+                @if (eventDetails.IsPastMatch)
                 {
-                    <span>@EventDetails.Score1 - @EventDetails.Score2</span>
+                    <span>@eventDetails.Score1 - @eventDetails.Score2</span>
                 }
                 else
                 {
@@ -33,22 +38,22 @@
                 }
             </div>
             <div class="team team-away">
-                <img src="@EventDetails.Opponent2Logo" alt="Away Team Logo" class="team-logo">
-                @if (EventDetails.Score2 > EventDetails.Score1)
+                <img src="@eventDetails.Opponent2Logo" alt="Away Team Logo" class="team-logo">
+                @if (eventDetails.Score2 > eventDetails.Score1)
                 {
-                    <span class="team-name"><b>@EventDetails.Opponent2</b></span>
+                    <span class="team-name"><b>@eventDetails.Opponent2</b></span>
                 }
                 else
                 {
-                    <span class="team-name">@EventDetails.Opponent2</span>
+                    <span class="team-name">@eventDetails.Opponent2</span>
                 }
             </div>
         </div>
         <div class="match-details">
-            <span class="match-time">@EventDetails.StartTime.ToString("dddd, MMMM dd, yyyy HH:mm")</span>
-            <span class="match-location">@EventDetails.Place</span>
+            <span class="match-time">@eventDetails.StartTime.ToString("dddd, MMMM dd, yyyy HH:mm")</span>
+            <span class="match-location">@eventDetails.Place</span>
         </div>
-        @if (EventDetails.IsLiveMatch)
+        @if (eventDetails.IsLiveMatch)
         {
             <div class="live-indicator">Match is Live Now!</div>
         }
@@ -65,24 +70,38 @@
     </div>
     <div class="comments-section">
         <h2>Comments</h2>
-        <div class="comment-form">
-            <textarea placeholder="Add a comment..." rows="3"></textarea>
-            <button type="button" @onclick="AddEventComment">Post Comment</button>
-        </div>
-        @* TODO: uncomment when event comments functionality is ready *@
+        <AuthorizeView Context="authContext">
+            <Authorized>
+                <div class="comment-form">
+                    <EditForm class="comment-editform" FormName="Comment" Model="@addCommentModel" OnValidSubmit="@AddEventComment">
+                        <DataAnnotationsValidator />
 
-@*         <div class="comments-list">
-            @foreach (var comment in EventDetails.Comments.OrderByDescending(c => c.CreatedDate))
+                        <InputTextArea id="comment-textarea"
+                                       placeholder="Add a comment..."
+                                       rows="3"
+                                       @bind-Value="addCommentModel.Comment"
+                                       style="padding: 10px; border: 2px solid #ccc; border-radius: 4px; resize: none; width: 100%; box-sizing: border-box;" />
+                        <button type="submit">Post Comment</button>
+                    </EditForm>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <p>Login to write comments...</p>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <div class="comments-list">
+            @foreach (var comment in eventDetails.Comments.OrderByDescending(c => c.CreatedDate))
             {
                 <div class="comment-item">
                     <div class="comment-header">
-                        <p class="comment-author">@comment.AuthorName</p>
+                        <p class="comment-author">@comment.User.UserName</p>
                         <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy HH:mm")</p>
                     </div>
-                    <p class="comment-content">@comment.Content</p>
+                    <p class="comment-content">@comment.Comment</p>
                 </div>
             }
-        </div> *@
+        </div>
     </div>
 }
 else
@@ -94,15 +113,19 @@ else
     [Parameter]
     public int EventDbId { get; set; }
 
-    private EventDetailedModel EventDetails { get; set; }
+    private AddCommentModel addCommentModel = new();
+    private EventDetailedModel eventDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        EventDetails = await eventManager.GetEventAsync(EventDbId);
+        eventDetails = await eventManager.GetEventAsync(EventDbId);
     }
 
     private async Task AddEventComment()
     {
-        
+        addCommentModel.UserId = claimsAccessor.UserId;
+        addCommentModel.EventId = EventDbId;
+        await eventCommentManager.AddCommentAsync(addCommentModel);
+        StateHasChanged();
     }
 }
