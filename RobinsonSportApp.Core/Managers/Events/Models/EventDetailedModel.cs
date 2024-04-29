@@ -1,4 +1,5 @@
-﻿using RobinsonSportApp.Data.Entities;
+﻿using RobinsonSportApp.Core.Managers.EventComments.NewFolder;
+using RobinsonSportApp.Data.Entities;
 
 namespace RobinsonSportApp.Core.Managers.Events.Models;
 
@@ -19,4 +20,5 @@ public class EventDetailedModel
     public bool IsPastMatch => DateTime.UtcNow > EndTime;
     public bool IsLiveMatch => DateTime.UtcNow > StartTime && DateTime.UtcNow < EndTime;
     public bool IsFutureMatch => DateTime.UtcNow < StartTime;
+    public ICollection<EventCommentModel> Comments { get; set; }
 }
