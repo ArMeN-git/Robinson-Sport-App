@@ -24,19 +24,19 @@
         }
         else
         {
-        @foreach (var association in associations)
-        {
-            <li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
-                <h1>@association.Name</h1>
-                <br />
-                <p><b>Contact Person:</b> @association.PresidentFirstName @association.PresidentLastName</p>
-                <p><b>President's Name:</b> @association.PresidentFirstName</p>
-                <p><b>Phone Number:</b>  @association.PhoneNumbers</p>
-                <p><b>Email:</b> @association.Emails</p>
-                <p><b>Url:</b> @association.WebsiteUrl</p>
-            </li>
+            @foreach (var association in associations)
+            {
+                <li class="@(associations.IndexOf(association) % 2 == 0 ? "association-li" : "association-li-2")">
+                    <h1>@association.Name</h1>
+                    <br />
+                    <p><b>Contact Person:</b> @association.PresidentFirstName @association.PresidentLastName</p>
+                    <p><b>President's Name:</b> @association.PresidentFirstName</p>
+                    <p><b>Phone Number:</b>  @association.PhoneNumbers</p>
+                    <p><b>Email:</b> @association.Emails</p>
+                    <p><b>Url:</b> @association.WebsiteUrl</p>
+                </li>
+            }
         }
-    }
     }
     else
     {
@@ -73,60 +73,11 @@
     {
         associations = await associationManager.GetAssociationsAsync();
     }
-    // public List<Association> associations = new List<Association>
-    // {
-    //     new Association
-    //     {
-    //         Name = "Football champions",
-    //         FirstName = "Patrick",
-    //         LastName = "Valence",
-    //         PresidentsName = "Sebastien",
-    //         PhoneNumber = "744987856",
-    //         Email = "something@gmail.com",
-    //         WebsiteUrl = "https://someurlispresenthere.com"
-
-    //     },
-    //     new Association
-    //     {
-    //         Name = "Football champions",
-    //         FirstName = "Patrick",
-    //         LastName = "Goudzi",
-    //         PresidentsName = "Sebastien",
-    //         PhoneNumber = "744987856",
-    //         Email = "something@gmail.com",
-    //         WebsiteUrl = "https://someurlispresenthere.com"
-
-    //     },
-    //     new Association
-    //     {
-    //         Name = "Basketball champions",
-    //         FirstName = "Patrick",
-    //         LastName = "Goudzi",
-    //         PresidentsName = "Sebastien",
-    //         PhoneNumber = "744987856",
-    //         Email = "something@gmail.com",
-    //         WebsiteUrl = "https://someurlispresenthere.com"
-
-    //     },
-    //     new Association
-    //     {
-    //         Name = "Football champions",
-    //         FirstName = "Patrick",
-    //         LastName = "Goudzi",
-    //         PresidentsName = "Sebastien",
-    //         PhoneNumber = "744987856",
-    //         Email = "something@gmail.com",
-    //         WebsiteUrl = "https://someurlispresenthere.com"
-
-    //     }
-    // };
 
     private void HandleInput(ChangeEventArgs e)
     {
         search = true;
         EnteredKeyWord = e.Value.ToString().ToLower();
-
-
     }
 
 

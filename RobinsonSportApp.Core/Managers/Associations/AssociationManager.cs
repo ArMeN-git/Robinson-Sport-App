@@ -26,6 +26,7 @@ namespace RobinsonSportApp.Core.Managers.Associations
         public async Task UpdateAssociationAsync(UpdateAssociationModel model, CancellationToken cancellationToken = default)
         {
             var association = await _dbContext.Associations.FirstOrDefaultAsync(e => e.Id == model.Id, cancellationToken)
+
                                    ?? throw new RBException(ErrorMessages.AssociationNotFound, HttpStatusCode.NotFound);
 
             _mapper.Map(model, association);
