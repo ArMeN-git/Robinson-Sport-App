@@ -26,6 +26,13 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<List<EventModel>> GetEventsAsync(CancellationToken cancellationToken = default)
+    {
+        var events = await _dbContext.Events.OrderByDescending(e => e.EndTime)
+                                            .ToListAsync(cancellationToken);
+        return _mapper.Map<List<EventModel>>(events);
+    }
+
     public async Task<EventDetailedModel> GetEventAsync(long id, CancellationToken cancellationToken = default)
     {
         var matchEvent = await _dbContext.Events.FirstOrDefaultAsync(e => e.Id == id, cancellationToken)
@@ -40,6 +47,7 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
                                             .ToListAsync(cancellationToken);
         return _mapper.Map<List<EventModel>>(events);
     }
+
 
     public async Task<List<EventModel>> GetRecentEventsAsync(int takeCount, CancellationToken cancellation = default)
     {
