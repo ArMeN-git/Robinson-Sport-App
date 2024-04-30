@@ -92,7 +92,7 @@
                 if (i == match.StartTime.Day && GetMonthName(match.StartTime.Month) == selectedMonth && match.StartTime.Year == selectedYear)
                 {
 
-                        <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onmouseover="showMatchInfo(this,'@match.SportCategory <br> @match.Opponent1 vs @match.Opponent2', '@match.StartTime <br> @match.Place ')" onmouseout="hideMatchInfo()">
+                        <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onclick="scrollToTop()" onmouseover="showMatchInfo(this,'@match.SportCategory <br> @match.Opponent1 vs @match.Opponent2', '@match.StartTime <br> @match.Place ')" onmouseout="hideMatchInfo()">
                         @match.StartTime.ToString("HH:mm")
                         @match.Opponent1
                         vs
@@ -176,7 +176,12 @@
         }, 500);
     });
 
-
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
 
 </script>
 
@@ -219,7 +224,7 @@
     {
         selectedYear = DateTime.UtcNow.Year;
 
-        Events = await eventManager.GetLiveAndPastEventsAsync();
+        Events = await eventManager.GetEventsAsync();
 
         sortedMatches = Events.OrderBy(match => match.StartTime).ToList();
     }
