@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RobinsonSportApp.Core.Managers.Associations;
+using RobinsonSportApp.Core.Managers.Claims;
 using RobinsonSportApp.Core.Managers.EventComments;
 using RobinsonSportApp.Core.Managers.Events;
 using RobinsonSportApp.Core.Managers.Subscription;
@@ -28,5 +29,6 @@ public static class ServiceExtensions
         services.AddScoped<IAssociationManager, AssociationManager>();
         services.AddScoped<IEventManager, EventManager>();
         services.AddScoped<IEventCommentManager, EventCommentManager>();
+        services.AddScoped<IClaimsAccessor, ClaimsAccessor>();
     }
 }
