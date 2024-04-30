@@ -1,7 +1,10 @@
 ﻿@page "/schedule"
+@using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
 @using System.Globalization
 @rendermode InteractiveServer
+@inject IEventManager eventManager
 
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
@@ -80,22 +83,26 @@
             {
                 <time class="schedule-time" style="font-family: 'Times New Roman'">@i</time>
             }
+            @if (sortedMatches is null){
+                    <div></div>
+            }
+            else{
             @foreach (var match in sortedMatches)
             {
-                if (i == match.Date.Day && GetMonthName(match.Date.Month) == selectedMonth && match.Date.Year == selectedYear)
+                if (i == match.StartTime.Day && GetMonthName(match.StartTime.Month) == selectedMonth && match.StartTime.Year == selectedYear)
                 {
 
-                    <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onmouseover="showMatchInfo(this, '@match.MatchType <br> @match.FirstTeam vs @match.SecondTeam', '@match.Date <br> @match.Place ')">
-                        @match.Date.ToString("HH:mm")
-                        @match.FirstTeam
+                        <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onmouseover="showMatchInfo(this,'@match.SportCategory <br> @match.Opponent1 vs @match.Opponent2', '@match.StartTime <br> @match.Place ')" onmouseout="hideMatchInfo()">
+                        @match.StartTime.ToString("HH:mm")
+                        @match.Opponent1
                         vs
-                        @match.SecondTeam
+                        @match.Opponent2
 
 
                     </a>
                 }
             }
-
+         }
         </li>
 
     }
@@ -134,6 +141,7 @@
     var matchInfo = document.getElementById("matchInfo");
     matchInfo.addEventListener('mouseenter', function () {
         hovered = true;
+
     });
 
     matchInfo.addEventListener('mouseleave', function () {
@@ -204,69 +212,30 @@
             { "December", 31 }
         };
 
+    private List<EventModel> Events { get; set; }
+    private List<EventModel> sortedMatches { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        selectedYear = DateTime.UtcNow.Year;
+
+        Events = await eventManager.GetLiveAndPastEventsAsync();
+
+        sortedMatches = Events.OrderBy(match => match.StartTime).ToList();
+    }
+
     private void OnSelectionChanged(ChangeEventArgs e)
     {
         selectedMonth = e.Value.ToString();
         showMonth = true;
     }
-    static private List<Match> Matches = [
-        new Match
-        {
-            Id = 1,
-            MatchType = "Football",
-            Date = new DateTime(2024, 10, 10, 20, 20, 0),
-            Place = "Stadium of Paris",
-            Location = "Paris",
-            FirstTeam = "Spartak",
-            SecondTeam = "Hrazdan"
-        },
-    new Match
-    {
-            Id = 2,
-            MatchType = "Basketball",
-            Date = new DateTime(2024, 12, 14, 20, 20, 0),
-            Place = "Stadium of Barcelona",
-            Location = "Barcelona",
-            FirstTeam = "Lakers",
-            SecondTeam = "Luiziana"
-    },
-    new Match
-    {
-            Id = 3,
-            MatchType = "Voleyball",
-            Date = new DateTime(2024, 11, 1, 16, 5, 0),
-            Place = "Stadium of Madrid",
-            Location = "Madrid",
-            FirstTeam = "Goose",
-            SecondTeam = "Verginia"
-    },
-    new Match
-    {
-            Id = 4,
-            MatchType = "Regby",
-            Date = new DateTime(2024, 9, 1, 4, 5, 0),
-            Place = "Stadium of Madrid",
-            Location = "Madrid",
-            FirstTeam = "Goose",
-            SecondTeam = "Verginia"
-    },
-    new Match
-    {
-            Id = 5,
-            MatchType = "Regby",
-            Date = new DateTime(2024, 9, 1, 3, 5, 0),
-            Place = "Stadium of Madrid",
-            Location = "Madrid",
-            FirstTeam = "Goose",
-            SecondTeam = "Verginia"
-    }
-        ];
 
     private string GetMonthName(int month) => new DateTime(2024, month, 1).ToString("MMMM");
 
     private int GetMonthNumber(string monthName) => DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
 
-    private List<Match> sortedMatches = Matches.OrderBy(match => match.Date).ToList();
+    
+    
 
     private void PreviousMonth()
     {
