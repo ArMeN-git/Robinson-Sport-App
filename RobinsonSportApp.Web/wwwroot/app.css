@@ -70,7 +70,7 @@ h1:focus {
     flex-direction: column;
 }
 
-@media (max-width: 891px) {
+@media (max-width: 900px) {
     .nav-scrollable-custom {
         display: none;
     }
@@ -85,7 +85,7 @@ h1:focus {
     }
 }
 
-@media (min-width: 891px) {
+@media (min-width: 900px) {
     .nav-scrollable-custom {
         display: flex;
         justify-content: center;

@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RobinsonSportApp.Core.Mappings;
 using RobinsonSportApp.Core.ServiceExtensions;
 using RobinsonSportApp.Data;
 using RobinsonSportApp.Data.Configurations;
+using RobinsonSportApp.Data.Entities.Identity;
 using RobinsonSportApp.Web.Components;
+using RobinsonSportApp.Web.Components.Account;
 using RobinsonSportApp.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +20,13 @@ var configuration = builder.Configuration;
 var connectionStrings = configuration.GetSection(ConnectionStringsConfig.ConnectionStrings).Get<ConnectionStringsConfig>();
 services.AddDbContextPool<RobinsonSportAppDbContext>(o => o.UseSqlServer(connectionStrings.RobinsonSportAppDatabase));
 
-builder.Services.AddRazorComponents()
+services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+services.AddCascadingAuthenticationState();
+services.AddScoped<IdentityUserAccessor>();
+services.AddScoped<IdentityRedirectManager>();
+services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
 services.AddAutoMapper(typeof(AutoMapperProfileConfiguration));
 services.AddManagers();
@@ -48,10 +57,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+app.MapAdditionalIdentityEndpoints();
 app.Run();
