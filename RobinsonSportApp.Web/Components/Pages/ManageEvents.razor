@@ -1,0 +1,50 @@
+﻿@page "/manageEvents"
+@using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Data.Entities
+@rendermode InteractiveServer
+@inject IEventManager eventManager
+
+
+<div class="form-container">
+    <h3>Add a match</h3>
+    <select class="select-sport">
+        <option>All Sports</option>
+        @foreach (var sport in Enum.GetValues(typeof(SportCategory)))
+        {
+            <option value="@sport.ToString()">@sport.ToString()</option>
+        }
+    </select>
+    <input type="text" class="team-input" placeholder="Team name 1" @bind="FirstTeamName" />
+    <input type="text" class="team-input" placeholder="Team name 2" @bind="SecondTeamName" />
+    <p>Start date</p>
+    <div class="datetime-container">
+        <input type="date" class="date-input" @bind="StartDate" />
+        <input type="time" class="time-input" @bind="StartTime" />
+    </div>
+    <p>End date</p>
+    <div class="datetime-container">
+        <input type="date" class="date-input" @bind="EndDate" />
+        <input type="time" class="time-input" @bind="EndTime" />
+    </div>
+    <input type="text" class="stadium-input" placeholder="Stadium Name" @bind="StadiumName" />
+    <input type="text" class="place-input" placeholder="Place" @bind="Location"/>
+    <button type="submit" class="btn btn-submit" @onclick="SaveData">Add</button>
+</div>
+
+@code {
+    private string SelectedSport { get; set; } = "";
+    private DateTime? StartDate { get; set; }
+    private TimeOnly? StartTime { get; set; }
+    private DateTime? EndDate { get; set; }
+    private TimeOnly? EndTime { get; set; }
+    private string FirstTeamName { get; set; } = "";
+    private string SecondTeamName { get; set; } = "";
+    private string StadiumName { get; set; } = "";
+    private string Location { get; set; } = "";
+
+    
+    private void SaveData()
+    {
+        
+    }
+}
