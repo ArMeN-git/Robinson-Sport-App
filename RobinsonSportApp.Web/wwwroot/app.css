@@ -172,13 +172,22 @@ h1:focus {
     
 }
 
+.row-contact, .row-footer, .row-home {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
     margin-right: 0; 
     margin-left: 0;
-
+    margin-bottom: 50px;
+    /*justify-content: center;*/
 }
 
 .align-items-center {
@@ -771,4 +780,9 @@ match-info:hover {
     100% {
         transform: rotate(360deg)
     }
+}
+
+.identitypages-title {
+    margin-top: 100px;
+    /*text-align: center;*/
 }
