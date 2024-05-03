@@ -1,6 +1,7 @@
 ﻿@page "/match/{EventDbId:int}"
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Authorization
+@using RobinsonSportApp.Core.Constants
 @using RobinsonSportApp.Core.Managers.Claims
 @using RobinsonSportApp.Core.Managers.EventComments
 @using RobinsonSportApp.Core.Managers.EventComments.NewFolder
@@ -8,9 +9,12 @@
 @using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
 @using RobinsonSportApp.Data.Entities
+@using System.Security.Claims
 @inject IEventManager eventManager
 @inject IEventCommentManager eventCommentManager
 @inject IClaimsAccessor claimsAccessor
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @if (eventDetails != null)
 {
@@ -86,17 +90,29 @@
                 </div>
             </Authorized>
             <NotAuthorized>
-                <p>Login to write comments...</p>
+                @{
+                    var returnUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+                }
+                <a href="Account/Login?returnUrl=@returnUrl">Login to write comments...</a>
             </NotAuthorized>
         </AuthorizeView>
 
         <div class="comments-list">
-            @foreach (var comment in eventDetails.Comments.OrderByDescending(c => c.CreatedDate))
+            @foreach (var comment in eventDetails.Comments.OrderByDescending(c => c.Id))
             {
                 <div class="comment-item">
                     <div class="comment-header">
-                        <p class="comment-author">@comment.User.UserName</p>
-                        <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy HH:mm")</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <p class="comment-author">@comment.User.UserName</p>
+                            <div class="comment-actions">
+                                <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy HH:mm")</p>
+                                <AuthorizeView Roles="@Roles.Manager">
+                                    <Authorized>
+                                        <button class="delete-comment-btn" @onclick="() => DeleteComment(comment.Id)" title="Delete Comment">X</button>
+                                    </Authorized>
+                                </AuthorizeView>
+                            </div>
+                        </div>
                     </div>
                     <p class="comment-content">@comment.Comment</p>
                 </div>
@@ -113,19 +129,33 @@ else
     [Parameter]
     public int EventDbId { get; set; }
 
+    private int userId;
+
     private AddCommentModel addCommentModel = new();
     private EventDetailedModel eventDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        userId = Convert.ToInt32(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         eventDetails = await eventManager.GetEventAsync(EventDbId);
     }
 
     private async Task AddEventComment()
     {
-        addCommentModel.UserId = claimsAccessor.UserId;
+        addCommentModel.UserId = userId;
         addCommentModel.EventId = EventDbId;
         await eventCommentManager.AddCommentAsync(addCommentModel);
+        eventDetails = await eventManager.GetEventAsync(EventDbId);
+        addCommentModel = new();
+        StateHasChanged();
+    }
+
+    private async Task DeleteComment(long commentId)
+    {
+        await eventCommentManager.DeleteCommentAsync(commentId);
+        eventDetails.Comments.Remove(eventDetails.Comments.First(c => c.Id == commentId));
         StateHasChanged();
     }
 }
