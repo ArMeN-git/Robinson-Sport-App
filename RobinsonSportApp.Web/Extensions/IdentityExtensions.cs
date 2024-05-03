@@ -8,7 +8,7 @@ namespace RobinsonSportApp.Web.Extensions;
 
 public static class IdentityExtensions
 {
-    public static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureIdentity(this IServiceCollection services)
     {
         services.AddAuthentication(options =>
         {

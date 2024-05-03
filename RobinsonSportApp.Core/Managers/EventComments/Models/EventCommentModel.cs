@@ -5,7 +5,7 @@ namespace RobinsonSportApp.Core.Managers.EventComments.NewFolder;
 
 public class EventCommentModel
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
     public long EventId { get; set; }

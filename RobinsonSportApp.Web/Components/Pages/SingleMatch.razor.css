@@ -181,7 +181,6 @@
 }
 
 .comment-header {
-    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -191,9 +190,25 @@
     color: #333;
 }
 
+.comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust gap between date and button as needed */
+}
+
 .comment-date {
     font-size: 0.8em;
     color: #666;
+}
+
+.delete-comment-btn {
+    margin-bottom: 15px;
+    padding: 2px 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
 }
 
 .comment-content {
@@ -246,4 +261,12 @@
         border-bottom: none; /* Remove border for a cleaner look */
         margin-bottom: 10px; /* Add bottom margin instead of border */
     }
+}
+
+.delete-comment-btn {
+    padding: 0.25rem 0.5rem;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
