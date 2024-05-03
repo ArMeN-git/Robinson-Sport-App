@@ -2,7 +2,7 @@
 
 namespace RobinsonSportApp.Data.Entities.Identity;
 
-public class Role : IdentityRole<int>
+public class Role(string name) : IdentityRole<int>(name)
 {
     public ICollection<User> Users { get; set; }
     public ICollection<RoleClaim> RoleClaims { get; set; }

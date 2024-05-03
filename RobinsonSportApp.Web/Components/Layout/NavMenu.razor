@@ -1,4 +1,7 @@
-﻿@rendermode InteractiveServer
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@rendermode InteractiveServer
+@implements IDisposable
+@inject NavigationManager NavigationManager
 
 <div class="header-container">
     <div class="ps-3 navbar navbar-dark">
@@ -9,7 +12,7 @@
         </div>
     </div>
 
-    <input type="checkbox" @onchange="ToggleMobileNav" style="top: 1.5rem;" title="Navigation menu" class="navbar-toggler"/>
+    <input type="checkbox" @onchange="ToggleMobileNav" style="top: 1.5rem;" title="Navigation menu" class="navbar-toggler" />
 
     <div class="nav-scrollable-custom">
         <nav>
@@ -36,6 +39,7 @@
                     Contact
                 </NavLink>
             </div>
+
             <div class="nav-item-custom px-3 header-text">
                 <div class="about-us-dropdown">
                     <NavLink class="nav-link-custom" style="cursor: pointer;">
@@ -54,6 +58,32 @@
                     </div>
                 </div>
             </div>
+
+            <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item-custom px-3">
+                        <NavLink class="nav-link-custom" href="Account/Manage">
+                            @context.User.Identity?.Name
+                        </NavLink>
+                    </div>
+                    <div class="nav-item-custom px-3">
+                        <form action="Account/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit" class="nav-link-custom">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="nav-item-custom px-3 header-text" style="align-self: center;">
+                        <NavLink class="nav-link-custom" href="Account/Login">
+                            Login
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
         </nav>
     </div>
 </div>
@@ -95,18 +125,62 @@
                     <span class="bi bi-images-nav-menu" aria-hidden="true"></span> Gallery
                 </NavLink>
             </div>
-             
+
             <div class="nav-item-custom px-3 header-text">
                 <NavLink class="nav-link-custom" href="associations" @onclick="ToggleMobileNav">
                     <span class="bi bi-buildings" aria-hidden="true"></span> Associations
                 </NavLink>
             </div>
+
+            <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item-custom px-3 header-text">
+                        <NavLink class="nav-link-custom" href="Account/Manage" @onclick="ToggleMobileNav">
+                            <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
+                        </NavLink>
+                    </div>
+                    <div class="nav-item-custom px-3 header-text">
+                        <form action="Account/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit" class="nav-link-custom">
+                                <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                            </button>
+                        </form>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="nav-item-custom px-3 header-text">
+                        <NavLink class="nav-link-custom" href="Account/Login" @onclick="ToggleMobileNav">
+                            <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
         </nav>
     </div>
 }
 
 @code {
+    private string? currentUrl;
     private bool showMobileNav = false;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
 
     void ToggleMobileNav()
     {
