@@ -15,7 +15,7 @@
     {
         <div class="container-calendar">
             <div class="module-calendar display-mode-desktop">
-                <div class="row-home align-items-center">
+                <div>
                     <p class="summary">Upcoming Matches</p>
 
                     @foreach (var match in Events)
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="module-calendar display-mode-mobile">
-                <div class="row-home align-items-center">
+                <div>
                     <p class="summary">Upcoming Matches</p>
                     <br />
 
@@ -106,12 +106,14 @@
                                         <p class="starting-date">@match.Opponent2</p>
                                     </div>
 
-                                    <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
-                                        @match.Place
-                                        <br />
-                                        <i class="bi bi-geo-alt starting-date">@match.Place</i>
-                                    </p>
-
+                                    <br />
+                                    @* <div class="col"> *@
+                                        <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
+                                            @match.Place
+                                            <br />
+                                            <i class="bi bi-geo-alt starting-date">@match.Place</i>
+                                        </p>
+                                    @* </div> *@
                                 </div>
                             </div>
                         </div>
