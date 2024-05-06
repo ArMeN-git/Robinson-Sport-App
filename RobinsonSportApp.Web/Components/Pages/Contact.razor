@@ -85,5 +85,6 @@
         var emailOptionsValue = emailOptionsMonitor.CurrentValue;
         await emailService.SendEmailAsync(emailOptionsValue.SupportEmail, emailOptionsValue.SupportEmailSubject, $"{contactFormModel.FirstName} {contactFormModel.LastName}{Environment.NewLine}{contactFormModel.Question}{Environment.NewLine}{contactFormModel.Email}");
         Console.WriteLine("Your question submitted successfully!");
+        contactFormModel = new();
     }
 }

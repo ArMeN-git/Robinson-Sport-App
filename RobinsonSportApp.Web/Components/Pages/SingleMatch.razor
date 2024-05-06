@@ -148,7 +148,7 @@
                 <div class="comment-item">
                     <div class="comment-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p class="comment-author">@comment.User.UserName</p>
+                            <p class="comment-author">@comment.User.UserName.Split('@')[0]</p>
                             <div class="comment-actions">
                                 <p class="comment-date">@comment.CreatedDate.ToString("MMMM dd, yyyy HH:mm")</p>
                                 <AuthorizeView Roles="@Roles.Manager">
