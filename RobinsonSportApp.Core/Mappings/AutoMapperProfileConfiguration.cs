@@ -15,7 +15,9 @@ public class AutoMapperProfileConfiguration : Profile
 
         CreateMap<Event, EventDetailedModel>();
 
-        CreateMap<AddEventModel, Event>();
+        CreateMap<AddEventModel, Event>()
+            .ForMember(x => x.StartTime, opt => opt.MapFrom(a => new DateTime(a.StartDate.Year, a.StartDate.Month, a.StartDate.Day, a.StartTime.Hour, a.StartTime.Minute, a.StartTime.Second, DateTimeKind.Utc)))
+            .ForMember(x => x.EndTime, opt => opt.MapFrom(a => new DateTime(a.EndDate.Year, a.EndDate.Month, a.EndDate.Day, a.EndTime.Hour, a.EndTime.Minute, a.EndTime.Second, DateTimeKind.Utc)));
 
         CreateMap<UpdateEventModel, Event>();
 

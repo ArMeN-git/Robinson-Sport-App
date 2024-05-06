@@ -39,7 +39,10 @@
                         <span class="game-date">@game.EndTime.ToString("dd MMM yyyy")</span>
                     </div>
                     <div class="team team-home">
-                        <img src="@game.Opponent1Logo" alt="Home Team Logo">
+                        @if (!string.IsNullOrEmpty(game.Opponent1Logo))
+                        {
+                            <img src="@game.Opponent1Logo" alt="Home Team Logo">
+                        }
                         @if (game.Score1 > game.Score2)
                         {
                             <span class="team-name"><b>@game.Opponent1</b></span>
@@ -61,7 +64,10 @@
                         {
                             <span class="team-name">@game.Opponent2</span>
                         }
-                        <img src="@game.Opponent2Logo" alt="Away Team Logo">
+                        @if (!string.IsNullOrEmpty(game.Opponent2Logo))
+                        {
+                            <img src="@game.Opponent2Logo" alt="Away Team Logo">
+                        }
                     </div>
                     <div class="game-details-link">
                         <a href="match/@(game.Id)">
