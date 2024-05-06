@@ -5,6 +5,9 @@
 @using System.Globalization
 @rendermode InteractiveServer
 @inject IEventManager eventManager
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Plessis Sports Schedule</PageTitle>
 
@@ -27,6 +30,12 @@
                 }
             </select>
         </div>
+        <AuthorizeView>
+            <Authorized>
+                <a class="page-item page-link" id="previousBtn" style="border-radius: 5px;" href="/manageEvents">Add</a>
+            </Authorized>
+
+        </AuthorizeView>
         <div class="pagination" style="margin-right: 2.4rem;">
             <button class="page-item page-link" id="previousBtn" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>
             <button class="page-item page-link" id="nextBtn" style="border-radius: 5px;" @onclick="NextMonth">Next</button>
@@ -56,6 +65,17 @@
             }
         </select>
     </div>
+    <AuthorizeView>
+        <Authorized>
+            <div style="display: flex; justify-content: center; margin-right: 2rem; margin-left: 40px;">
+            <div class="pagination" style="margin-top: 10px;">
+
+            <a class="page-item page-link" id="previousBtn" style="border-radius: 5px;" href="/manageEvents">Add</a>
+            </div>
+            </div>
+        </Authorized>
+
+    </AuthorizeView>
     <div style="display: flex; justify-content: center; margin-right: 2rem; margin-left: 40px;">
         <div class="pagination" style="margin-top: 10px;">
             <button class="page-item page-link" id="previousBtn2" style="border-radius: 5px;" @onclick="PreviousMonth">Previous</button>

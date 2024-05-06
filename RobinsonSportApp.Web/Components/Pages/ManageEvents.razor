@@ -1,10 +1,16 @@
 ﻿@page "/manageEvents"
 @using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Data.Entities
 @rendermode InteractiveServer
 @inject IEventManager eventManager
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
+ <AuthorizeView Context="authContext"> 
+<Authorized>
 <div class="form-container">
     <h3>Add a match</h3>
     <select class="select-sport">
@@ -30,7 +36,13 @@
     <input type="text" class="place-input" placeholder="Place" @bind="Location"/>
     <button type="submit" class="btn btn-submit" @onclick="SaveData">Add</button>
 </div>
-
+</Authorized>
+    <NotAuthorized>
+        <div class="form-container">
+            <h1>Log in to add an event</h1>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 @code {
     private string SelectedSport { get; set; } = "";
     private DateTime? StartDate { get; set; }
@@ -43,8 +55,44 @@
     private string Location { get; set; } = "";
 
     
-    private void SaveData()
+    private async Task SaveData()
     {
-        
+        try
+        {
+            var eventModel = new AddEventModel
+                {
+                    Opponent1 = FirstTeamName,
+                    Opponent2 = SecondTeamName,
+                    // Opponent1Logo = "path/to/logo1", 
+                    // Opponent2Logo = "path/to/logo2", 
+                    Score1 = 0, 
+                    Score2 = 0, 
+                    Place = Location,
+                    SportCategory = Enum.Parse<SportCategory>(SelectedSport),
+                    StartDate = StartDate.Value.Date, 
+                    EndDate = EndDate?.Date,
+                    EndTime = EndTime ?? default(TimeOnly) 
+                };
+
+            await eventManager.AddEventAsync(eventModel);
+            ClearFormInputs();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving event: {ex.Message}");
+        }
+    }
+
+    private void ClearFormInputs()
+    {
+        SelectedSport = "";
+        StartDate = null;
+        StartTime = null;
+        EndDate = null;
+        EndTime = null;
+        FirstTeamName = "";
+        SecondTeamName = "";
+        StadiumName = "";
+        Location = "";
     }
 }

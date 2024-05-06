@@ -12,6 +12,13 @@ public class AddEventModel
     public float Score2 { get; set; }
     public string Place { get; set; }
     public SportCategory SportCategory { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime EndTime { get; set; }
+
+    public DateTime StartDate { get; set; }
+    public TimeOnly StartTime { get; set; }
+
+    public DateTime? EndDate { get; set; }
+
+    public TimeOnly EndTime { get; set; }
+
+
 }
