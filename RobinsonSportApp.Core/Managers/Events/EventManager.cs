@@ -35,7 +35,9 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
 
     public async Task<EventDetailedModel> GetEventAsync(long id, CancellationToken cancellationToken = default)
     {
-        var matchEvent = await _dbContext.Events.FirstOrDefaultAsync(e => e.Id == id, cancellationToken)
+        var matchEvent = await _dbContext.Events.Include(e => e.Comments)
+                                                .ThenInclude(c => c.User)
+                                                .FirstOrDefaultAsync(e => e.Id == id, cancellationToken)
                                ?? throw new RBException(ErrorMessages.EventNotFound, HttpStatusCode.NotFound);
         return _mapper.Map<EventDetailedModel>(matchEvent);
     }

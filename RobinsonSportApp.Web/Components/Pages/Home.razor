@@ -15,18 +15,18 @@
     {
         <div class="container-calendar">
             <div class="module-calendar display-mode-desktop">
-                <div class="row align-items-center">
+                <div class="row-home align-items-center">
                     <p class="summary">Upcoming Matches</p>
 
                     @foreach (var match in Events)
                     {
 
-                        <div class="row align-items-center">
+                        <div class="row-home align-items-center">
                             <div class="custom-col-lg-4">
 
                                 <div class="match-type" style="font-style: italic">@match.SportCategory</div>
                                 <a href="match/@(match.Id)" style="color: white; text-decoration: none;">
-                                    <div class="row align-items-center">
+                                    <div class="row-home align-items-center">
 
                                         <div class="col">
                                             <p class="starting-date " style="white-space: nowrap;">
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="module-calendar display-mode-mobile">
-                <div class="row align-items-center">
+                <div class="row-home align-items-center">
                     <p class="summary">Upcoming Matches</p>
                     <br />
 
@@ -80,7 +80,7 @@
 
                     @foreach (var match in Events.Take(2))
                     {
-                        <div class="row align-items-center">
+                        <div class="row-home align-items-center">
                             <div class="custom-col-lg-4">
                                 <div class="match-type" style="font-style: italic">@match.SportCategory</div>
                                 <p class="starting-date " style="white-space: nowrap;">
@@ -91,7 +91,7 @@
                                     @match.StartTime.ToString("dd.MM.yyyy HH:mm")
 
                                 </p>
-                                <div class="row align-items-center">
+                                <div class="row-home align-items-center">
 
 
                                     <div class="col">

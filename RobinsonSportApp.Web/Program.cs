@@ -43,7 +43,7 @@ services.AddCors(options =>
     });
 });
 services.AddHttpContextAccessor();
-services.ConfigureIdentity(configuration);
+services.ConfigureIdentity();
 
 var app = builder.Build();
 
