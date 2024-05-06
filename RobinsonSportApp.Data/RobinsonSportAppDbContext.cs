@@ -99,6 +99,9 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
 
             entity.Property(p => p.Place)
                   .HasMaxLength(128);
+
+            entity.Property(p => p.Address)
+                  .HasMaxLength(128);
         });
 
         builder.Entity<EventComment>(entity =>

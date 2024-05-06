@@ -1,50 +1,140 @@
 ﻿@page "/manageEvents"
+@using Microsoft.AspNetCore.Authorization
+@using RobinsonSportApp.Core.Constants
 @using RobinsonSportApp.Core.Managers.Events
+@using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Data.Entities
 @rendermode InteractiveServer
 @inject IEventManager eventManager
-
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = Roles.Manager)]
 
 <div class="form-container">
     <h3>Add a match</h3>
-    <select class="select-sport">
-        <option>All Sports</option>
-        @foreach (var sport in Enum.GetValues(typeof(SportCategory)))
-        {
-            <option value="@sport.ToString()">@sport.ToString()</option>
-        }
-    </select>
-    <input type="text" class="team-input" placeholder="Team name 1" @bind="FirstTeamName" />
-    <input type="text" class="team-input" placeholder="Team name 2" @bind="SecondTeamName" />
-    <p>Start date</p>
-    <div class="datetime-container">
-        <input type="date" class="date-input" @bind="StartDate" />
-        <input type="time" class="time-input" @bind="StartTime" />
-    </div>
-    <p>End date</p>
-    <div class="datetime-container">
-        <input type="date" class="date-input" @bind="EndDate" />
-        <input type="time" class="time-input" @bind="EndTime" />
-    </div>
-    <input type="text" class="stadium-input" placeholder="Stadium Name" @bind="StadiumName" />
-    <input type="text" class="place-input" placeholder="Place" @bind="Location"/>
-    <button type="submit" class="btn btn-submit" @onclick="SaveData">Add</button>
+    <EditForm FormName="AddMatch" Model="@addEventModel" OnValidSubmit="SaveData">
+        <DataAnnotationsValidator />
+
+        <select class="select-sport" @onchange="OnSportTypeChange">
+            <option>All Sports</option>
+            @foreach (var sport in Enum.GetValues(typeof(SportCategory)))
+            {
+                <option value="@sport.ToString()">@sport.ToString()</option>
+            }
+        </select>
+        <div>
+            <InputText class="team-input" style="margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 16px;" placeholder="Opponent 1" @bind-Value="addEventModel.Opponent1" />
+            <ValidationMessage For="@(() => addEventModel.Opponent1)" />
+        </div>
+
+        <div>
+            <InputText class="team-input" style="margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 16px;" placeholder="Opponent 2" @bind-Value="addEventModel.Opponent2" />
+            <ValidationMessage For="@(() => addEventModel.Opponent2)" />
+        </div>
+
+        <p>Start date</p>
+        <div class="datetime-container">
+            <InputDate class="date-input" style="width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;" @bind-Value="addEventModel.StartDate" />
+            <InputDate Type="InputDateType.Time" style="width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;" @bind-Value="addEventModel.StartTime" />
+            <ValidationMessage For="@(() => addEventModel.StartDate)" />
+        </div>
+
+        <p>End date</p>
+        <div class="datetime-container">
+            <InputDate class="date-input" style="width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;" @bind-Value="addEventModel.EndDate" />
+            <InputDate Type="InputDateType.Time" style="width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;" @bind-Value="addEventModel.EndTime" />
+            <ValidationMessage For="@(() => addEventModel.EndDate)" />
+        </div>
+
+        <div>
+            <InputText type="text"  placeholder="Venue" style="margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 16px;" @bind-Value="addEventModel.Place" />
+            <ValidationMessage For="@(() => addEventModel.Place)" />
+        </div>
+
+        <div>
+            <InputText type="text" class="stadium-input" style="margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 16px;" placeholder="Address" @bind-Value="addEventModel.Address" />
+            <ValidationMessage For="@(() => addEventModel.Address)" />
+        </div>
+
+        <button type="submit" class="btn btn-submit">Add</button>
+    </EditForm>
 </div>
 
 @code {
+    private AddEventModel addEventModel = new AddEventModel
+        {
+            StartDate = new DateTime(2024, 01, 01),
+            EndDate = new DateTime(2024, 01, 01)
+        };
     private string SelectedSport { get; set; } = "";
-    private DateTime? StartDate { get; set; }
-    private TimeOnly? StartTime { get; set; }
-    private DateTime? EndDate { get; set; }
-    private TimeOnly? EndTime { get; set; }
-    private string FirstTeamName { get; set; } = "";
-    private string SecondTeamName { get; set; } = "";
-    private string StadiumName { get; set; } = "";
-    private string Location { get; set; } = "";
 
-    
-    private void SaveData()
+    // private DateTime? StartDate { get; set; }
+    // private TimeOnly? StartTime { get; set; }
+    // private DateTime? EndDate { get; set; }
+    // private TimeOnly? EndTime { get; set; }
+    // private string FirstTeamName { get; set; } = "";
+    // private string SecondTeamName { get; set; } = "";
+    // private string StadiumName { get; set; } = "";
+    // private string Location { get; set; } = "";
+
+
+    private async Task SaveData()
     {
-        
+        try
+        {
+            await eventManager.AddEventAsync(addEventModel);
+            addEventModel = new();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving event: {ex.Message}");
+        }
+    }
+
+    private void OnSportTypeChange(ChangeEventArgs e)
+    {
+        SelectedSport = e.Value.ToString();
+        addEventModel.SportCategory = Enum.Parse<SportCategory>(SelectedSport);
     }
 }

@@ -1,6 +1,6 @@
 ﻿.form-container {
     margin-top: 100px;
-    margin-bottom: 200px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .date-input,
-.time-input, {
+.time-input {
     width: 150px;
     margin-bottom: 10px;
     padding: 8px;
@@ -41,4 +41,29 @@
 
 .date-input {
     margin-right: 5px;
+}
+
+
+@media (max-width: 355px) {
+    .form-container {
+        padding: 20px;
+    }
+    .datetime-container {
+        display: block;
+        width: auto;
+        margin-bottom: 10px;
+    }
+    .select-sport,
+    .team-input,
+    .date-input,
+    .time-input,
+    .stadium-input,
+    .place-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn-submit {
+        width: 100%;
+    }
 }

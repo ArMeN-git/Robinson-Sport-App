@@ -10,6 +10,7 @@ public class Event
     public float Score1 { get; set; }
     public float Score2 { get; set; }
     public string Place { get; set; }
+    public string Address { get; set; }
     public SportCategory SportCategory { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
