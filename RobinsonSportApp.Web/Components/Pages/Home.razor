@@ -105,16 +105,12 @@
                                     <div class="col">
                                         <p class="starting-date">@match.Opponent2</p>
                                     </div>
-
-                                    <br />
-                                    @* <div class="col"> *@
-                                        <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
-                                            @match.Place
-                                            <br />
-                                            <i class="bi bi-geo-alt starting-date">@match.Place</i>
-                                        </p>
-                                    @* </div> *@
                                 </div>
+                                <p class="starting-date" style="@(counter != lastMatchIndex ? "white-space: nowrap; border-bottom: 1px solid #fff; padding-bottom: 20px;" : "white-space: nowrap;")">
+                                    @match.Place
+                                    <br />
+                                    <i class="bi bi-geo-alt starting-date">@match.Place</i>
+                                </p>
                             </div>
                         </div>
                         counter++;
