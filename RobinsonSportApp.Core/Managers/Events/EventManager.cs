@@ -9,7 +9,7 @@ using System.Net;
 
 namespace RobinsonSportApp.Core.Managers.Events;
 
-internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mapper) : IEventManager
+public class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mapper) : IEventManager
 {
     public async Task AddEventAsync(AddEventModel model, CancellationToken cancellationToken = default)
     {

@@ -99,24 +99,22 @@
 
         <button type="submit" class="btn btn-submit">Add</button>
     </EditForm>
+    @if (isEventAdded)
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            Event has been successfully added!
+        </div>
+    }
 </div>
 
 @code {
+    private bool isEventAdded = false;
     private AddEventModel addEventModel = new AddEventModel
         {
             StartDate = new DateTime(2024, 01, 01),
             EndDate = new DateTime(2024, 01, 01)
         };
     private string SelectedSport { get; set; } = "";
-
-    // private DateTime? StartDate { get; set; }
-    // private TimeOnly? StartTime { get; set; }
-    // private DateTime? EndDate { get; set; }
-    // private TimeOnly? EndTime { get; set; }
-    // private string FirstTeamName { get; set; } = "";
-    // private string SecondTeamName { get; set; } = "";
-    // private string StadiumName { get; set; } = "";
-    // private string Location { get; set; } = "";
 
 
     private async Task SaveData()
@@ -125,6 +123,9 @@
         {
             await eventManager.AddEventAsync(addEventModel);
             addEventModel = new();
+            addEventModel.StartDate = new DateTime(2024, 01, 01);
+            addEventModel.EndDate = new DateTime(2024, 01, 01);
+            isEventAdded = true;
         }
         catch (Exception ex)
         {

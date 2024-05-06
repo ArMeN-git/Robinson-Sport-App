@@ -1,4 +1,5 @@
 ﻿@page "/schedule"
+@using RobinsonSportApp.Core.Constants
 @using RobinsonSportApp.Core.Managers.Events
 @using RobinsonSportApp.Core.Managers.Events.Models
 @using RobinsonSportApp.Core.Models
@@ -111,15 +112,24 @@
             {
                 if (i == match.StartTime.Day && GetMonthName(match.StartTime.Month) == selectedMonth && match.StartTime.Year == selectedYear)
                 {
-
+                    <div style="display: flex; align-items: center;">
                         <a class="cells-matches" style="text-align: center; padding: 5px; display: block; text-decoration: none; position: relative;" href="match/@(match.Id)" onclick="scrollToTop()" onmouseover="showMatchInfo(this,'@match.SportCategory <br> @match.Opponent1 vs @match.Opponent2', '@match.StartTime <br> @match.Place ')" onmouseout="hideMatchInfo()">
                         @match.StartTime.ToString("HH:mm")
                         @match.Opponent1
                         vs
                         @match.Opponent2
+                        </a>
+                        <AuthorizeView Roles="@Roles.Manager">
+                                <Authorized>
+                                    <button class="btn btn-sm btn-danger" style="margin-left: 5px" @onclick="() => DeleteEvent(match.Id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                             </Authorized>
 
+                        </AuthorizeView>
+                        </div>
 
-                    </a>
+                    
                 }
             }
          }
@@ -259,8 +269,8 @@
 
     private int GetMonthNumber(string monthName) => DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
 
-    
-    
+
+
 
     private void PreviousMonth()
     {
@@ -291,6 +301,22 @@
             selectedYear += 1;
             selectedMonth = months[0];
             UpdateDaysInMonth();
+        }
+    }
+    private async Task DeleteEvent(long match)
+    {
+        try
+        {
+            await eventManager.DeleteEventAsync(match);
+            var deletedEvent = sortedMatches.FirstOrDefault(e => e.Id == match);
+            if (deletedEvent != null)
+            {
+                sortedMatches.Remove(deletedEvent);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting event: {ex.Message}");
         }
     }
 }
