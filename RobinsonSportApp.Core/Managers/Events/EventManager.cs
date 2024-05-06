@@ -77,4 +77,13 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
         _mapper.Map(model, matchEvent);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task AddEventResultAsync(AddEventResultModel model, CancellationToken cancellationToken = default)
+    {
+        var matchEvent = await _dbContext.Events.FirstOrDefaultAsync(e => e.Id == model.Id, cancellationToken)
+                               ?? throw new RBException(ErrorMessages.EventNotFound, HttpStatusCode.NotFound);
+        matchEvent.Score1 = model.Score1;
+        matchEvent.Score2 = model.Score2;
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

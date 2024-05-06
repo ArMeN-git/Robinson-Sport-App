@@ -70,22 +70,22 @@ h1:focus {
     flex-direction: column;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1165px) {
     .nav-scrollable-custom {
         display: none;
     }
 
     .nav-scrollable-custom-mobile {
-        position: fixed; 
+        position: fixed;
         top: 90px;
         left: 0;
-        width: 100%; 
+        width: 100%;
         z-index: 1000;
-        background-color: #d6d6d6;
+        background-color: #F5EAB7;
     }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1165px) {
     .nav-scrollable-custom {
         display: flex;
         justify-content: center;
