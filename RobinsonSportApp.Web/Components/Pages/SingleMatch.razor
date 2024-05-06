@@ -62,6 +62,52 @@
             <div class="live-indicator">Match is Live Now!</div>
         }
     </div>
+
+    <AuthorizeView Roles="@Roles.Manager">
+        <Authorized>
+            <div class="action-buttons">
+                <button class="btn btn-submit" @onclick="AddEventResult">Add Event Result</button>
+                <button class="btn btn-submit" @onclick="DeleteEvent">Delete Event</button>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="@Roles.Manager" Context="authContext">
+        <Authorized>
+            @if (showScoreForm)
+            {
+                <div class="score-form">
+                    <h3>Enter Match Scores</h3>
+                    <EditForm FormName="AddEventResult" Model="@addEventResultModel" OnValidSubmit="SaveScores">
+                        <DataAnnotationsValidator />
+
+                        <div class="input-group">
+                            <label for="score1">Score 1:</label>
+                            <InputNumber style="width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;" id="score1" min="0" @bind-Value="addEventResultModel.Score1" />
+                            <ValidationMessage For="@(() => addEventResultModel.Score1)" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="score1">Score 2:</label>
+                            <InputNumber style="width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;" id="score2" min="0" @bind-Value="addEventResultModel.Score2" />
+                            <ValidationMessage For="@(() => addEventResultModel.Score2)" />
+                        </div>
+
+                        <button type="submit">Save</button>
+                    </EditForm>
+                </div>
+            }
+        </Authorized>
+    </AuthorizeView>
+
     <div class="additional-info">
         @* TODO: think about how to save additional info, or is there a need? *@
 
@@ -72,6 +118,7 @@
             @* <p>@EventDetails.AdditionalInfo</p> *@
         }
     </div>
+
     <div class="comments-section">
         <h2>Comments</h2>
         <AuthorizeView Context="authContext">
@@ -131,6 +178,8 @@ else
 
     private int userId;
 
+    private bool showScoreForm = false;
+    private AddEventResultModel addEventResultModel = new();
     private AddCommentModel addCommentModel = new();
     private EventDetailedModel eventDetails { get; set; }
 
@@ -140,6 +189,25 @@ else
         var user = authState.User;
         userId = Convert.ToInt32(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         eventDetails = await eventManager.GetEventAsync(EventDbId);
+    }
+
+    private void AddEventResult()
+    {
+        showScoreForm = true;
+    }
+
+    private async Task SaveScores()
+    {
+        addEventResultModel.Id = EventDbId;
+        await eventManager.AddEventResultAsync(addEventResultModel);
+        showScoreForm = false;
+        eventDetails = await eventManager.GetEventAsync(EventDbId);
+    }
+
+    private async Task DeleteEvent()
+    {
+        await eventManager.DeleteEventAsync(EventDbId);
+        NavigationManager.NavigateTo("/results");
     }
 
     private async Task AddEventComment()

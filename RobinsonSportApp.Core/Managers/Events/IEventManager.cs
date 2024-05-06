@@ -11,5 +11,6 @@ public interface IEventManager
     Task<EventDetailedModel> GetEventAsync(long id, CancellationToken cancellationToken = default);
     Task AddEventAsync(AddEventModel model, CancellationToken cancellationToken = default);
     Task UpdateEventAsync(UpdateEventModel model, CancellationToken cancellationToken = default);
+    Task AddEventResultAsync(AddEventResultModel model, CancellationToken cancellationToken = default);
     Task DeleteEventAsync(long id, CancellationToken cancellationToken = default);
 }
