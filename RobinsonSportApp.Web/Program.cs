@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RobinsonSportApp.Core.Mappings;
 using RobinsonSportApp.Core.ServiceExtensions;
 using RobinsonSportApp.Data;
 using RobinsonSportApp.Data.Configurations;
-using RobinsonSportApp.Data.Entities.Identity;
 using RobinsonSportApp.Web.Components;
 using RobinsonSportApp.Web.Components.Account;
 using RobinsonSportApp.Web.Extensions;
@@ -66,4 +64,9 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.MapAdditionalIdentityEndpoints();
-app.Run();
+
+await using var scope = app.Services.CreateAsyncScope();
+var context = scope.ServiceProvider.GetRequiredService<RobinsonSportAppDbContext>();
+await context.Database.MigrateAsync();
+
+await app.RunAsync();
