@@ -176,15 +176,21 @@
                     <li>
                         <div class="goals-result">
                             <a href="match/@match.Id">
-                                <img src="@match.Opponent1Logo" alt="">@match.Opponent1
+                                @{
+                                    string formattedName1 = match.Opponent1.Length > 7 ? match.Opponent1[..7] + ".." : match.Opponent1;
+                                }
+                                <img src="@match.Opponent1Logo" alt="">@formattedName1
                             </a>
                             <span class="goals">
                                 <b>@match.Score1</b> - <b>@match.Score2</b>
                             </span>
                             <a href="match/@match.Id">
-                                <img src="@match.Opponent2Logo" alt="">@match.Opponent2
+                                @{
+                                    string formattedName2 = match.Opponent2.Length > 7 ? match.Opponent2[..7] + ".." : match.Opponent2;
+                                }
+                                <img src="@match.Opponent2Logo" alt="">@formattedName2
                             </a>
-                            <span>@match.EndTime.ToString("dd.MM.yyyy HH:mm")</span>
+                            <span>@match.EndTime.ToString("dd.MM.yyyy")</span>
                         </div>
                     </li>
                 }
