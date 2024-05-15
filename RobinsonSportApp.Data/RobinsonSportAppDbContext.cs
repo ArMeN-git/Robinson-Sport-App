@@ -114,6 +114,7 @@ public class RobinsonSportAppDbContext(DbContextOptions<RobinsonSportAppDbContex
                   .WithMany()
                   .HasForeignKey(ec => ec.UserId);
 
+
             entity.Property(p => p.Comment)
                   .HasMaxLength(512);
 

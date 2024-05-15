@@ -13,6 +13,7 @@ internal class EventCommentManager(RobinsonSportAppDbContext _dbContext, IMapper
 {
     public async Task<List<EventCommentModel>> GetEventCommentsAsync(long eventId, CancellationToken cancellationToken = default)
     {
+
         var eventComments = await _dbContext.EventComments.Where(ec => ec.EventId == eventId)
                                                           .ToListAsync(cancellationToken);
         return _mapper.Map<List<EventCommentModel>>(eventComments);

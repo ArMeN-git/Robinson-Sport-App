@@ -15,6 +15,7 @@ namespace RobinsonSportApp.Core.Managers.Associations
             var association = await _dbContext.Associations.FirstOrDefaultAsync(e => e.Id == id, cancellationToken)
                                    ?? throw new RBException(ErrorMessages.AssociationNotFound, HttpStatusCode.NotFound);
             _dbContext.Associations.Remove(association);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
         public async Task<List<AssociationModel>> GetAssociationsAsync(CancellationToken cancellationToken = default)

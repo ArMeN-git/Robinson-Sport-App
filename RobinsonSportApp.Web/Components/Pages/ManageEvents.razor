@@ -11,6 +11,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = Roles.Manager)]
 
+
 <div class="form-container">
     <h3>Add a match</h3>
     <EditForm FormName="AddMatch" Model="@addEventModel" OnValidSubmit="SaveData">

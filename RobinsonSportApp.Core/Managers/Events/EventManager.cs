@@ -24,6 +24,7 @@ internal class EventManager(RobinsonSportAppDbContext _dbContext, IMapper _mappe
                                ?? throw new RBException(ErrorMessages.EventNotFound, HttpStatusCode.NotFound);
         _dbContext.Events.Remove(matchEvent);
         await _dbContext.SaveChangesAsync(cancellationToken);
+
     }
 
     public async Task<List<EventModel>> GetEventsAsync(CancellationToken cancellationToken = default)
